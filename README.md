@@ -25,9 +25,11 @@ Please, fill the following sections about your project.
 
 ### Problematic
 
-> Frame the general topic of your visualization and the main axis that you want to develop.
-> - What am I trying to show with my visualization?
-> - Think of an overview for the project, your motivation, and the target audience.
+Democracy is at the heart of Swiss culture, and the country especially prides itself on a direct democratic system that allows its citizens to directly shape policy through referendums and initiatives. Since Switzerland votes so often on so many different subjects, it can be helpful to have all of the data on every federal vote compiled and organised in one place.
+
+Through a series of visualisations, the aim of this project is to show the results of federal votes dating back to 1981.  For each vote, the following questions, amongst others, can be easily answered by looking at our website: How did the Swiss population vote on a particular issue, divided by canton? What were the recommendations of the different political parties? How closely did the population's votes align with the major parties in each canton? What kinds of referendums are the Swiss people most favorable to? 
+
+This project is aimed at anyone who has any interest in Swiss political life. It is interesing to be able to compare referendums to each other, and see by what percentage a certain vote may have past, or if there is a stark "Röstigraben" that can be observed. Even for the people who aren't particularly interested in politics, it is important to know what issues are being voted on and what referendums are being passed in our country, and seeing historical trends may motivate some to go out and vote the next time they receive the famous envelope from the Confederation in their mailbox! 
 
 ### Exploratory Data Analysis
 
@@ -36,11 +38,7 @@ Please, fill the following sections about your project.
 
 ### Related work
 
-
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+After each voting Sunday, the RTS usually publishes the vote results as well as a map showing how different parts of the country voted, as well as the yes/no percentages. Even though this is quite helpful on the days following the results coming out, it can be tedious to go back to search for the distribution of votes for those that happened 5, 20, or 40 years ago. Our aim is to have all the information easily accessible in one place. By visiting our website, you know that you will get all your answers on every Swiss federal vote in just a few clicks, all wrapped up in beautiful visualisations! 
 
 ## Milestone 2 (26th April, 5pm)
 
