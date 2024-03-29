@@ -25,6 +25,7 @@ For our data sets, we used the ones provided by opendata.swiss. In particular, w
 The data is directly provided by the Swiss government, so it is already of high quality and does not require too much preprocessing. However, the conventions used are not always consistent from year to year (for example, switching from "yes/no/blank/free" to "1/2/3/4" for the dataset on the voting recommendations of each party). Also, not all datasets date back to the same year, so this has to be unformised as well. 
 
 Datasets: 
+
 Detailed results of the federal elections: https://opendata.swiss/fr/dataset/eidgenossische-volksabstimmungen-detaillierte-ergebnisse12
 
 Vote results by canton: https://opendata.swiss/fr/dataset/volksabstimmungen-ergebnisse-ebene-kanton-seit-186610
