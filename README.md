@@ -26,7 +26,6 @@ The data is directly provided by the Swiss government, so it is already of high 
 
 Datasets: 
 
-Federal vote results: https://opendata.swiss/fr/dataset/eidgenossische-volksabstimmungen-detaillierte-ergebnisse12
 
 Vote results by canton: https://opendata.swiss/fr/dataset/volksabstimmungen-ergebnisse-ebene-kanton-seit-186610
 
@@ -61,7 +60,7 @@ The dataset is already well formatted (.csv), we don't need to do any preprocess
 "Commune geometry": 
 The dataset is a TopoJSON file. We use https://mapshaper.org/ to display the map. We check that there are indeed no self intersecting lines. We made a python script (data-preprocessing/commune-geometry/extract.py) to export all the Commune names and ids to a .csv file, with the first column being the id and the second the commune name. We did the same with every Canton. The script allowed us to count the number of Communes and Cantons: there are 26 Cantons and 2355 Communes. 
 
-"Commune votes":
+"Commune/Canton votes":
 The dataset is a PX file. The data was converted to CSV using [px-to-csv](https://github.com/lukasmartinelli/px-to-csv) and then analyzed using [DuckDB](https://duckdb.org). Some interesting statistics are in the [commune-votes folder](https://github.com/com-480-data-visualization/com-480-project-statiswiss/tree/master/data-preprocessing/commune-votes).
 
 
