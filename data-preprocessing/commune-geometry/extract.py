@@ -3,10 +3,6 @@ import json
 fileContent = open("data.json", "r").read()
 fileJson = json.loads(fileContent)
 
-print(type(fileJson))
-
-print(fileJson["objects"].keys())
-
 
 communeData =  open("communes.csv", "w")
 communeData.write("")
