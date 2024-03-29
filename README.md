@@ -51,10 +51,10 @@ This project is aimed at anyone who has any interest in Swiss political life. It
 
 "Recommandations des partis pour les votations fédérales":
 The dataset is an Excel file in which there is one sheet per year, from 1971 to 2024. There is a grid with the ids of referenda, the date, and each party's voting recommendation. Our pre-processing consists of manually removing empty rows to get continuous tables and cleaning some records. All the necessary information about each referendum (id, date, the recommendation by each party) can be gathered from the clean dataset. Each recommendation is then saved as a row in a CSV file.
-Basic statistical analysis from this dataset can be found in the Jupyter Notebook basic-stats-recommendations.ipynb
+Basic statistical analysis from this dataset can be found in the Jupyter Notebook data-preprocessing/recommendations/basic-stats-recommendations.ipynb. 
 
 "Commune geometry": 
-The dataset is a TopoJSON file. We use https://mapshaper.org/ to display the map. We check that there are indeed no self intersecting lines. We made a python script (extract.py) to export all the Commune names and ids to a .csv file, with the first column being the id and the second the commune name. We did the same with every Canton. The script allowed us to count the number of Communes and Cantons: there are 26 Cantons and 2355 Communes. 
+The dataset is a TopoJSON file. We use https://mapshaper.org/ to display the map. We check that there are indeed no self intersecting lines. We made a python script (data-preprocessing/commune-geometry/extract.py) to export all the Commune names and ids to a .csv file, with the first column being the id and the second the commune name. We did the same with every Canton. The script allowed us to count the number of Communes and Cantons: there are 26 Cantons and 2355 Communes. 
 
 
 
