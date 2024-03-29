@@ -2,10 +2,16 @@ import openpyxl
 
 wb = openpyxl.load_workbook("recommendations_votations.xlsx")
 
+SUBST_PARTIES = {
+    "PLR (PRD) 3)": "PLR",
+    "PLR 3)": "PLR",
+    "PLS 3)": "PLS"
+}
+
 def findDateOfRef(col_idx, dates, year):
     for date, col_idx_date in reversed(dates):
         if col_idx_date <= col_idx:
-            return f"{date} {year}"
+            return f"{date} {year}" if year >= 2012 else date
 
 def recomms(parties, sheet, col_idx, year):
     def text_recom(i, col_idx):
@@ -15,7 +21,15 @@ def recomms(parties, sheet, col_idx, year):
             recoms_from_idx = {1: "oui", 2: "non", 4: "blanc", 5: "liberté de vote"}
             return recoms_from_idx.get(x, "none")
         else:
-            return x.lower() if x else "none"
+            if x is not None:
+                x = x.lower().split()[0]
+            else:
+                return "none"
+            
+            if x in {"oui", "non", "liberté de vote", "blanc"}:
+                return x
+            else:
+                return "none"
 
     return {party: text_recom(i, col_idx) for i, party in enumerate(parties)}
 
@@ -26,6 +40,7 @@ def register_csv(info_refs):
         printF("ref_id,date,party,recommendation")
 
         for id_ref, info in info_refs.items():
+            id_ref = id_ref.split()[-1]
             date = info["date"]
             for party, recom in info["recommendations"].items():
                 printF(f"{id_ref},{date},{party},{recom}")
@@ -51,7 +66,7 @@ if __name__ == "__main__":
         listParties = []
         for cell in sheet["A"][3:]:
             if cell.value:
-                listParties.append(cell.value)
+                listParties.append(SUBST_PARTIES.get(cell.value, cell.value))
             else:
                 break
 
