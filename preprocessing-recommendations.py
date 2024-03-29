@@ -1,6 +1,6 @@
 import openpyxl
 
-wb = openpyxl.load_workbook("recommandations_votations.xlsx")
+wb = openpyxl.load_workbook("recommendations_votations.xlsx")
 
 def findDateOfRef(col_idx, dates, year):
     for date, col_idx_date in reversed(dates):
@@ -20,7 +20,7 @@ def recomms(parties, sheet, col_idx, year):
     return {party: text_recom(i, col_idx) for i, party in enumerate(parties)}
 
 def register_csv(info_refs):
-    with open("recommandations.csv", "w") as f:
+    with open("recommendations.csv", "w") as f:
         printF = lambda *args, end="\n": f.write(" ".join(str(x) for x in args) + end)
 
         printF("ref_id,date,party,recommendation")
@@ -32,10 +32,10 @@ def register_csv(info_refs):
 
 if __name__ == "__main__":
     info_refs = dict()
-    for year in range(1981, 2024+1):
+    for year in range(1971, 2024+1):
         sheet = wb[str(year)]
 
-        if 1981 <= year <= 2010:
+        if 1971 <= year <= 2010:
             sheet.delete_rows(7, 2)
             sheet.delete_rows(5, 1)
             sheet.delete_rows(2, 2)
