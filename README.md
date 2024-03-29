@@ -52,13 +52,13 @@ This project is aimed at anyone who has any interest in Swiss political life. It
 
 "Party voting recommendations":
 The dataset is an Excel file in which there is one sheet per year, from 1971 to 2024. There is a grid with the ids of referenda, the date, and each party's voting recommendation. Our pre-processing consists of manually removing empty rows to get continuous tables and cleaning some records. All the necessary information about each referendum (id, date, the recommendation by each party) can be gathered from the clean dataset. Each recommendation is then saved as a row in a CSV file.
-Basic statistical analysis from this dataset can be found in the Jupyter Notebook data-preprocessing/recommendations/basic-stats-recommendations.ipynb. 
+Basic statistical analysis from this dataset can be found in the Jupyter Notebook [`basic-stats-recommendations.ipynb`](https://github.com/com-480-data-visualization/com-480-project-statiswiss/blob/master/data-preprocessing/recommendations/basic-stats-recommendations.ipynb). 
 
 "Federal election results": 
 The dataset is already well formatted (.csv), we don't need to do any preprocessing. However, the data only goes back to 1991, so the for referenda that happened before this, we will not be able to give information about the population's adherence to party guidelines. 
 
 "Commune geometry": 
-The dataset is a TopoJSON file. We use https://mapshaper.org/ to display the map. We check that there are indeed no self intersecting lines. We made a python script (data-preprocessing/commune-geometry/extract.py) to export all the Commune names and ids to a .csv file, with the first column being the id and the second the commune name. We did the same with every Canton. The script allowed us to count the number of Communes and Cantons: there are 26 Cantons and 2355 Communes. 
+The dataset is a TopoJSON file. We use https://mapshaper.org/ to display the map. We check that there are indeed no self intersecting lines. We made a python script [`extract.py`](https://github.com/com-480-data-visualization/com-480-project-statiswiss/blob/master/data-preprocessing/commune-geometry/extract.py) to export all the Commune names and ids to a .csv file, with the first column being the id and the second the commune name. We did the same with every Canton. The script allowed us to count the number of Communes and Cantons: there are 26 Cantons and 2355 Communes. 
 
 "Commune/Canton votes":
 The dataset is a PX file. The data was converted to CSV using [px-to-csv](https://github.com/lukasmartinelli/px-to-csv) and then analyzed using [DuckDB](https://duckdb.org). Some interesting statistics are in the [commune-votes folder](https://github.com/com-480-data-visualization/com-480-project-statiswiss/tree/master/data-preprocessing/commune-votes).
