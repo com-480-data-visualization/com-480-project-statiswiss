@@ -26,9 +26,13 @@ The data is directly provided by the Swiss government, so it is already of high 
 
 Datasets: 
 Detailed results of the federal elections: https://opendata.swiss/fr/dataset/eidgenossische-volksabstimmungen-detaillierte-ergebnisse12
+
 Vote results by canton: https://opendata.swiss/fr/dataset/volksabstimmungen-ergebnisse-ebene-kanton-seit-186610
+
 Vote results by commune: https://opendata.swiss/fr/dataset/volksabstimmungen-ergebnisse-ebene-gemeinde-seit-19607
+
 Voting recommendations by party: https://opendata.swiss/fr/dataset/empfehlungen-der-parteien-bei-den-eidgenossischen-abstimmungsvorlagen13
+
 Commune geometry: https://opendata.swiss/fr/dataset/geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen
 
 
