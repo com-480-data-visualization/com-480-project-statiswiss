@@ -26,7 +26,7 @@ The data is directly provided by the Swiss government, so it is already of high 
 
 Datasets: 
 
-Detailed results of the federal elections: https://opendata.swiss/fr/dataset/eidgenossische-volksabstimmungen-detaillierte-ergebnisse12
+Federal vote results: https://opendata.swiss/fr/dataset/eidgenossische-volksabstimmungen-detaillierte-ergebnisse12
 
 Vote results by canton: https://opendata.swiss/fr/dataset/volksabstimmungen-ergebnisse-ebene-kanton-seit-186610
 
@@ -41,7 +41,7 @@ Commune geometry: https://opendata.swiss/fr/dataset/geodaten-zu-den-eidgenoessis
 
 Democracy is at the heart of Swiss culture, and the country especially prides itself on a direct democratic system that allows its citizens to directly shape policy through referenda and initiatives. Since Switzerland votes so often on so many different subjects, it can be helpful to have all of the data on every federal vote compiled and organised in one place.
 
-Through a series of visualisations, the aim of this project is to show the results of federal votes dating back to 1981.  For each vote, the following questions, amongst others, can be easily answered by looking at our website: How did the Swiss population vote on a particular issue, divided by canton? What were the recommendations of the different political parties? How closely did the population's votes align with the major parties in each canton? What kinds of referenda are the Swiss people most favorable to? 
+Through a series of visualisations, the aim of this project is to show the results of federal votes dating back to 1981.  For each vote, the following questions, amongst others, can be easily answered by looking at our website: How did the Swiss population vote on a particular issue, divided by canton? What were the recommendations of the different political parties? What kinds of referenda are the Swiss people most favorable to? 
 
 This project is aimed at anyone who has any interest in Swiss political life. It is interesing to be able to compare referenda to each other, and see by what percentage a certain vote may have passed, or if there is a stark "Röstigraben" that can be observed. Even for the people who aren't particularly interested in politics, it is important to know what issues are being voted on and what referenda are being passed in our country, and seeing historical trends may motivate some to go out and vote the next time they receive the famous envelope from the Confederation in their mailbox! 
 
