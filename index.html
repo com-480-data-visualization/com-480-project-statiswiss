@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statiswiss</title>
+
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+
+  <script>
+const votInfo = [(0.4533, "Europe"), (0.493, "Vaches à cornes")];
+let barres = d3.selectAll("div.vot-2023")
+               .data(votInfo)
+               .enter()
+               .append("a")
+                 .attr("class", "block py-2")
+                 .attr("href", "#")
+                 .append("div")
+                   .attr("class", "flex h-3 overflow-hidden rounded-full mb-2");
+
+  </script>
+</head>
+<body class="bg-neutral-50">
+  <div class="max-w-5xl p-8 mx-auto">
+    <nav>
+      <strong class="text-4xl font-medium">Statiswiss</strong>
+    </nav>
+  
+    <h1>Votations</h1>
+
+    <h2 class="text-3xl font-medium mt-8">2023</h2>
+    <div class="vot-2023">
+      <a class="block py-2" href="#">
+        <div class="flex h-3 overflow-hidden rounded-full mb-2">
+          <div class="w-[80.3%] bg-green-100 flex-grow"></div>
+          <div class="flex-grow bg-red-100"></div>
+        </div>
+
+        Vaches à corne
+      </a>
+    </div>
+  </div>
+</body>
+</html>
