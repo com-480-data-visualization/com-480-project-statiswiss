@@ -9,39 +9,80 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://d3js.org/d3.v6.min.js"></script>
-
-  <script>
-const votInfo = [(0.4533, "Europe"), (0.493, "Vaches à cornes")];
-let barres = d3.selectAll("div.vot-2023")
-               .data(votInfo)
-               .enter()
-               .append("a")
-                 .attr("class", "block py-2")
-                 .attr("href", "#")
-                 .append("div")
-                   .attr("class", "flex h-3 overflow-hidden rounded-full mb-2");
-
-  </script>
 </head>
 <body class="bg-neutral-50">
-  <div class="max-w-5xl p-8 mx-auto">
-    <nav>
-      <strong class="text-4xl font-medium">Statiswiss</strong>
-    </nav>
-  
-    <h1>Votations</h1>
+  <div class="grid-cols-2 w-5xl p-8 flex flex-row">
+    <!-- Left navigation bar with important referenda -->
+    <nav class="block mx-auto space-y-5 pl-3 flex-none basis-1/4 h-full">
+      <div class="block max-w-64 py-3 text-3xl font-semibold text-black border border-4 border-black rounded-full text-center">
+        Notable votes
+      </div>
 
+      <div class="block border-2 border-black max-w-64">
+        <div class="py-2 border border-2 border-black bg-green-400 text-center">
+          <div class="text-2xl text-black">
+            AVS 13th month
+          </div>
+          <p class="text-black text-xs">2024</p>
+        </div>
+
+        <div class="py-2 border border-2 border-black bg-red-400 text-center">
+          <div class="text-2xl text-black">
+            "99% Initiative"
+          </div>
+          <p class="text-black text-xs">2021</p>
+        </div>
+
+        <div class="py-2 border border-2 border-black bg-green-400 text-center">
+          <div class="text-2xl text-black">
+            Marriage for all
+          </div>
+          <p class="text-black text-xs">2021</p>
+        </div>
+
+        <div class="py-2 border border-2 border-black bg-red-400 text-center">
+          <div class="text-2xl text-black">
+            Cow horns
+          </div>
+          <p class="text-black text-xs">2018</p>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Central block with search bar and information window -->
+    <div class="flex-initial basis-9/12 space-y-5 h-screen">
+      <header class="block mx-auto text-center">
+        <strong class="text-4xl font-medium">Statiswiss</strong>
+      </header>
+
+      <label class="relative mx-auto block max-w-xs">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+          <img class="h-5 w-5" src="resources/magnifying_glass.svg" alt="Magnifying glass" />
+        </span>
+        <span class="absolute inset-y-0 right-0 flex items-center pr-3">
+          <img class="h-5 w-5" src="resources/sparkles.svg" alt="I'm feeling lucky" />
+        </span>
+        <input class="placeholder:text-slate-400 block bg-white font-semibold w-full border-4 border-black rounded-full py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for a referendum" type="text" name="search"/>
+      </label>
+
+      <div class="block mx-auto border-4 border-black rounded-3xl h-4/6 w-auto">
+
+      </div>
+    </div>
+
+    <!--
     <h2 class="text-3xl font-medium mt-8">2023</h2>
     <div class="vot-2023">
       <a class="block py-2" href="#">
         <div class="flex h-3 overflow-hidden rounded-full mb-2">
-          <div class="w-[80.3%] bg-green-100 flex-grow"></div>
+          <div class="w-[50.3%] bg-green-100 flex-grow"></div>
           <div class="flex-grow bg-red-100"></div>
         </div>
 
         Vaches à corne
       </a>
     </div>
+    -->
   </div>
 </body>
 </html>
