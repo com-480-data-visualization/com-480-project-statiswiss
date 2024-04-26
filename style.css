@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: local("Geist"), url("resources/GeistVF.ttf"), format("opentype");
+  font-display: swap;
+}
+
+body {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Geist', Arial, sans-serif;
+}

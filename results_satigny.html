@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statiswiss</title>
+
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body class="bg-neutral-50">
+  <div class="grid-cols-2 w-5xl p-8 flex flex-row">
+    <!-- Left information bar -->
+    <div class="block space-y-5 pl-3 flex-none basis-1/4">
+      <div class="block mx-auto max-w-64 py-7 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
+        Major parties
+      </div>
+
+      <div class="flex flex-row">
+        <div class="flex-none basis-2/6 pt-24">
+            <p class="h-8 text-center font-bold">Green Party</p>
+            <div class="border-4 border-black bg-slate-400 h-28 relative">
+              <div class="absolute bottom-2 w-full">
+                <p class="text-center font-semibold text-xl">35%</p>
+              </div>
+            </div>
+        </div>
+        
+        <div class="flex-none basis-2/6 pt-12">
+            <p class="h-8 text-center font-bold">The Socialists</p>
+            <div class="border-4 border-black bg-amber-400 h-40 relative">
+              <div class="absolute bottom-2 w-full">
+                <p class="text-center font-semibold text-xl">51%</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="flex-none basis-2/6 pt-36">
+            <p class="h-12 text-center font-bold">Liberal Radicals</p>
+            <div class="border-4 border-black bg-orange-900 h-12 relative">
+              <div class="absolute bottom-2 w-full">
+                <p class="text-center font-semibold text-xl text-white">14%</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Central block with the map -->
+    <div class="flex-initial basis-1/2 space-y-1 h-screen">
+      <header class="block mx-auto text-center">
+        <strong class="text-4xl font-bold">
+            Some imaginary vote
+        </strong>
+      </header>
+<!-- Source of the SVG: https://d-maps.com/m/europa/suitzerland/geneve/geneve68.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="5000 9000 2000 6000"
+class="w-full h-3/5"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+    .str2 {stroke:black;stroke-width:10;stroke-miterlimit:3.864;stroke-opacity:0.501961}
+    .str0 {stroke:#2B2A29;stroke-width:75;stroke-miterlimit:22.9256}
+    .str3 {stroke:black;stroke-width:50;stroke-miterlimit:22.9256}
+    .str6 {stroke:#434242;stroke-width:10;stroke-miterlimit:22.9256}
+    .str4 {stroke:#3F3E3F;stroke-width:10;stroke-miterlimit:3.864}
+    .str1 {stroke:black;stroke-width:40;stroke-miterlimit:22.9256}
+    .str7 {stroke:#2B2A29;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str5 {stroke:black;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .fil4 {fill:none}
+    .fil1 {fill:#FEFEFE}
+    .fil9 {fill:#D9DADA}
+    .fil0 {fill:#2B2A29}
+    .fil6 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil5 {fill:#D9DADA;fill-rule:nonzero}
+    .fil8 {fill:#434242;fill-rule:nonzero}
+    .fil7 {fill:#2B2A29;fill-rule:nonzero}
+    .fil3 {fill:black;fill-rule:nonzero}
+    .fil2 {fill:#FEFEFE;fill-rule:nonzero;fill-opacity:0.501961}
+    .filred {fill: rgb(248 113 113)}
+    .filgreen {fill: rgb(74 222 128)}
+  </style>
+ </defs>
+ <g id="Plan_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="filred str1" d="M3952.39 12306.58c12.85,-9.19 27.55,-19.76 43.57,-31.85 64.06,-48.33 103.51,-85.06 144.25,-155.17 34.52,-59.42 183.23,-56.19 174.15,-117.71l-18.61 -126.17c-3.47,-23.55 -5.69,-33.63 8.52,-36.23 69.17,-12.67 97.15,20.49 153.45,-40.5 42.72,-46.27 3.3,-80.64 6.39,-130 0.2,-3.19 10.98,-8.45 12.79,-8.52 42.61,-1.7 65.64,49.26 119.35,34.09 47.93,-13.53 47.84,-71.03 25.57,-104.42 -81.53,-122.3 145.61,-52.33 153.45,-57.55 32.74,-21.82 40.5,-36.88 50.46,-62.67l0.55 0.34c16.91,5.16 34.7,12.61 41.54,12.61 48.77,0 72.71,-11.4 117.52,-28.89 48.76,-19.03 175.83,-90.97 217.97,-90.97 87.93,0 26.58,-43.28 80.13,-65.27 24.4,-10.02 40.52,-17.02 60.9,-35.32 56.18,-50.43 120.31,-87.44 162.4,-156.24l157.06 -133.76 80.14 74.91 126.07 119.85 188.05 162.66 242.53 174.43 0 0 129.53 108.86c83.08,35.3 125.72,36.19 218.07,31.99 123.91,-5.63 231.68,165.61 302.01,256.79 100.91,130.82 428.74,490.71 557.5,594.02l0 0 -0.87 115.15 107.62 73.11c79.33,53.88 239.09,46.63 83.94,148.96 -45.17,29.8 -165.93,91.73 -189.78,137.08 -19.49,37.08 18.54,83.2 31.02,116.06 11.79,31.02 4.32,60.93 50.19,54.83 51.18,-6.8 75.35,-0.23 100.36,44.78 29.12,52.39 14.6,59.34 14.6,112.4 -12.53,33.51 -27.82,62.48 -42.88,94.13 -10.99,23.12 -31.71,42.25 -24.64,70.37 9.28,36.95 51.98,63.07 73.91,93.22 22.4,30.82 37.01,54.12 50.18,90.47l0 0c-51.16,4.36 -130.57,37.86 -164.23,77.68 -19.69,23.31 -36.23,50.15 -56.58,73.11 -25.61,28.88 -31,76.26 -56.57,104.18 -9.36,10.71 -37.59,145.06 -42.88,159.01 -7.39,19.48 -21.72,40.69 -33.76,57.57 -25.48,35.7 -54.72,64.21 -86.68,94.13 -69.29,64.84 -151.54,91.39 -237.23,120.63l0 0c-153.67,11.92 -309.9,12.5 -463.51,-0.91 -158.92,-13.87 -249.15,-87.02 -383.22,-149.87l-145.08 -106.93c-52.74,-38.86 -107.34,-68.79 -158.76,-106.92 -65.73,-48.76 -239.94,-148.12 -325.74,-132.51l0 0c-271.83,0 -646.98,58.2 -857.68,-132.51 -49.2,-44.54 -116.73,-153.45 -177.92,-173.64 -34.61,-11.41 -62.38,38.98 -92.16,50.27 -57.12,45.6 -79.38,3.8 -82.12,-59.41 -3.06,-70.7 88.28,-58.09 37.41,-144.39 -22.6,-38.33 -48.51,-65.31 -62.96,-108.75 -16.79,-50.44 63.63,-72.1 49.28,-116.06 -21.2,-64.98 -83.76,-92.16 -132.31,-40.21 -56.4,60.34 -186.04,176.9 -274.64,159.01 -82.35,-16.62 -134.07,-21.17 -219.89,-17.36 -100.2,4.46 -60.44,7.74 -74.82,89.56l0 0c-18.22,-8.07 -36.91,-11.39 -53.83,-22.85 -13.88,-9.41 -23.91,-24.14 -36.5,-35.64 -17.67,-16.12 -46.58,-58.18 -40.15,-84.07 5.09,-20.47 32.12,-25.97 49.27,-33.82 61.26,-51.86 115.88,-87.15 115.88,-176.37 0,-41.08 -59.84,-159.8 -23.72,-180.03 43.11,-24.13 77.33,-36.81 75.73,-93.22 -2.29,-81 1.76,-71.77 55.66,-128.85 21.29,-22.56 27.1,-58.07 31.02,-87.74 0.37,-2.81 1.82,-90.93 -1.82,-93.21l61.55 -99.75 0 0z"/>
+ </g>
+</svg>
+      <div class="absolute top-1/3 left-1/3 text-3xl text-black font-bold">
+        Satigny
+      </div>
+
+      <div class="block mx-auto text-center"> <!-- Global result -->
+        <div class="text-3xl font-bold text-red-400">
+          No
+        </div>
+        <div class="flex flex-row"> <!-- Popular vote -->
+            <div class="flex-none basis-1/12 text-4xl font-bold text-green-400 pr-2">
+              22%
+            </div>
+            <div class="flex-initial basis-10/12 border-solid border-4 border-black rounded-full h-10 bg-red-400">
+              <div class="bg-green-400 h-8 rounded-l-full" style="width: 22%;"></div>
+            </div>
+            <div class="flex-none basis-1/12 text-4xl font-bold text-red-400 pl-2">
+              78%
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vote recommendations per party -->
+    <div class="block space-y-5 flex-none basis-1/4">
+      <div class="block mx-auto max-w-64 py-3 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
+        Party recommendations
+      </div>
+
+      <div class="block border-2 border-black max-w-64 mx-auto">
+        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
+          The Socialists
+        </div>
+
+        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
+          Liberal Radicals
+        </div>
+
+        <div class="py-5 border border-2 border-black bg-green-400 text-center text-2xl text-black">
+          Green Party
+        </div>
+
+        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
+          The Center
+        </div>
+
+        <div class="py-5 border border-2 border-black bg-green-400 text-center text-2xl text-black">
+          UDC
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
