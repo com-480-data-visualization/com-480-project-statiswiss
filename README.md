@@ -75,6 +75,10 @@ The official VoteInfo app is similar to what we want to do. It has a search engi
 
 **10% of the final grade**
 
+The deliverables for milestone 2 can be found here:
+- [**📄 PDF**](sketchbook/milestone2.pdf)
+- [**🌐 Functional prototype**](website/index.html)
+
 
 ## Milestone 3 (31st May, 5pm)
 
