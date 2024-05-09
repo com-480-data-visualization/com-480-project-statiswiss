@@ -9,6 +9,13 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="./process_index.js"></script>
+  <script>
+(async () => {
+    const votesInfo = await (await fetch("resources/data.json")).json();
+    generateBlocYear(votesInfo);
+})(); 
+  </script>
 </head>
 <body class="bg-neutral-50">
   <div class="grid-cols-2 w-5xl p-8 flex flex-row">
@@ -76,7 +83,7 @@
       </div>
 
       <div class="flex flex-row">
-        <div class="grid grid-rows-2 grid-cols-1 border-black w-auto border-4 flex-initial basis-full">
+        <div class="grid grid-rows-2 grid-cols-1 border-black w-auto border-4 flex-initial basis-full" id="list_refs">
           <div class="flex flex-row border-4 border-black">
             <div class="flex-none basis-2/12 place-content-center -rotate-90 py-auto text-center font-bold text-3xl">
               2024
