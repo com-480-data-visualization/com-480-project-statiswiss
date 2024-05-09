@@ -1,0 +1,86 @@
+[
+    {
+        "id": "660.00",
+        "title_fr": "Vaches",
+        "title_en": "Cows",
+        "title_de": "Kühe",
+        "date": "2024-05-09",
+        "double_maj": 1,
+        "% yes": 0.57,
+        "#cantons": 16,
+        "#cantons/2": 3,
+        "success": true,
+        "theme": "Agriculture",
+        "party_recommendations":
+        {
+            "PS": "oui",
+            "UDC": "non"
+        },
+        "misc_data":
+        {
+            "blurb": "",
+            "for": "",
+            "against": ""
+        },
+        "local_results":
+        {
+            
+        }
+    },
+    {
+        "id": "640.00",
+        "title_fr": "13e mois d'AVS",
+        "title_en": "AVS 13th month",
+        "title_de": "AHV 13. Monat",
+        "date": "2024-05-09",
+        "double_maj": 1,
+        "% yes": 0.47,
+        "#cantons": 3,
+        "#cantons/2": 6,
+        "success": false,
+        "theme": "Social",
+        "party_recommendations":
+        {
+            "PS": "oui",
+            "UDC": "non"
+        },
+        "misc_data":
+        {
+            "blurb": "",
+            "for": "",
+            "against": ""
+        },
+        "local_results":
+        {
+            
+        }
+    },
+    {
+        "id": "620.00",
+        "title_fr": "Retraite des femmes",
+        "title_en": "Women's retirement age",
+        "title_de": "Frauen mussen arbeiten",
+        "date": "2023-05-09",
+        "double_maj": 1,
+        "% yes": 0.57,
+        "#cantons": 19,
+        "#cantons/2": 6,
+        "success": true,
+        "theme": "Social",
+        "party_recommendations":
+        {
+            "PS": "non",
+            "UDC": "oui"
+        },
+        "misc_data":
+        {
+            "blurb": "",
+            "for": "",
+            "against": ""
+        },
+        "local_results":
+        {
+            
+        }
+    }
+]
