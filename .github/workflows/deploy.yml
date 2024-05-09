@@ -1,0 +1,20 @@
+name: Deploy website
+on:
+  push:
+    branches: ['master']
+    paths: ['.github/**', 'website/**']
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          folder: website
+          clean: true
+          clean-exclude: |
+            .nojekyll

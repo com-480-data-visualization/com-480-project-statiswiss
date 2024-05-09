@@ -8,47 +8,46 @@
   <link rel="stylesheet" href="style.css">
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 <body class="bg-neutral-50">
-  <div class="grid-cols-2 w-5xl p-8 flex flex-row">
+  <div class="w-5xl p-8 flex flex-row gap-12">
     <!-- Left navigation bar with important referenda -->
     <nav class="block mx-auto space-y-5 pl-3 flex-none basis-1/4 h-full">
-      <div class="block max-w-64 py-3 text-3xl font-semibold text-black border border-4 border-black rounded-full text-center">
+      <div class="block max-w-64 py-3 text-3xl font-semibold text-black border-4 border-black rounded-full text-center">
         Notable votes
       </div>
 
       <div class="block border-2 border-black max-w-64">
-        <div class="py-2 border border-2 border-black bg-green-400 text-center">
+        <a href="results.html" class="py-2 block border-2 border-black bg-green-400 text-center">
           <div class="text-2xl text-black">
             AVS 13th month
           </div>
           <p class="text-black text-xs">2024</p>
-        </div>
+        </a>
 
-        <div class="py-2 border border-2 border-black bg-red-400 text-center">
+        <a href="results.html" class="py-2 block border-2 border-black bg-red-400 text-center">
           <div class="text-2xl text-black">
             "99% Initiative"
           </div>
           <p class="text-black text-xs">2021</p>
-        </div>
+        </a>
 
-        <div class="py-2 border border-2 border-black bg-green-400 text-center">
+        <a href="results.html" class="py-2 block border-2 border-black bg-green-400 text-center">
           <div class="text-2xl text-black">
             Marriage for all
           </div>
           <p class="text-black text-xs">2021</p>
-        </div>
+        </a>
 
-        <div class="py-2 border border-2 border-black bg-red-400 text-center">
+        <a href="results.html" class="py-2 block border-2 border-black bg-red-400 text-center">
           <div class="text-2xl text-black">
             Cow horns
           </div>
           <p class="text-black text-xs">2018</p>
-        </div>
+        </a>
       </div>
     </nav>
-
+    
     <!-- Central block with search bar and information window -->
     <div class="flex-initial basis-9/12 space-y-5 h-screen">
       <header class="block mx-auto text-center">
@@ -68,10 +67,10 @@
         
         <div class="flex-1"></div>
 
-        <select class="bg-white w-36 border-4 border-black rounded-2xl text-center font-semibold text-xl">
-          <option value="">Sort by</option>
+        <select class="bg-white w-36 border-4 border-black rounded-2xl text-center font-semibold text-xl js-filter-select">
+          <option disabled>Sort by</option>
           <option value="year">By year</option>
-          <option value="theme">By theme</option>
+          <option value="theme" selected>By theme</option>
         </select>
       </div>
 
@@ -87,81 +86,84 @@
         </div>
       </div>
 
-      <div class="grid grid-rows-4 grid-cols-3 w-auto border border-4 border-black">
-        <div class="border-2 border-black bg-red-400 text-center py-2">
+      <div class="grid grid-rows-4 grid-cols-3 w-auto border-4 border-black">
+        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
           <div class="text-2xl text-black font-semibold">
               Cows' revenge
           </div>
           <p class="text-black text-xs">2021</p>
-        </div>
-        <div class="border-2 border-black bg-red-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Important vote
             </div>
             <p class="text-black text-xs">2023</p>
-        </div>
-        <div class="border-2 border-black bg-green-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 13th month
             </div>
             <p class="text-black text-xs">2024</p>
-        </div>
-        <div class="border-2 border-black bg-red-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Cows 2
             </div>
             <p class="text-black text-xs">2021</p>
-        </div>
-        <div class="border-2 border-black bg-green-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Marriage for all
             </div>
             <p class="text-black text-xs">2022</p>
-        </div>
-        <div class="border-2 border-black bg-green-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 AVS2021
             </div>
             <p class="text-black text-xs">2021</p>
-        </div>
-        <div class="border-2 border-black bg-red-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Cow horns
             </div>
             <p class="text-black text-xs">2018</p>
-        </div>
-        <div class="border-2 border-black bg-red-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Society
             </div>
             <p class="text-black text-xs">2019</p>
-        </div>
-        <div class="border-2 border-black bg-red-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Retirement things
             </div>
             <p class="text-black text-xs">2017</p>
-        </div>
-        <div class="border-2 border-black bg-red-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Cows
             </div>
             <p class="text-black text-xs">1995</p>
-        </div>
-        <div class="border-2 border-black bg-green-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Gender equality
             </div>
             <p class="text-black text-xs">1974</p>
-        </div>
-        <div class="border-2 border-black bg-green-400 text-center py-2">
+        </a>
+        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
             <div class="text-2xl text-black font-semibold">
                 Retirement
             </div>
             <p class="text-black text-xs">1984</p>
-        </div>
+        </a>
         </div>
       </div>
   </div>
+
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="resources/filter-select.js"></script>
 </body>
 </html>
