@@ -9,6 +9,7 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body class="bg-neutral-50">
   <div class="grid-cols-2 w-5xl p-8 flex flex-row gap-8">
@@ -18,12 +19,112 @@
         Major parties
       </div>
 
-      <div class="flex flex-row">
-        <div class="flex-none basis-2/6 pt-24">
-            <p class="h-8 text-center font-bold">Green Party</p>
-            <div class="border-4 border-black bg-slate-400 h-28 relative">
-              <div class="absolute bottom-2 w-full">
-                <p class="text-center font-semibold text-xl">25%</p>
+      <div class="border-4 border-black rounded-3xl h-1/2">
+        <div id="column-chart"></div>
+      </div>
+
+      <script>
+const options = {
+  series: [{
+    name: "2023 Federal Election",
+    data: [
+      {x: "The Socialists", y: 25.3, fillColor: "#FA1360"}, 
+      {x: "Liberal Radicals", y: 12.1, fillColor: "#007AD2"},
+      {x: "Green Party", y: 35, fillColor: "#84B414"},
+      {x: "The Center", y: 15, fillColor: "#FE9A2E"},
+      {x: "UDC", y: 5, fillColor: "#008B3C"}
+    ]
+  }],
+  chart: {
+    type: "bar",
+    height: "300%",
+    fontFamily: "Helvetica, Arial, sans-serif",
+    toolbar: {
+      show: false,
+    },
+  },
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      columnWidth: "95%",
+      borderRadiusApplication: "end",
+      borderRadius: 8,
+      distributed: true,
+    },
+  },
+  tooltip: {
+    shared: true,
+    intersect: false,
+    style: {
+      fontFamily: "Helvetica, Arial, sans-serif",
+    },
+  },
+  states: {
+    hover: {
+      filter: {
+        type: "darken",
+        value: 1,
+      },
+    },
+  },
+  grid: {
+    show: false,
+    strokeDashArray: 4,
+  },
+  dataLabels: {
+    enabled: true,
+    textAnchor: "middle",
+    formatter: function (val, opts) {
+      return val + "%";
+    },
+    style: {
+      fontFamily: 'Helvetica, Aria, sans-serif',
+      cssClass: "text-xl font-bold"
+    }
+  },
+  legend: {
+    show: false,
+  },
+  xaxis: {
+    type: "category",
+    floating: false,
+    labels: {
+      show: false,
+      style: {
+        fontFamily: "Inter, sans-serif",
+        fontWeight: "bold",
+        cssClass: 'text-xs font-bold fill-gray-500 dark:fill-gray-400'
+      }
+    },
+    axisBorder: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
+  },
+  yaxis: {
+    show: false,
+  },
+  fill: {
+    opacity: 1,
+  },
+}
+
+if(document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
+  const chart = new ApexCharts(document.getElementById("column-chart"), options);
+  chart.render();
+}
+      </script>
+      <!--
+      <div class="flex items-end h-1/2">
+        <div class="flex-none basis-2/6 h-full bottom-0 border-4 border-red-600 relative">
+            <p class="h-8 text-center font-bold bottom-0">Green Party</p>
+            <div>
+              <div class="border-4 border-black bg-slate-400 relative bottom-0" style="height: 50%;">
+                <div class="absolute bottom-2 w-full">
+                  <p class="text-center font-semibold text-xl">25%</p>
+                </div>
               </div>
             </div>
         </div>
@@ -46,6 +147,8 @@
             </div>
         </div>
       </div>
+      -->
+
     </div>
 
     <!-- Central block with the map -->
@@ -172,24 +275,24 @@ class="w-full"
       </div>
 
       <div class="block border-2 border-black max-w-64 mx-auto">
-        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
-          The Socialists
+        <div class="py-1 border border-2 border-black bg-red-400" title="The Socialists">
+          <img src="https://upload.wikimedia.org/wikipedia/fr/6/66/Logo_Parti_socialiste_suisse.svg" class="m-auto h-20" />
         </div>
 
-        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
-          Liberal Radicals
+        <div class="py-1 border border-2 border-black bg-red-400" title="Liberal Radicals">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Logo_PLR_Les_Lib%C3%A9raux-Radicaux_fr.svg" class="m-auto h-20">
         </div>
 
-        <div class="py-5 border border-2 border-black bg-green-400 text-center text-2xl text-black">
-          Green Party
+        <div class="py-1 border border-2 border-black bg-green-400" title="Green Party">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Green_Party_of_Switzerland_logo_%28with_background%29.png" class="m-auto h-20" />
         </div>
 
-        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
-          The Center
+        <div class="py-1 border border-2 border-black bg-red-400" title="The Center">
+          <img src="https://upload.wikimedia.org/wikipedia/fr/e/e1/Le_Centre_logo.png" class="m-auto h-20" />
         </div>
 
-        <div class="py-5 border border-2 border-black bg-green-400 text-center text-2xl text-black">
-          UDC
+        <div class="py-1 border border-2 border-black bg-green-400" title="UDC">
+          <img src="https://upload.wikimedia.org/wikipedia/fr/9/94/UDC_logo.svg" class="m-auto h-20" />
         </div>
       </div>
     </div>
