@@ -39,10 +39,12 @@ function generateBlocYear(votesInfo) {
 
     function showRef(listRefs, entry) {
         const color = entry["success"] ? "bg-green-400" : "bg-red-400";
-        addInnerHTML(listRefs, `  <div class="py-2 border border-2 border-black text-center ${color}">`);
-        addInnerHTML(listRefs, `    <div class="text-2xl text-black">${entry["title_en"]}</div>`);
-        addInnerHTML(listRefs, `    <p class="text-black text-xs">${entry["theme"]}</p>`);
-        addInnerHTML(listRefs, "  </div>");
+        addInnerHTML(listRefs, `  <a href="results.html?refId=${entry["id"]}">`);
+        addInnerHTML(listRefs, `    <div class="py-2 border border-2 border-black text-center ${color}">`);
+        addInnerHTML(listRefs, `      <div class="text-2xl text-black">${entry["title_en"]}</div>`);
+        addInnerHTML(listRefs, `      <p class="text-black text-xs">${entry["theme"]}</p>`);
+        addInnerHTML(listRefs, "    </div>");
+        addInnerHTML(listRefs, `  </a>`);
     }
 
     for (const year of years) {

@@ -23,11 +23,11 @@ const voteInfo = {
     "swissvoteslink": "https://swissvotes.ch/vote/305.00",
     "forme": 3,
     "d1e1": 10,
-    "d1e2": "10.mars",
-    "d1e3": "oct.31",
+    "d1e2": 10.3,
+    "d1e3": 10.31,
     "d2e1": 4,
-    "d2e2": "04.févr",
-    "d2e3": "avr.24",
+    "d2e2": 4.2,
+    "d2e3": 4.24,
     "d3e1": ".",
     "d3e2": ".",
     "d3e3": ".",
@@ -352,11 +352,31 @@ const voteInfo = {
         Blurb
       </div>
 
-      <div class="block mx-auto border-4 border-black max-w-64 text-xl font-semibold text-justify py-3 h-3/5">
-        <script>document.write(voteInfo["titre_complet_fr"]);</script>
+      <div class="block mx-auto border-4 border-black max-w-64 text-justify py-3 px-2">
+        <script>document.write(`<h2 class="font-semibold">${getLongTitle(voteInfo, "fr")}</h2>`);</script>
+        <script>document.write(voteInfo["date"]);</script>
         <br/>
         <br/>
-        <script>document.write(`<a href="${voteInfo["swissvoteslink"]}/brochure-fr.pdf" target="_blank">Brochure</a>`);</script>
+        <h3 class="font-semibold"> <!-- Theme -->
+          Theme:
+          <script>
+            for (const themeName of getTheme(voteInfo, "fr")) {
+              document.write(`<br/>\n&gt; ${themeName}`);
+            }
+          </script>
+        </h3>
+        <br/>
+        <script>document.write(`<a href="${voteInfo["swissvoteslink"]}/brochure-fr.pdf" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Brochure</div></a>`);</script>
+        <script>
+          if (voteInfo["easyvideo_fr"] !== ".") {
+            document.write("<br/>");
+            document.write(`<a href="${voteInfo["easyvideo_fr"]}" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Explanation video (fr)</div></a>`);
+          }
+          if (voteInfo["easyvideo_de"] !== ".") {
+            document.write("<br/>");
+            document.write(`<a href="${voteInfo["easyvideo_de"]}" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Explanation video (de)</div></a>`);
+          }
+        </script>
       </div>
     </div>
 
@@ -996,18 +1016,16 @@ class="w-full"
 </a>
 
       <div class="block mx-auto text-center"> <!-- Global result -->
-        <div class="text-3xl font-bold text-red-400">
-          No
-        </div>
+        <script>document.write(`<div class="text-3xl font-bold ${(voteInfo['ja-lager'] >= 50) ? 'text-green-400' : 'text-red-400'} pr-2">${(voteInfo['ja-lager'] >= 50) ? 'Yes' : 'No'}</div>`);</script>
         <div class="flex flex-row"> <!-- Popular vote -->
-            <div class="flex-none basis-1/12 text-4xl font-bold text-green-400 pr-2">
+            <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">
               <script>document.write(voteInfo["ja-lager"].toFixed(1));</script>%
             </div>
-            <div class="flex-initial basis-10/12 border-solid border-4 border-black rounded-full h-10 bg-red-400">
-              <script>document.write(`<div class="bg-green-400 h-8 rounded-l-full" style="width: ${voteInfo['ja-lager']};"></div>`);</script>
+            <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400">
+              <script>document.write(`<div class="bg-green-400 h-8 rounded-l-full" style="width: ${voteInfo['ja-lager']}%;"></div>`);</script>
               <!--<div class="bg-green-400 h-8 rounded-l-full" style="width: 22%;"></div>-->
             </div>
-            <div class="flex-none basis-1/12 text-4xl font-bold text-red-400 pl-2">
+            <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">
               <script>document.write(voteInfo["nein-lager"].toFixed(1));</script>%
             </div>
         </div>
@@ -1015,45 +1033,26 @@ class="w-full"
             Cantons:
         </div>
         <div class="flex flex-row"> <!-- Cantons -->
-            <div class="flex-none basis-1/12 text-4xl font-bold text-green-400 pr-2">
-              06.5
+            <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">
+              <script>document.write(voteInfo["kt-ja"]);</script>
             </div>
-            <div class="flex-initial basis-10/12 border-solid border-4 border-black rounded-full h-10 bg-red-400">
-              <div class="bg-green-400 h-8 rounded-l-full" style="width: 28.3%;"></div>
+            <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400">
+              <script>document.write(`<div class="bg-green-400 h-8 rounded-l-full" style="width: ${100 * (voteInfo["kt-ja"]/23.0)}%;"></div>`);</script>
             </div>
-            <div class="flex-none basis-1/12 text-4xl font-bold text-red-400 pl-2">
-              16.5
+            <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">
+              <script>document.write(voteInfo["kt-nein"]);</script>
             </div>
         </div>
       </div>
     </div>
 
     <!-- Vote recommendations per party -->
-    <div class="block space-y-5 flex-none basis-1/4">
+    <div class="block space-y-5 flex-none basis-1/4 w-1/5">
       <div class="block mx-auto max-w-64 py-3 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
         Party recommendations
       </div>
 
-      <div class="block border-2 border-black max-w-64 mx-auto" id="party-recommendations">
-        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
-          The Socialists
-        </div>
-
-        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
-          Liberal Radicals
-        </div>
-
-        <div class="py-5 border border-2 border-black bg-green-400 text-center text-2xl text-black">
-          Green Party
-        </div>
-
-        <div class="py-5 border border-2 border-black bg-red-400 text-center text-2xl text-black">
-          The Center
-        </div>
-
-        <div class="py-5 border border-2 border-black bg-green-400 text-center text-2xl text-black">
-          UDC
-        </div>
+      <div class="block border-2 border-black max-w-64 mx-auto w-3/5" id="party-recommendations">
       </div>
 
       <div class="border-4 border-black w-14 h-8 mx-auto relative">
