@@ -1,0 +1,250 @@
+1 Staatsordnung
+1.1 Nationale Identität
+1.2 Politisches System
+1.2.1 Bundesverfassung
+1.2.2 Verfassungsgebungsverfahren
+1.2.3 Gesetzgebungsverfahren
+1.2.4 Wahlsystem
+1.3 Institutionen
+1.3.1 Regierung, Verwaltung
+1.3.2 Parlament
+1.3.3 Gerichte
+1.3.4 Nationalbank
+1.4 Volksrechte
+1.4.1 Initiative
+1.4.2 Referendum
+1.4.3 Stimmrecht
+1.5 Föderalismus
+1.5.1 Territorialfragen
+1.5.2 Beziehungen zwischen Bund und Kantonen
+1.5.3 Aufgabenteilung
+1.6 Rechtsordnung
+1.6.1 Internationales Recht
+1.6.2 Grundrechte
+1.6.3 Bürgerrecht
+1.6.4 Privatrecht
+1.6.5 Strafrecht
+1.6.6 Datenschutz
+2 Aussenpolitik
+2.1 Aussenpolitische Grundhaltung
+2.1.1 Neutralität
+2.1.2 Unabhängigkeit
+2.1.3 Gute Dienste
+2.2 Europapolitik
+2.2.1 EFTA
+2.2.2 EU
+2.2.3 EWR
+2.2.4 Andere europäische Organisationen
+2.3 Internationale Organisationen
+2.3.1 UNO
+2.3.2 Andere internationale Organisationen
+2.4 Entwicklungszusammenarbeit
+2.5 Staatsverträge mit einzelnen Staaten
+2.6 Aussenwirtschaftspolitik
+2.6.1 Exportförderung
+2.6.2 Zollwesen
+2.7 Diplomatie
+2.8 Auslandschweizer:innen
+3 Sicherheitspolitik
+3.1 Öffentliche Sicherheit
+3.1.1 Bevölkerungsschutz
+3.1.2 Staatsschutz
+3.1.3 Polizei
+3.2 Armee
+3.2.1 Armee (allgemein)
+3.2.2 Militärorganisation
+3.2.3 Rüstung
+3.2.4 Militäranlagen
+3.2.5 Dienstverweigerung, Zivildienst
+3.2.6 Armeeabschaffung
+3.2.7 Militärische Ausbildung
+3.2.8 Internationale Einsätze
+3.3 Landesversorgung2.3.1 UNO
+2.3.2 Andere internationale Organisationen
+2.4 Entwicklungszusammenarbeit
+2.5 Staatsverträge mit einzelnen Staaten
+2.6 Aussenwirtschaftspolitik
+2.6.1 Exportförderung
+2.6.2 Zollwesen
+2.7 Diplomatie
+2.8 Auslandschweizer:innen
+3 Sicherheitspolitik
+3.1 Öffentliche Sicherheit
+3.1.1 Bevölkerungsschutz
+3.1.2 Staatsschutz
+3.1.3 Polizei
+3.2 Armee
+3.2.1 Armee (allgemein)
+3.2.2 Militärorganisation
+3.2.3 Rüstung
+3.2.4 Militäranlagen
+3.2.5 Dienstverweigerung, Zivildienst
+3.2.6 Armeeabschaffung
+3.2.7 Militärische Ausbildung
+3.2.8 Internationale Einsätze
+3.3 Landesversorgung
+4 Wirtschaft
+4.1 Wirtschaftspolitik
+4.1.1 Konjunkturpolitik
+4.1.2 Wettbewerbspolitik
+4.1.3 Strukturpolitik
+4.1.4 Preispolitik
+4.1.5 Konsumentenschutz
+4.1.6 Gesellschaftsrecht
+4.2 Arbeit und Beschäftigung
+4.2.1 Arbeitsbedingungen
+4.2.2 Arbeitszeit
+4.2.3 Sozialpartnerschaft
+4.2.4 Beschäftigungspolitik
+4.3 Finanzwesen
+4.3.1 Geld- und Währungspolitik
+4.3.2 Banken, Börsen, Versicherungen
+4.4 Freizeit und Tourismus
+4.4.1 Fremdenverkehr
+4.4.2 Hotellerie und Gastgewerbe
+4.4.3 Geldspiele
+5 Landwirtschaft
+5.1 Agrarpolitik
+5.2 Tierische Produktion
+5.3 Pflanzliche Produktion
+5.4 Forstwirtschaft
+5.5 Fischerei, Jagd, Haustiere4.2 Arbeit und Beschäftigung
+4.2.1 Arbeitsbedingungen
+4.2.2 Arbeitszeit
+4.2.3 Sozialpartnerschaft
+4.2.4 Beschäftigungspolitik
+4.3 Finanzwesen
+4.3.1 Geld- und Währungspolitik
+4.3.2 Banken, Börsen, Versicherungen
+4.4 Freizeit und Tourismus
+4.4.1 Fremdenverkehr
+4.4.2 Hotellerie und Gastgewerbe
+4.4.3 Geldspiele
+5 Landwirtschaft
+5.1 Agrarpolitik
+5.2 Tierische Produktion
+5.3 Pflanzliche Produktion
+5.4 Forstwirtschaft
+5.5 Fischerei, Jagd, Haustiere4.2 Arbeit und Beschäftigung
+4.2.1 Arbeitsbedingungen
+4.2.2 Arbeitszeit
+4.2.3 Sozialpartnerschaft
+4.2.4 Beschäftigungspolitik
+4.3 Finanzwesen
+4.3.1 Geld- und Währungspolitik
+4.3.2 Banken, Börsen, Versicherungen
+4.4 Freizeit und Tourismus
+4.4.1 Fremdenverkehr
+4.4.2 Hotellerie und Gastgewerbe
+4.4.3 Geldspiele
+5 Landwirtschaft
+5.1 Agrarpolitik
+5.2 Tierische Produktion
+5.3 Pflanzliche Produktion
+5.4 Forstwirtschaft
+5.5 Fischerei, Jagd, Haustiere4.2 Arbeit und Beschäftigung
+4.2.1 Arbeitsbedingungen
+4.2.2 Arbeitszeit
+4.2.3 Sozialpartnerschaft
+4.2.4 Beschäftigungspolitik
+4.3 Finanzwesen
+4.3.1 Geld- und Währungspolitik
+4.3.2 Banken, Börsen, Versicherungen
+4.4 Freizeit und Tourismus
+4.4.1 Fremdenverkehr
+4.4.2 Hotellerie und Gastgewerbe
+4.4.3 Geldspiele
+5 Landwirtschaft
+5.1 Agrarpolitik
+5.2 Tierische Produktion
+5.3 Pflanzliche Produktion
+5.4 Forstwirtschaft
+5.5 Fischerei, Jagd, Haustiere
+6 Öffentliche Finanzen
+6.1 Steuerwesen
+6.1.1 Steuerpolitik
+6.1.2 Steuersystem
+6.1.3 Direkte Steuern
+6.1.4 Indirekte Steuern
+6.2 Finanzordnung
+6.3 Öffentliche Ausgaben
+6.4 Spar- und Sanierungsmassnahmen
+7 Energie
+7.1 Energiepolitik
+7.2 Kernenergie
+7.3 Wasserkraft
+7.4 Alternativenergien
+7.5 Erdöl, Gas
+8 Verkehr und Infrastruktur
+8.1 Verkehrspolitik
+8.1.1 Agglomerationsverkehr
+8.1.2 Transitverkehr
+8.2 Strassenverkehr
+8.2.1 Strassenbau
+8.2.2 Schwerverkehr
+8.3 Schienenverkehr
+8.3.1 Güterverkehr
+8.3.2 Personenverkehr
+8.4 Luftverkehr
+8.5 Schifffahrt
+8.6 Post
+8.7 Telekommunikation
+9 Umwelt und Lebensraum
+9.1 Boden
+9.1.1 Raumplanung
+9.1.2 Bodenrecht
+9.2 Wohnen
+9.2.1 Mietwesen
+9.2.2 Wohnungsbau, Wohneigentum
+9.3 Umwelt
+9.3.1 Umweltpolitik
+9.3.2 Lärmschutz
+9.3.3 Luftreinhaltung
+9.3.4 Gewässerschutz
+9.3.5 Bodenschutz
+9.3.6 Abfälle
+9.3.7 Natur- und Heimatschutz
+9.3.8 Tierschutz
+10 Sozialpolitik
+10.1 Gesundheit
+10.1.1 Gesundheitspolitik
+10.1.2 Medizinforschung und –technik
+10.1.3 Medikamente
+10.1.4 Suchtmittel
+10.1.5 Fortpflanzungsmedizin
+10.2 Sozialversicherungen
+10.2.1 Alters- und Hinterbliebenenversicherung
+10.2.2 Invalidenversicherung
+10.2.3 Berufliche Vorsorge
+10.2.4 Kranken- und Unfallversicherung
+10.2.5 Mutterschaftsversicherung
+10.2.6 Arbeitslosenversicherung
+10.2.7 Erwerbsersatzordnung
+10.2.8 Fürsorge
+10.3 Soziale Gruppen
+10.3.1 Ausländer:innen
+10.3.2 Flüchtlinge
+10.3.3 Stellung der Frau
+10.3.4 Familienpolitik
+10.3.5 Kinder und Jugendliche
+10.3.6 Senior:innen
+10.3.7 Behinderte
+10.3.8 Homosexuelle
+11 Bildung und Forschung
+11.1 Bildungspolitik
+11.2 Schulen
+11.3 Hochschulen
+11.4 Forschung
+11.4.1 Gentechnologie
+11.4.2 Tierversuche
+11.5 Berufsbildung
+12 Kultur, Religion, Medien
+12.1 Kulturpolitik
+12.2 Sprachpolitik
+12.3 Religion, Kirchen
+12.4 Sport
+12.5 Medien und Kommunikation
+12.5.1 Medienpolitik
+12.5.2 Presse
+12.5.3 Radio, Fernsehen, Elektronische Medien
+12.5.4 Medienfreiheit
