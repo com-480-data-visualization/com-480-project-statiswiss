@@ -8,6 +8,40 @@
   <link rel="stylesheet" href="style.css">
   
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="process_index.js"></script>
+  <script>
+const urlParams = new URLSearchParams(window.location.search);
+const pageNumberX = urlParams.get("pageNumberX") || 0;
+const pageNumberY = urlParams.get("pageNumberY") || 0;
+const lang = urlParams.get("lang") || "en";
+const themeIds = themesOfPage(pageNumberX);
+
+(async () => {
+    const votesInfo = await (await fetch("resources/json_swiss_data_2.json")).json();
+    const votes2show = getVotesInThemes(votesInfo, themeIds, pageNumberY);
+
+    for (const theme of votes2show) {
+        console.log(theme.length);
+
+        for (const vote of theme) {
+          if (vote != null) {
+            const id = vote["id"];
+            const color = (vote["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
+            const title = vote["titre_court_fr"];
+            const date = vote["date"];
+            document.getElementById("grid-votes").innerHTML += `<a href="results.html?refId=${id}" class="border-2 border-black ${color} text-center p-2"><div class="text-base text-black font-semibold">${title}</div><p class="text-black text-xs">${date}</p>`;
+          }
+        }
+    }
+
+    if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)-1))
+      document.getElementById("top-arrow").innerHTML = `<a href="index_bytheme.html?pageNumberX=${pageNumberX}&pageNumberY=${(+pageNumberY)-1}"><div class="m-auto bg-green-400 w-full text-center">^</div></a>`;
+
+    if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)+1))
+      document.getElementById("bottom-arrow").innerHTML = `<a href="index_bytheme.html?pageNumberX=${pageNumberX}&pageNumberY=${(+pageNumberY)+1}"><div class="m-auto bg-green-400 w-full text-center">v</div></a>`;
+    
+})(); 
+  </script>
 </head>
 <body class="bg-neutral-50">
   <div class="w-5xl p-8 flex flex-row gap-12">
@@ -74,92 +108,34 @@
         </select>
       </div>
 
-      <div class="grid grid-rows-1 grid-cols-3 w-auto h-1/6">
-        <div class="border-4 border-black rounded-2xl text-3xl text-center font-semibold py-2 place-content-center w-4/5 h-4/5 m-auto">
-            Cows
-        </div>
-        <div class="border-4 border-black rounded-2xl text-3xl text-center font-semibold py-2 place-content-center w-4/5 h-4/5 m-auto">
-            Social issues
-        </div>
-        <div class="border-4 border-black rounded-2xl text-3xl text-center font-semibold py-2 place-content-center w-4/5 h-4/5 m-auto">
-            Retirement
-        </div>
-      </div>
+      <div class="flex flex-row">
+        <script>
+          if (pageNumberX > 0) document.write(`<div class="basis-8"><a href="index_bytheme.html?pageNumberX=${(+pageNumberX)-1}&pageNumberY=${pageNumberY}"><p class="text-center w-full bg-green-400 align-middle inline-block">&lt;</p></a></div>`);
+        </script>
 
-      <div class="grid grid-rows-4 grid-cols-3 w-auto border-4 border-black">
-        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
-          <div class="text-2xl text-black font-semibold">
-              Cows' revenge
+        <div class="basis-full">
+          <div class="grid grid-rows-1 grid-cols-3 w-auto h-1/6">
+            <script>
+                for (const themeId of themeIds) {
+                  document.write(`<div class="border-4 border-black rounded-2xl text-2xl text-center font-semibold p-1 place-content-center w-10/12 h-3/12 m-auto">${themes[lang][themeId]}</div>`);
+                }
+            </script>
           </div>
-          <p class="text-black text-xs">2021</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Important vote
-            </div>
-            <p class="text-black text-xs">2023</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                13th month
-            </div>
-            <p class="text-black text-xs">2024</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Cows 2
-            </div>
-            <p class="text-black text-xs">2021</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Marriage for all
-            </div>
-            <p class="text-black text-xs">2022</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                AVS2021
-            </div>
-            <p class="text-black text-xs">2021</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Cow horns
-            </div>
-            <p class="text-black text-xs">2018</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Society
-            </div>
-            <p class="text-black text-xs">2019</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Retirement things
-            </div>
-            <p class="text-black text-xs">2017</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-red-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Cows
-            </div>
-            <p class="text-black text-xs">1995</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Gender equality
-            </div>
-            <p class="text-black text-xs">1974</p>
-        </a>
-        <a href="results.html" class="border-2 border-black bg-green-400 text-center py-2">
-            <div class="text-2xl text-black font-semibold">
-                Retirement
-            </div>
-            <p class="text-black text-xs">1984</p>
-        </a>
+
+          <div id="top-arrow">
+          </div>
+
+          <div class="grid grid-rows-4 grid-cols-3 grid-flow-col w-auto border-4 border-black h-8/12" id="grid-votes">
+          </div>
+
+          <div id="bottom-arrow">
+          </div>
         </div>
+
+        <script>
+          if (themesOfPage((+pageNumberX)+1).length)
+              document.write(`<div class="basis-8"><a href="index_bytheme.html?pageNumberX=${(+pageNumberX)+1}&pageNumberY=${pageNumberY}"><p class="text-center w-full bg-green-400 align-middle inline-block">&gt;</p></a></div>`);
+        </script>
       </div>
   </div>
 
