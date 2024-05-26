@@ -150,7 +150,7 @@ function writeResultsFederal(voteInfo, lang) {
     addInnerHTML(globalResult, '<div class="text-2xl font-semibold text-black">Cantons:</div>');
     addInnerHTML(globalResult, '<div class="flex flex-row">');
     addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["kt-ja"]}</div>`);
-    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${(voteInfo["ktjaproz"])}%;"></div></div>`);
+    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${(100 * voteInfo["kt-ja"]) / 23}%;"></div></div>`);
     addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${voteInfo["kt-nein"]}</div>`);
     addInnerHTML(globalResult, '</div>');
 
