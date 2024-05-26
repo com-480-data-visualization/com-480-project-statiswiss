@@ -18,7 +18,7 @@ const lang = urlParams.get("lang") || "en";
 const themeIds = themesOfPage(pageNumberX);
 
 (async () => {
-    const votesInfo = await (await fetch(currentUrl.substring(0, currentUrl.lastIndexOf("/")) + "/resources/json_swiss_data_2.json")).json();
+    const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
     const votes2show = getVotesInThemes(votesInfo, themeIds, pageNumberY);
 
     for (const theme of votes2show) {

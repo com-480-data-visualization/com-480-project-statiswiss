@@ -12,7 +12,8 @@
   <script src="./process_index.js"></script>
   <script>
 (async () => {
-    const votesInfo = await (await fetch("resources/data.json")).json();
+    const currentUrl = window.location.search;
+    const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
     generateBlocYear(votesInfo);
 })(); 
   </script>
