@@ -4,24 +4,20 @@ const themes = {
     "fr": {"1": "Ordre Étatique", "1.1": "Identité Nationale", "1.2": "Système Politique", "1.21": "Constitution Fédérale", "1.22": "Procédure Constitutionnelle", "1.23": "Procédure Législative", "1.24": "Système Électoral", "1.3": "Institutions", "1.31": "Gouvernement, Administration", "1.32": "Parlement", "1.33": "Tribunaux", "1.34": "Banque Nationale", "1.4": "Droits Populaires", "1.41": "Initiative", "1.42": "Référendum", "1.43": "Droit de Vote", "1.5": "Fédéralisme", "1.51": "Questions Territoriales", "1.52": "Relations entre la Confédération et les Cantons", "1.53": "Répartition des Tâches", "1.6": "Ordre Juridique", "1.61": "Droit International", "1.62": "Droits Fondamentaux", "1.63": "Citoyenneté", "1.64": "Droit Privé", "1.65": "Droit Pénal", "1.66": "Protection des Données", "2": "Politique Étrangère", "2.1": "Attitude de Base en Politique Étrangère", "2.11": "Neutralité", "2.12": "Indépendance", "2.13": "Bons Offices", "2.2": "Politique Européenne", "2.21": "AELE", "2.22": "UE", "2.23": "EEE", "2.24": "Autres Organisations Européennes", "2.3": "Organisations Internationales", "2.31": "ONU", "2.32": "Autres Organisations Internationales", "2.4": "Coopération au Développement", "2.5": "Traités d'État avec des États Individuels", "2.6": "Politique Économique Extérieure", "2.61": "Promotion des Exportations", "2.62": "Douanes", "2.7": "Diplomatie", "2.8": "Suisses de l'Étranger", "3": "Politique de Sécurité", "3.1": "Sécurité Publique", "3.11": "Protection Civile", "3.12": "Sécurité de l'État", "3.13": "Police", "3.2": "Armée", "3.21": "Armée (Général)", "3.22": "Organisation Militaire", "3.23": "Armements", "3.24": "Installations Militaires", "3.25": "Objection de Conscience, Service Civil", "3.26": "Abolition de l'Armée", "3.27": "Formation Militaire", "3.28": "Missions Internationales", "3.3": "Approvisionnement National", "4": "Économie", "4.1": "Politique Économique", "4.11": "Politique de Conjoncture", "4.12": "Politique de la Concurrence", "4.13": "Politique Structurelle", "4.14": "Politique des Prix", "4.15": "Protection des Consommateurs", "4.16": "Droit des Sociétés", "4.2": "Travail et Emploi", "4.21": "Conditions de Travail", "4.22": "Temps de Travail", "4.23": "Partenariat Social", "4.24": "Politique de l'Emploi", "4.3": "Secteur Financier", "4.31": "Politique Monétaire et de Change", "4.32": "Banques, Bourses, Assurances", "4.4": "Loisirs et Tourisme", "4.41": "Tourisme", "4.42": "Industrie Hôtelière", "4.43": "Jeux d'Argent", "5": "Agriculture", "5.1": "Politique Agricole", "5.2": "Production Animale", "5.3": "Production Végétale", "5.4": "Sylviculture", "5.5": "Pêche, Chasse, Animaux Domestiques", "6": "Finances Publiques", "6.1": "Fiscalité", "6.11": "Politique Fiscale", "6.12": "Système Fiscal", "6.13": "Impôts Directs", "6.14": "Impôts Indirects", "6.2": "Ordre Financier", "6.3": "Dépenses Publiques", "6.4": "Mesures d'Épargne et de Redressement", "7": "Énergie", "7.1": "Politique Énergétique", "7.2": "Énergie Nucléaire", "7.3": "Hydroélectricité", "7.4": "Énergies Alternatives", "7.5": "Pétrole, Gaz", "8": "Transport et Infrastructure", "8.1": "Politique des Transports", "8.11": "Trafic Urbain", "8.12": "Trafic de Transit", "8.2": "Trafic Routier", "8.21": "Construction de Routes", "8.22": "Trafic Lourds", "8.3": "Transport Ferroviaire", "8.31": "Transport de Marchandises", "8.32": "Transport de Passagers", "8.4": "Transport Aérien", "8.5": "Navigation", "8.6": "Services Postaux", "8.7": "Télécommunications", "9": "Environnement et Habitat", "9.1": "Sol", "9.11": "Aménagement du Territoire", "9.12": "Droit Foncier", "9.2": "Logement", "9.21": "Location", "9.22": "Construction de Logements, Propriété de Logement", "9.3": "Environnement", "9.31": "Politique Environnementale", "9.32": "Protection contre le Bruit", "9.33": "Contrôle de la Qualité de l'Air", "9.34": "Protection des Eaux", "9.35": "Protection des Sols", "9.36": "Déchets", "9.37": "Protection de la Nature et du Patrimoine", "9.38": "Protection des Animaux", "10": "Politique Sociale", "10.1": "Santé", "10.11": "Politique de Santé", "10.12": "Recherche et Technologie Médicale", "10.13": "Médicaments", "10.14": "Substances Addictives", "10.15": "Médecine de la Reproduction", "10.2": "Assurances Sociales", "10.21": "Assurance Vieillesse et Survivants", "10.22": "Assurance Invalidité", "10.23": "Prévoyance Professionnelle", "10.24": "Assurance Maladie et Accidents", "10.25": "Assurance Maternité", "10.26": "Assurance Chômage", "10.27": "Régime des Allocations pour Perte de Gain", "10.28": "Aide Sociale", "10.3": "Groupes Sociaux", "10.31": "Étrangers", "10.32": "Réfugiés", "10.33": "Statut des Femmes", "10.34": "Politique Familiale", "10.35": "Enfants et Jeunes", "10.36": "Seniors", "10.37": "Personnes Handicapées", "10.38": "Homosexuels", "11": "Éducation et Recherche", "11.1": "Politique Éducative", "11.2": "Écoles", "11.3": "Universités", "11.4": "Recherche", "11.41": "Technologie Génétiques", "11.42": "Expérimentation Animale", "11.5": "Formation Professionnelle", "12": "Culture, Religion, Médias", "12.1": "Politique Culturelle", "12.2": "Politique Linguistique", "12.3": "Religion, Églises", "12.4": "Sports", "12.5": "Médias et Communication", "12.51": "Politique des Médias", "12.52": "Presse", "12.53": "Radio, Télévision, Médias Électroniques", "12.54": "Liberté des Médias"},
 };
 
-//source for this function: https://stackoverflow.com/questions/54756136/convert-json-format-group-by
-const groupBy = prop => data => {
-    return data.reduce((dict, item) => {
-      const { [prop]: _, ...rest } = item;
-      dict[item[prop]] = [...(dict[item[prop]] || []), rest];
-      return dict;
-    }, {});
-  };
-
 function groupVotesByYear(votesInfo) {
-    function addYear(entry) {
-        const entryWithYear = {...entry};
-        entryWithYear["year"] = entry["date"].substring(0, 4);
-        return entryWithYear;
+    const ret = {};
+    for (const voteKey in votesInfo) {
+        const vote = votesInfo[voteKey];
+        const date = vote["date"];
+        const year = date.substring(date.length-4);
+
+        if (!(year in ret))
+            ret[year] = [];
+
+        ret[year].push(vote);
     }
 
-    const votesInfoWithYear = votesInfo.map(addYear);
-    return groupBy('year')(votesInfoWithYear);
+    return ret;
 }
 
 const cumulativeHTML = {};
@@ -44,19 +40,19 @@ function generateBlocYear(votesInfo) {
     const listRefs = document.getElementById("list_refs");
 
     function showRef(listRefs, entry) {
-        const color = entry["success"] ? "bg-green-400" : "bg-red-400";
+        const color = entry["annahme"] ? "bg-green-400" : "bg-red-400";
         addInnerHTML(listRefs, `  <a href="results.html?refId=${entry["id"]}">`);
         addInnerHTML(listRefs, `    <div class="py-2 border border-2 border-black text-center ${color}">`);
-        addInnerHTML(listRefs, `      <div class="text-2xl text-black">${entry["title_en"]}</div>`);
-        addInnerHTML(listRefs, `      <p class="text-black text-xs">${entry["theme"]}</p>`);
+        addInnerHTML(listRefs, `      <div class="text-2xl text-black">${entry["titre_court_en"]}</div>`);
+        addInnerHTML(listRefs, `      <p class="text-black text-xs">${themes["en"][entry["d1e1"]]}</p>`);
         addInnerHTML(listRefs, "    </div>");
         addInnerHTML(listRefs, `  </a>`);
     }
 
     for (const year of years) {
         addInnerHTML(listRefs, '<div class="flex flex-row border-4 border-black">');
-        addInnerHTML(listRefs, '  <div class="flex-none basis-2/12 place-content-center -rotate-90 py-auto text-center font-bold text-3xl">' + year + '</div>');
-        addInnerHTML(listRefs, '  <div class="flex-initial basis-10/12 grid grid-rows-4 grid-cols-1 border-l-4 border-black">');
+        addInnerHTML(listRefs, '  <div class="flex-none basis-1/12 place-content-center -rotate-90 py-auto text-center font-bold text-3xl">' + year + '</div>');
+        addInnerHTML(listRefs, `  <div class="flex-initial basis-11/12 grid grid-cols-1 border-l-4 border-black" style="grid-template-rows: repeat(${groupByYear[year].length}, minmax(0, 1fr));">`);
         for (const i in groupByYear[year]) showRef(listRefs, groupByYear[year][i]);
         addInnerHTML(listRefs, '  </div>');
         addInnerHTML(listRefs, '</div>');

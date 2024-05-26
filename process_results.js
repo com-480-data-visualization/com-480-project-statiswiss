@@ -69,7 +69,7 @@ function generateBlocPartyRecomm(voteInfo) {
     // 1 = oui; 2 = non; 3 = sans recomendation; 4 = vote blanc; 5 = abstention
     // 8 = Recommandation en faveur du contre-projet ; 9 = Recommandation en faveur de l'initiative populaire; 66 = Neutralité : aucune recommandation ou avis, vote blanc ou abstention (utilisé uniquement pour les votes de 1848 à 1969); 999 = le parti n’existait pas à l’époque; . = inconnu
 
-    const partyRecommBloc = document.getElementById("party-recommendations");
+    const partyRecommBloc = "party-recommendations";
 
     const listParties = [];
     for (const key in voteInfo) {
@@ -90,7 +90,7 @@ function generateBlocPartyRecomm(voteInfo) {
         }
     }
 
-    partyRecommBloc.innerHTML = cumulativeHTML[partyRecommBloc];
+    document.getElementById(partyRecommBloc).innerHTML = cumulativeHTML[partyRecommBloc];
 }
 
 function localResultsCanton(federalElectionRes, legislature, cantonCode) {
@@ -110,4 +110,49 @@ function getTheme(voteInfo, lang) {
 
 function getLongTitle(voteInfo, lang) {
     return (voteInfo["titre_complet_"+lang] || voteInfo["titre_complet_fr"]);
+}
+
+function writeBlurb(voteInfo, lang) {
+    const blurbContent = "blurb-content";
+
+    addInnerHTML(blurbContent, `<h2 class="font-semibold">${getLongTitle(voteInfo, lang)}</h2>`);
+    addInnerHTML(blurbContent, voteInfo["date"]);
+    addInnerHTML(blurbContent, '<br/><br/>');
+    addInnerHTML(blurbContent, '<h3 class="font-semibold">Theme:');
+    for (const themeName of getTheme(voteInfo, lang))
+        if (themeName) addInnerHTML(blurbContent, `<br/>&gt; ${themeName}`);
+    addInnerHTML(blurbContent, "</h3>\n<br/>");
+    addInnerHTML(blurbContent, `<a href="${voteInfo["swissvoteslink"]}/brochure-fr.pdf" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Brochure</div></a>`);
+    if (voteInfo["easyvideo_fr"])
+        addInnerHTML(blurbContent, `<br/>\n<a href="${voteInfo["easyvideo_fr"]}" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Explanation video (fr)</div></a>`);
+    if (voteInfo["easyvideo_de"])
+        addInnerHTML(blurbContent, `<br/>\n<a href="${voteInfo["easyvideo_de"]}" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Explanation video (de)</div></a>`);
+
+    document.getElementById(blurbContent).innerHTML = cumulativeHTML[blurbContent];
+}
+
+function writeResultsFederal(voteInfo, lang) {
+    const globalResult = "global-result";
+    const yes = {"en": "Yes", "fr": "Oui", "de": "Ja"};
+    const no = {"en": "No", "en": "Non", "de": "Nein"};
+
+    //passed or not
+    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${(voteInfo["annahme"] == 1) ? "text-green-400" : "text-red-400"} pr-2">${(voteInfo["annahme"] == 1) ? yes[lang] : no[lang]}</div>`);
+    
+    //popular vote
+    addInnerHTML(globalResult, '<div class="flex flex-row">');
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["ja-lager"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${voteInfo['ja-lager']}%;"></div></div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${voteInfo["nein-lager"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, "</div>");
+
+    //cantons
+    addInnerHTML(globalResult, '<div class="text-2xl font-semibold text-black">Cantons:</div>');
+    addInnerHTML(globalResult, '<div class="flex flex-row">');
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["kt-ja"]}</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${(voteInfo["ktjaproz"])}%;"></div></div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${voteInfo["kt-nein"]}</div>`);
+    addInnerHTML(globalResult, '</div>');
+
+    document.getElementById(globalResult).innerHTML = cumulativeHTML[globalResult];
 }
