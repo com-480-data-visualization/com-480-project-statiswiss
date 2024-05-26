@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Statiswiss</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script src="./process_index.js"></script>
   <script>
 (async () => {
-    const currentUrl = window.location.search;
+    const paramsUrl = window.location.search;
     const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
     generateBlocYear(votesInfo);
 })(); 

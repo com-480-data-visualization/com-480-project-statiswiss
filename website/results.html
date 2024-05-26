@@ -9,8 +9,18 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="process_results.js"></script>
+  <script src="./process_results.js"></script>
   <script>
+const paramsUrl = window.location.search;
+const urlParams = new URLSearchParams(paramsUrl);
+const refId = urlParams.get("refId");
+
+if (!refId) {
+  const url2 = window.location.href;
+  window.location.href = url2.substring(0, url2.lastIndexOf("/")) + "/index.html";
+  //redirection if the refId is invalid
+}
+
 const voteInfo = {
     "id": 305,
     "date": "05.04.1981",
@@ -22,12 +32,12 @@ const voteInfo = {
     "mot_cle": ".",
     "swissvoteslink": "https://swissvotes.ch/vote/305.00",
     "forme": 3,
-    "d1e1": 10,
-    "d1e2": 10.3,
-    "d1e3": 10.31,
-    "d2e1": 4,
-    "d2e2": 4.2,
-    "d2e3": 4.24,
+    "d1e1": "10",
+    "d1e2": "10.3",
+    "d1e3": "10.31",
+    "d2e1": "4",
+    "d2e2": "4.2",
+    "d2e3": "4.24",
     "d3e1": ".",
     "d3e2": ".",
     "d3e3": ".",
@@ -352,31 +362,7 @@ const voteInfo = {
         Blurb
       </div>
 
-      <div class="block mx-auto border-4 border-black max-w-64 text-justify py-3 px-2">
-        <script>document.write(`<h2 class="font-semibold">${getLongTitle(voteInfo, "fr")}</h2>`);</script>
-        <script>document.write(voteInfo["date"]);</script>
-        <br/>
-        <br/>
-        <h3 class="font-semibold"> <!-- Theme -->
-          Theme:
-          <script>
-            for (const themeName of getTheme(voteInfo, "fr")) {
-              document.write(`<br/>\n&gt; ${themeName}`);
-            }
-          </script>
-        </h3>
-        <br/>
-        <script>document.write(`<a href="${voteInfo["swissvoteslink"]}/brochure-fr.pdf" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Brochure</div></a>`);</script>
-        <script>
-          if (voteInfo["easyvideo_fr"] !== ".") {
-            document.write("<br/>");
-            document.write(`<a href="${voteInfo["easyvideo_fr"]}" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Explanation video (fr)</div></a>`);
-          }
-          if (voteInfo["easyvideo_de"] !== ".") {
-            document.write("<br/>");
-            document.write(`<a href="${voteInfo["easyvideo_de"]}" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Explanation video (de)</div></a>`);
-          }
-        </script>
+      <div class="block mx-auto border-4 border-black max-w-64 text-justify py-3 px-2" id="blurb-content">
       </div>
     </div>
 
@@ -388,7 +374,7 @@ const voteInfo = {
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
           </svg>
         </a>
-        <script>document.write(voteInfo["titre_court_fr"]);</script>
+        <span id="title"></span>
       </header>
 <a href="results_canton.html?canton=GE">
 <!-- Source of the SVG: https://commons.wikimedia.org/wiki/File:Suisse_cantons.svg -->
@@ -1015,34 +1001,7 @@ class="w-full"
 </svg>
 </a>
 
-      <div class="block mx-auto text-center"> <!-- Global result -->
-        <script>document.write(`<div class="text-3xl font-bold ${(voteInfo['ja-lager'] >= 50) ? 'text-green-400' : 'text-red-400'} pr-2">${(voteInfo['ja-lager'] >= 50) ? 'Yes' : 'No'}</div>`);</script>
-        <div class="flex flex-row"> <!-- Popular vote -->
-            <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">
-              <script>document.write(voteInfo["ja-lager"].toFixed(1));</script>%
-            </div>
-            <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400">
-              <script>document.write(`<div class="bg-green-400 h-8 rounded-l-full" style="width: ${voteInfo['ja-lager']}%;"></div>`);</script>
-              <!--<div class="bg-green-400 h-8 rounded-l-full" style="width: 22%;"></div>-->
-            </div>
-            <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">
-              <script>document.write(voteInfo["nein-lager"].toFixed(1));</script>%
-            </div>
-        </div>
-        <div class="text-2xl font-semibold text-black">
-            Cantons:
-        </div>
-        <div class="flex flex-row"> <!-- Cantons -->
-            <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">
-              <script>document.write(voteInfo["kt-ja"]);</script>
-            </div>
-            <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400">
-              <script>document.write(`<div class="bg-green-400 h-8 rounded-l-full" style="width: ${100 * (voteInfo["kt-ja"]/23.0)}%;"></div>`);</script>
-            </div>
-            <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">
-              <script>document.write(voteInfo["kt-nein"]);</script>
-            </div>
-        </div>
+      <div class="block mx-auto text-center" id="global-result"> <!-- Global result -->
       </div>
     </div>
 
@@ -1060,6 +1019,21 @@ class="w-full"
       </div>
     </div>
   </div>
-  <script>generateBlocPartyRecomm(voteInfo);</script>
 </body>
+<script>
+  (async () => {
+    const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
+    const voteInfo = votesInfo[refId];
+
+    //write title and blurb
+    document.getElementById("title").innerHTML = voteInfo["titre_court_en"];
+    writeBlurb(voteInfo, "en");
+
+    //party recommendations
+    generateBlocPartyRecomm(voteInfo);
+
+    //results
+    writeResultsFederal(voteInfo, "en");
+})(); 
+</script>
 </html>

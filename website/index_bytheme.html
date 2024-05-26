@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="style.css">
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="process_index.js"></script>
+  <script src="./process_index.js"></script>
   <script>
-const currentUrl = window.location.search;
-const urlParams = new URLSearchParams(currentUrl);
+const paramsUrl = window.location.search;
+const urlParams = new URLSearchParams(paramsUrl);
 const pageNumberX = urlParams.get("pageNumberX") || 0;
 const pageNumberY = urlParams.get("pageNumberY") || 0;
 const lang = urlParams.get("lang") || "en";
