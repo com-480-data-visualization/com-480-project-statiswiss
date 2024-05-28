@@ -2,8 +2,8 @@ import json
 import csv
 
 
-with open("swiss_data_vote_4.csv", encoding = 'utf-8-sig') as csvFile:
-    read = csv.DictReader(csvFile, delimiter=';')
+with open("swiss_data_vote_5.csv", encoding = 'utf-8-sig') as csvFile:
+    read = csv.DictReader(csvFile, delimiter=',')
     store = list(read)
 
 with open("data.json", "w", encoding='utf-8') as f:
