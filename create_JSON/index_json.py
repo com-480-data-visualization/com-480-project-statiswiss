@@ -1,19 +1,27 @@
 import json
-import csv
+import pandas as pd
+import numpy as np
+
+with open("swiss_data_vote_5.csv", "r", encoding="utf-8-sig") as f:
+    df = pd.read_csv(f, index_col='id', dtype={'id': str})
+df = df.replace(".", float("nan"))
+for col in df.columns:    
+    try:
+        df[col] = df[col].astype(float)
+    except:
+        pass
 
 
-with open("swiss_data_vote_5.csv", encoding = 'utf-8-sig') as csvFile:
-    read = csv.DictReader(csvFile, delimiter=',')
-    store = list(read)
+with open("data.json", "w", encoding="utf-8-sig") as f:
+    df.to_json(f, indent=4, orient='index', force_ascii=False)
 
-with open("data.json", "w", encoding='utf-8') as f:
-    json.dump(store, f, indent=4, ensure_ascii=False)
 
-with open("data.json", 'r', encoding='utf-8') as fileContent:
+with open("data.json", 'r', encoding='utf-8-sig') as fileContent:
     json_object = json.load(fileContent)
-new_json_object = dict()
-for elem in json_object:
-  new_json_object[elem["id"]] = elem
-f = open("good_data.json", 'w', encoding='utf-8')
-json.dump(new_json_object, f, indent=4, ensure_ascii=False)
+
+for k in json_object:
+    json_object[k]["id"] = k
+    
+f = open("good_data.json", 'w', encoding='utf-8-sig')
+json.dump(json_object, f, indent=4, ensure_ascii=False)
 f.close()
