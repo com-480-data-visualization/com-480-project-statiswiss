@@ -69,7 +69,7 @@ const themeIds = themesOfPage(pageNumberX);
             const sortBy = {"en": "Sort by", "fr": "Tri par", "de": "Sortieren nach"}[lang];
             const byYear = {"en": "By year", "fr": "Par année", "de": "Nach Jahr"}[lang];
             const byTheme = {"en": "By theme", "fr": "Par thème", "de": "Nach Bereich"}[lang];
-            document.write(`<option disabled>${sortBy}</option><option value="year" selected>${byYear}</option><option value="theme">${byTheme}</option>`);
+            document.write(`<option disabled>${sortBy}</option><option value="year">${byYear}</option><option value="theme" selected>${byTheme}</option>`);
           </script>
         </select>
       </div>
