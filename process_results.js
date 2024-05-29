@@ -149,17 +149,19 @@ function writeResultsFederal(voteInfo, lang) {
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
     addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["volkja-proz"].toFixed(1)}%</div>`);
-    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${voteInfo['volkja-proz']}%;"></div></div>`);
+    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-400 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${voteInfo['volkja-proz']}%;"></div></div>`);
     addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${(100-voteInfo["volkja-proz"]).toFixed(1)}%</div>`);
     addInnerHTML(globalResult, "</div>");
 
     //cantons
     if (voteInfo["forme"] != 5) { // does not apply to tie-breaker questions
         cantonsHalfYes = cantonsHalfCantons(voteInfo);
-        addInnerHTML(globalResult, '<div class="text-2xl font-semibold text-black">Cantons:</div>');
+        const cantonsTxt = {"en": "Cantons:", "fr": "Cantons :", "de": "Kantone:"}[lang];
+
+        addInnerHTML(globalResult, `<div class="text-2xl font-semibold text-black">${cantonsTxt}</div>`);
         addInnerHTML(globalResult, '<div class="flex flex-row">');
         addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
-        addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${(100 * voteInfo["kt-ja"]) / 23}%;"></div></div>`);
+        addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-400 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${(100 * voteInfo["kt-ja"]) / 23}%;"></div></div>`);
         addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${20-cantonsHalfYes[0]} ${6-cantonsHalfYes[1]}/2</div>`);
         addInnerHTML(globalResult, '</div>');
     }

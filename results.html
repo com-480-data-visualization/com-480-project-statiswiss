@@ -14,7 +14,8 @@
 const paramsUrl = window.location.search;
 const urlParams = new URLSearchParams(paramsUrl);
 const refId = urlParams.get("refId");
-const lang = urlParams.get("lang") || "en";
+const validLanguages = ["en", "fr", "de"];
+const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lang") : "en";
 
 if (!refId) {
   const url2 = window.location.href;
@@ -25,6 +26,16 @@ if (!refId) {
 </head>
 <body class="bg-neutral-50">
   <div class="grid-cols-2 w-5xl p-8 flex flex-row gap-8">
+    <!-- Lang selection -->
+    <nav class="absolute top-0 right-0 px-2">
+      <script>
+        for (const langChoice of validLanguages) {
+          const styleCurrent = (langChoice == lang) ? 'style="background-color: #da291c; color: white;' : "";
+          document.write(`<a class="p-1" ${styleCurrent} href="results.html?refId=${refId}&lang=${langChoice}">${langChoice.toUpperCase()}</a>`);
+        }
+      </script>
+    </nav>
+
     <!-- Left information bar -->
     <div class="block space-y-5 pl-3 flex-none basis-1/4">
       <div class="block mx-auto max-w-64 py-7 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
