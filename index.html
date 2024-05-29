@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,22 +11,31 @@
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script src="./process_index.js"></script>
   <script>
-(async () => {
-    const paramsUrl = window.location.search;
-    const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
-    generateBlocYear(votesInfo);
-})(); 
+const paramsUrl = window.location.search;
+const urlParams = new URLSearchParams(paramsUrl);
+const validLanguages = ["en", "fr", "de"];
+const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lang") : "en";
   </script>
 </head>
 <body class="bg-neutral-50">
   <div class="w-5xl p-8 flex flex-row gap-12">
     <!-- Left navigation bar with important referenda -->
+    <nav class="absolute top-0 right-0 px-2">
+      <script>
+        for (const langChoice of validLanguages) {
+          const styleCurrent = (langChoice == lang) ? 'style="background-color: #da291c; color: white;' : "";
+          document.write(`<a class="p-1" ${styleCurrent} href="index.html?lang=${langChoice}">${langChoice.toUpperCase()}</a>`);
+        }
+      </script>
+    </nav>
     <nav class="block mx-auto space-y-5 pl-3 flex-none basis-1/4 h-full">
-      <div class="block max-w-64 py-3 text-3xl font-semibold text-black border-4 border-black rounded-full text-center">
-        Notable votes
+      <div class="block max-w-72 py-3 text-3xl font-semibold text-black border-4 border-black rounded-full text-center">
+        <script>
+          document.write({"en": "Notable votes", "fr": "Votations notables", "de": "Bemerkenswerte Abstimmungen"}[lang]);
+        </script>
       </div>
 
-      <div class="block border-2 border-black max-w-64">
+      <div class="block border-2 border-black max-w-72">
         <a href="results.html" class="py-2 block border-2 border-black bg-green-400 text-center">
           <div class="text-2xl text-black">
             AVS 13th month
@@ -71,15 +80,21 @@
           <span class="absolute inset-y-0 right-0 flex items-center pr-3">
             <img class="h-7 w-7" src="resources/sparkles.svg" alt="I'm feeling lucky" />
           </span>
-          <input class="placeholder:text-slate-400 h-12 text-xl block bg-white font-semibold w-full border-4 border-black rounded-full py-2 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-xl" placeholder="Search for a referendum" type="text" name="search"/>
+          <script>
+            const searchForRef = {"en": "Search for a vote", "fr": "Chercher une votation", "de": "eine Abstimmung suchen"}[lang];
+            document.write(`<input class="placeholder:text-slate-400 h-12 text-xl block bg-white font-semibold w-full border-4 border-black rounded-full py-2 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-xl" placeholder="${searchForRef}" type="text" name="search"/>`);
+          </script>
         </label>
         
         <div class="flex-1"></div>
 
         <select class="bg-white w-36 border-4 border-black rounded-2xl text-center font-semibold text-xl js-filter-select">
-          <option disabled>Sort by</option>
-          <option value="year" selected>By year</option>
-          <option value="theme">By theme</option>
+          <script>
+            const sortBy = {"en": "Sort by", "fr": "Tri par", "de": "Sortieren nach"}[lang];
+            const byYear = {"en": "By year", "fr": "Par année", "de": "Nach Jahr"}[lang];
+            const byTheme = {"en": "By theme", "fr": "Par thème", "de": "Nach Bereich"}[lang];
+            document.write(`<option disabled>${sortBy}</option><option value="year" selected>${byYear}</option><option value="theme">${byTheme}</option>`);
+          </script>
         </select>
       </div>
 
@@ -95,5 +110,12 @@
 
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script src="resources/filter-select.js"></script>
+  <script>
+    (async () => {
+    const paramsUrl = window.location.search;
+    const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
+    generateBlocYear(votesInfo, lang);
+})();
+  </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +28,9 @@ if (!refId) {
     <!-- Left information bar -->
     <div class="block space-y-5 pl-3 flex-none basis-1/4">
       <div class="block mx-auto max-w-64 py-7 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
-        Blurb
+         <script>
+            document.write({"en": "Blurb", "fr": "Présentation", "de": "Klappentext"}[lang]);
+         </script>
       </div>
 
       <div class="block mx-auto border-4 border-black max-w-64 text-justify py-3 px-2" id="blurb-content">
@@ -38,7 +40,9 @@ if (!refId) {
     <!-- Central block with the map -->
     <div class="flex-initial basis-1/2 space-y-1 h-screen">
       <header class="flex mx-auto items-center text-4xl font-medium gap-4 justify-center text-center">
-        <a href="index.html">
+        <script>
+         document.write(`<a href="index.html?lang=${lang}">`);
+        </script>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
           </svg>
@@ -678,9 +682,8 @@ class="w-full"
     <div class="block space-y-5 flex-none basis-1/4 w-1/5">
       <div class="block mx-auto max-w-64 py-3 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
         <script>
-         const partyRecommendationsTxt = {"en": "Party recommendations", "fr": "Recommandations de partis", "de": "Parteiparolen"};
-
-         document.write(partyRecommendationsTxt[lang]);
+         const partyRecommendationsTxt = {"en": "Party recommendations", "fr": "Recommandations de partis", "de": "Parteiparolen"}[lang];
+         document.write(partyRecommendationsTxt);
         </script>
       </div>
 
