@@ -76,7 +76,37 @@ function placeToLocation(place) {
     if (!cantonsMap.has(place)) {
       throw new Error('Unknown canton: ' + place);
     }
-    return `c${cantonsMap.get(place)}`;
+
+    const cantonAbbrs = [
+      /* 'Zürich', */ 'zh',
+      /* 'Bern / Berne', */ 'be',
+      /* 'Luzern', */ 'lu',
+      /* 'Uri', */ 'ur',
+      /* 'Schwyz', */ 'sz',
+      /* 'Obwalden', */ 'ow',
+      /* 'Nidwalden', */ 'nw',
+      /* 'Glarus', */ 'gl',
+      /* 'Zug', */ 'zg',
+      /* 'Fribourg / Freiburg', */ 'fr',
+      /* 'Solothurn', */ 'so',
+      /* 'Basel-Stadt', */ 'bs',
+      /* 'Basel-Landschaft', */ 'bl',
+      /* 'Schaffhausen', */ 'sh',
+      /* 'Appenzell Ausserrhoden', */ 'ar',
+      /* 'Appenzell Innerrhoden', */ 'ai',
+      /* 'St. Gallen', */ 'sg',
+      /* 'Graubünden / Grigioni / Grischun', */ 'gr',
+      /* 'Aargau', */ 'ag',
+      /* 'Thurgau', */ 'tg',
+      /* 'Ticino', */ 'ti',
+      /* 'Vaud', */ 'vd',
+      /* 'Valais / Wallis', */ 'vs',
+      /* 'Neuchâtel', */ 'ne',
+      /* 'Genève', */ 'ge',
+      /* 'Jura', */ 'ju',
+    ]
+
+    return cantonAbbrs[+cantonsMap.get(place)];
   }
 
   if (place.startsWith('......')) {
@@ -171,7 +201,7 @@ fs.createReadStream('votes_fr.csv')
     }
     const locationMap = subjectMap.get(location);
 
-    locationMap[dataPoint] = num;
+    locationMap[dataPoint] = Number.parseFloat(num);
   })
   .on('end', function () {
     // delete the results folder
