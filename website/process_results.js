@@ -122,7 +122,7 @@ function writeBlurb(voteInfo, lang) {
     const theme = {"en": "Theme:", "fr": "Thème :", "de": "Politikbereich:"};
     const brochure = {"en": "Brochure", "fr": "Brochure", "de": "Broschüre"};
 
-    addInnerHTML(blurbContent, `<h2 class="font-semibold">${getLongTitle(voteInfo, lang)}</h2>`);
+    addInnerHTML(blurbContent, `<h2 class="font-semibold hyphens-auto" lang="${lang}">${getLongTitle(voteInfo, lang)}</h2>`);
     addInnerHTML(blurbContent, voteInfo["date"]);
     addInnerHTML(blurbContent, '<br/><br/>');
     addInnerHTML(blurbContent, '<h3 class="font-semibold">' + theme[lang]);
