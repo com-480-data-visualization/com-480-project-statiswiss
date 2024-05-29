@@ -50,7 +50,7 @@ if (!refId) {
 
     <!-- Central block with the map -->
     <div class="flex-initial basis-1/2 space-y-1 h-screen">
-      <header class="flex mx-auto items-center text-4xl font-medium gap-4 justify-center text-center">
+      <header class="flex mx-auto items-center text-4xl font-medium gap-4 text-center hyphens-auto" lang="en">
         <script>
          document.write(`<a href="index.html?lang=${lang}">`);
         </script>
@@ -60,7 +60,9 @@ if (!refId) {
         </a>
         <span id="title"></span>
       </header>
-<a href="results_canton.html?canton=GE">
+      <script>
+         document.write(`<a href="results_canton.html?refId=${refId}&lang=${lang}&canton=ge">`);
+      </script>
 <!-- Source of the SVG: https://commons.wikimedia.org/wiki/File:Suisse_cantons.svg -->
 <svg
 class="w-full"
