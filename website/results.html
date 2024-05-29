@@ -38,13 +38,13 @@ if (!refId) {
 
     <!-- Left information bar -->
     <div class="block space-y-5 pl-3 flex-none basis-1/4">
-      <div class="block mx-auto max-w-64 py-7 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
+      <div class="block mx-auto w-64 py-7 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
          <script>
             document.write({"en": "Blurb", "fr": "Présentation", "de": "Klappentext"}[lang]);
          </script>
       </div>
 
-      <div class="block mx-auto border-4 border-black max-w-64 text-justify py-3 px-2" id="blurb-content">
+      <div class="block mx-auto border-4 border-black w-72 text-justify py-3 px-2" id="blurb-content">
       </div>
     </div>
 
@@ -691,14 +691,14 @@ class="w-full"
 
     <!-- Vote recommendations per party -->
     <div class="block space-y-5 flex-none basis-1/4 w-1/5">
-      <div class="block mx-auto max-w-64 py-3 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
+      <div class="block mx-auto w-64 py-3 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
         <script>
          const partyRecommendationsTxt = {"en": "Party recommendations", "fr": "Recommandations de partis", "de": "Parteiparolen"}[lang];
          document.write(partyRecommendationsTxt);
         </script>
       </div>
 
-      <div class="block border-2 border-black max-w-64 mx-auto w-3/5" id="party-recommendations">
+      <div class="block border-2 border-black w-72 mx-auto" id="party-recommendations">
       </div>
 
       <div class="border-4 border-black w-14 h-8 mx-auto relative">
