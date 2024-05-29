@@ -129,7 +129,7 @@ function writeBlurb(voteInfo, lang) {
     addInnerHTML(blurbContent, `<h2 class="font-semibold hyphens-auto" lang="${lang}">${getLongTitle(voteInfo, lang)}</h2>`);
     addInnerHTML(blurbContent, voteInfo["date"]);
     addInnerHTML(blurbContent, '<br/><br/>');
-    addInnerHTML(blurbContent, '<h3 class="font-semibold">' + theme[lang]);
+    addInnerHTML(blurbContent, `<h3 class="font-semibold hyphens-auto" lang="${lang}">${theme[lang]}`);
     for (const themeName of getTheme(voteInfo, lang))
         if (themeName) addInnerHTML(blurbContent, `<br/>&gt; ${themeName}`);
     addInnerHTML(blurbContent, "</h3>\n<br/>");
