@@ -14,73 +14,32 @@ const paramsUrl = window.location.search;
 const urlParams = new URLSearchParams(paramsUrl);
 const pageNumberX = urlParams.get("pageNumberX") || 0;
 const pageNumberY = urlParams.get("pageNumberY") || 0;
-const lang = urlParams.get("lang") || "en";
+const validLanguages = ["en", "fr", "de"];
+const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lang") : "en";
 const themeIds = themesOfPage(pageNumberX);
-
-(async () => {
-    const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
-    const votes2show = getVotesInThemes(votesInfo, themeIds, pageNumberY);
-
-    for (const theme of votes2show) {
-        console.log(theme.length);
-
-        for (const vote of theme) {
-          if (vote != null) {
-            const id = vote["id"];
-            const color = (vote["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
-            const title = vote["titre_court_en"];
-            const date = vote["date"];
-            document.getElementById("grid-votes").innerHTML += `<a href="results.html?refId=${id}" class="border-2 border-black ${color} text-center p-2"><div class="text-base text-black font-semibold">${title}</div><p class="text-black text-xs">${date}</p>`;
-          }
-        }
-    }
-
-    if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)-1))
-      document.getElementById("top-arrow").innerHTML = `<a href="index_bytheme.html?pageNumberX=${pageNumberX}&pageNumberY=${(+pageNumberY)-1}"><div class="m-auto bg-green-400 w-full text-center">^</div></a>`;
-
-    if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)+1))
-      document.getElementById("bottom-arrow").innerHTML = `<a href="index_bytheme.html?pageNumberX=${pageNumberX}&pageNumberY=${(+pageNumberY)+1}"><div class="m-auto bg-green-400 w-full text-center">v</div></a>`;
-    
-})(); 
   </script>
 </head>
 <body class="bg-neutral-50">
   <div class="w-5xl p-8 flex flex-row gap-12">
+    <!-- Language selection -->
+    <nav class="absolute top-0 right-0 px-2">
+      <script>
+        for (const langChoice of validLanguages) {
+          const styleCurrent = (langChoice == lang) ? 'style="background-color: #da291c; color: white;' : "";
+          document.write(`<a class="p-1" ${styleCurrent} href="index_bytheme.html?lang=${langChoice}">${langChoice.toUpperCase()}</a>`);
+        }
+      </script>
+    </nav>
+
     <!-- Left navigation bar with important referenda -->
     <nav class="block mx-auto space-y-5 pl-3 flex-none basis-1/4 h-full">
-      <div class="block max-w-64 py-3 text-3xl font-semibold text-black border-4 border-black rounded-full text-center">
-        Notable votes
+      <div class="block w-72 py-3 text-3xl font-semibold text-black border-4 border-black rounded-full text-center">
+        <script>
+          document.write({"en": "Notable votes", "fr": "Votations notables", "de": "Bemerkenswerte Abstimmungen"}[lang]);
+        </script>
       </div>
 
-      <div class="block border-2 border-black max-w-64">
-        <a href="results.html" class="py-2 block border-2 border-black bg-green-400 text-center">
-          <div class="text-2xl text-black">
-            AVS 13th month
-          </div>
-          <p class="text-black text-xs">2024</p>
-        </a>
-
-        <a href="results.html" class="py-2 block border-2 border-black bg-red-400 text-center">
-          <div class="text-2xl text-black">
-            "99% Initiative"
-          </div>
-          <p class="text-black text-xs">2021</p>
-        </a>
-
-        <a href="results.html" class="py-2 block border-2 border-black bg-green-400 text-center">
-          <div class="text-2xl text-black">
-            Marriage for all
-          </div>
-          <p class="text-black text-xs">2021</p>
-        </a>
-
-        <a href="results.html" class="py-2 block border-2 border-black bg-red-400 text-center">
-          <div class="text-2xl text-black">
-            Cow horns
-          </div>
-          <p class="text-black text-xs">2018</p>
-        </a>
-      </div>
+      <div class="block border-2 border-black w-72" id="notable-votes"></div>
     </nav>
     
     <!-- Central block with search bar and information window -->
@@ -97,7 +56,10 @@ const themeIds = themesOfPage(pageNumberX);
           <span class="absolute inset-y-0 right-0 flex items-center pr-3">
             <img class="h-7 w-7" src="resources/sparkles.svg" alt="I'm feeling lucky" />
           </span>
-          <input class="placeholder:text-slate-400 h-12 text-xl block bg-white font-semibold w-full border-4 border-black rounded-full py-2 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-xl" placeholder="Search for a referendum" type="text" name="search"/>
+          <script>
+            const searchForRef = {"en": "Search for a vote", "fr": "Chercher une votation", "de": "eine Abstimmung suchen"}[lang];
+            document.write(`<input class="placeholder:text-slate-400 h-12 text-xl block bg-white font-semibold w-full border-4 border-black rounded-full py-2 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-xl" placeholder="${searchForRef}" type="text" name="search"/>`);
+          </script>
         </label>
         
         <div class="flex-1"></div>
@@ -141,6 +103,44 @@ const themeIds = themesOfPage(pageNumberX);
   </div>
 
   <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="resources/filter-select.js"></script>
+  <script>
+    (() => {
+  const selector = document.querySelector('.js-filter-select');
+  selector.addEventListener('change', () => {
+    document.location = selector.value === 'year' ? `index.html?lang=${lang}` : `index_bytheme.html?lang=${lang}`;
+  });
+})();
+
+(async () => {
+    const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
+    const votes2show = getVotesInThemes(votesInfo, themeIds, pageNumberY);
+
+    for (const theme of votes2show) {
+        console.log(theme.length);
+
+        for (const vote of theme) {
+          if (vote != null) {
+            const id = vote["id"];
+            const color = (vote["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
+            const title = vote["titre_court_en"];
+            const date = vote["date"];
+            document.getElementById("grid-votes").innerHTML += `<a href="results.html?refId=${id}" class="border-2 border-black ${color} text-center p-2"><div class="text-base text-black font-semibold">${title}</div><p class="text-black text-xs">${date}</p>`;
+          }
+        }
+    }
+
+    if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)-1))
+      document.getElementById("top-arrow").innerHTML = `<a href="index_bytheme.html?pageNumberX=${pageNumberX}&pageNumberY=${(+pageNumberY)-1}"><div class="m-auto bg-green-400 w-full text-center">^</div></a>`;
+
+    if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)+1))
+      document.getElementById("bottom-arrow").innerHTML = `<a href="index_bytheme.html?pageNumberX=${pageNumberX}&pageNumberY=${(+pageNumberY)+1}"><div class="m-auto bg-green-400 w-full text-center">v</div></a>`;
+    
+    //show notable votes
+    const notableVoteIds = [665, 647, 646, 660, 474, 552.1, 623, 306];
+    for (const id of notableVoteIds) {
+      document.getElementById("notable-votes").innerHTML += showVote(votesInfo[id], lang);
+    }
+})(); 
+  </script>
 </body>
 </html>
