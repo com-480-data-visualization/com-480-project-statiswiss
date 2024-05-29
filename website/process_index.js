@@ -28,23 +28,21 @@ function addInnerHTML(thing, content) {
     cumulativeHTML[thing] += content + "\n";
 }
 
-function generateBlocYear(votesInfo) {
+function generateBlocYear(votesInfo, lang) {
     const groupByYear = groupVotesByYear(votesInfo);
     const years = [];
     for (const year in groupByYear) years.push(year);
     years.sort();
     years.reverse();
-    console.log(years)
-    console.log(groupByYear[2023][0])
 
     const listRefs = document.getElementById("list_refs");
 
     function showRef(listRefs, entry) {
         const color = (entry["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
-        addInnerHTML(listRefs, `  <a href="results.html?refId=${entry["id"]}">`);
+        addInnerHTML(listRefs, `  <a href="results.html?refId=${entry["id"]}&lang=${lang}">`);
         addInnerHTML(listRefs, `    <div class="py-2 border-2 border-black text-center ${color}">`);
-        addInnerHTML(listRefs, `      <div class="text-2xl text-black">${entry["titre_court_en"]}</div>`);
-        addInnerHTML(listRefs, `      <p class="text-black text-xs">${themes["en"][entry["d1e1"]]}</p>`);
+        addInnerHTML(listRefs, `      <div class="text-2xl text-black">${entry["titre_court_"+lang]}</div>`);
+        addInnerHTML(listRefs, `      <p class="text-black text-xs">${themes[lang][entry["d1e1"]]}</p>`);
         addInnerHTML(listRefs, "    </div>");
         addInnerHTML(listRefs, `  </a>`);
     }
