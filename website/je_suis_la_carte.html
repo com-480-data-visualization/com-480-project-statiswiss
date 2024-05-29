@@ -83,7 +83,7 @@
       /* 'Jura', */ 'ju',
     ]
 
-    const ID = '647';
+    const ID = '665';
 
     const width = 1980;
     const height = 1280;
@@ -127,14 +127,18 @@
       const [
         cantons,
         country,
+        results,
         cantonNames,
         municipalitiesNames,
       ] = await Promise.all([
         loadJson("topo/ch-cantons.json"),
         loadJson("topo/ch-country.json"),
+        loadJson(`resources/results/${ID}.json`),
         loadNames("resources/names/canton.csv"),
         loadNames("resources/names/communes.csv"),
       ]);
+
+      const color = d3.scaleSequential(d3.extent(Object.values(results).map(v => v.per)), d3.interpolatePurples);
 
       const path = d3.geoPath().projection(
         d3.geoIdentity()
@@ -146,7 +150,13 @@
         .enter()
         .append("path")
         .attr("d", path)
-        .attr("fill", "steelblue")
+        .attr("fill", ({id}) => {
+          const abbr = cantonAbbrs[id - 1];
+
+          const res = results[abbr];
+          if (!res) return 'red';
+          return color(res.per);
+        })
         .attr("stroke", "white")
         .attr("stroke-width", .5)
         .attr("class", () => "canton")
@@ -154,7 +164,7 @@
           d3.selectAll(".canton")
             .transition()
             .duration(150)
-            .style("opacity", .5)
+            .style("opacity", .2)
           d3.select(this)
             .transition()
             .duration(150)
@@ -164,9 +174,7 @@
 
           const abbr = cantonAbbrs[id - 1];
 
-          tooltip.html(`
-            <h3>${cantonNames.get(id)}</h3>
-          `);
+          tooltip.html(`${cantonNames.get(id)}`);
         })
         .on("mouseleave", function () {
           d3.selectAll(".canton")
