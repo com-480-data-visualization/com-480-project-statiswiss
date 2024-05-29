@@ -22,7 +22,8 @@ const nameFromAcronym = {
     "sps": "Parti socialiste suisse",
     "svp": "Union Démocratique du Centre",
     "ucsp": "Parti chrétien social",
-    "poch": "Organisations progressistes de Suisse"
+    "poch": "Organisations progressistes de Suisse",
+    "übrige": "Autres"
 };
 const colorFromAcronym = {
     "bdp": "#FEFE00",
@@ -44,7 +45,8 @@ const colorFromAcronym = {
     "sps": "#FA1360",
     "svp": "#008B3C",
     "ucsp": "#00A8B0",
-    "poch": "#f43e6b"
+    "poch": "#f43e6b",
+    "übrige": "#C0C0C0"
 };
 
 const themes = {
@@ -98,13 +100,15 @@ function generateBlocPartyRecomm(voteInfo, lang) {
     document.getElementById(partyRecommBloc).innerHTML = cumulativeHTML[partyRecommBloc];
 }
 
-function localResultsCanton(federalElectionRes, legislature, cantonCode) {
-    const legisData = federalElectionRes[legislature];
+function localResultsCanton(infoFederalElection, cantonCode) {
     const ret = [];
-
-    for (const partyInfo of legisData) {
-        ret.push({x: nameFromAcronym[partyInfo["party_acronym"]], y: partyInfo["percent_cantons"][cantonCode], fillColor: colorFromAcronym[partyInfo["party_acronym"]]});
+    for (const partyInfo of infoFederalElection) {
+        const partyAcronym = partyInfo["partei_bezeichnung_de"];
+        const percentage = partyInfo["partei_staerke"][cantonCode];
+        if (partyAcronym in nameFromAcronym && percentage >= 5) ret.push({x: nameFromAcronym[partyAcronym], y: percentage, fillColor: colorFromAcronym[partyAcronym]});
     }
+
+    ret.sort((a, b) => b["y"]-a["y"]);
 
     return ret;
 }
@@ -140,11 +144,11 @@ function writeBlurb(voteInfo, lang) {
 
 function writeResultsFederal(voteInfo, lang) {
     const globalResult = "global-result";
-    const yes = (voteInfo["forme"] != 5) ? {"en": "Yes", "fr": "Oui", "de": "Ja"} : {"en": "Popular Initiative", "fr": "Initiative populaire", "de": "Volksinitiative"};
-    const no = (voteInfo["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"};
+    const yes = ((voteInfo["forme"] != 5) ? {"en": "Yes", "fr": "Oui", "de": "Ja"} : {"en": "Popular Initiative", "fr": "Initiative populaire", "de": "Volksinitiative"})[lang];
+    const no = ((voteInfo["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
 
     //passed or not
-    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${(voteInfo["annahme"] == 1) ? "text-green-400" : "text-red-400"} pr-2">${(voteInfo["annahme"] == 1) ? yes[lang] : no[lang]}</div>`);
+    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${(voteInfo["annahme"] == 1) ? "text-green-400" : "text-red-400"} pr-2">${(voteInfo["annahme"] == 1) ? yes : no}</div>`);
     
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
@@ -167,6 +171,24 @@ function writeResultsFederal(voteInfo, lang) {
     }
 
     document.getElementById(globalResult).innerHTML = cumulativeHTML[globalResult];
+}
+
+function writeResultsCanton(voteInfo, infoVotesCanton, lang) {
+    const cantonResult = "canton-result";
+    const yes = ((voteInfo["forme"] != 5) ? {"en": "Yes", "fr": "Oui", "de": "Ja"} : {"en": "Popular Initiative", "fr": "Initiative populaire", "de": "Volksinitiative"})[lang];
+    const no = ((voteInfo["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
+
+    //passed or not
+    addInnerHTML(cantonResult, `<div class="text-3xl font-bold ${(infoVotesCanton["per"] >= 50) ? "text-green-400" : "text-red-400"} pr-2">${(infoVotesCanton["per"] >= 50) ? yes : no}</div>`);
+    
+    //popular vote
+    addInnerHTML(cantonResult, '<div class="flex flex-row">');
+    addInnerHTML(cantonResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${infoVotesCanton["per"].toFixed(1)}%</div>`);
+    addInnerHTML(cantonResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-400 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${infoVotesCanton["per"]}%;"></div></div>`);
+    addInnerHTML(cantonResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${(100-infoVotesCanton["per"]).toFixed(1)}%</div>`);
+    addInnerHTML(cantonResult, "</div>");
+
+    document.getElementById(cantonResult).innerHTML = cumulativeHTML[cantonResult];
 }
 
 function cantonsHalfCantons(voteInfo) {
