@@ -40,7 +40,7 @@ function generateBlocYear(votesInfo) {
     const listRefs = document.getElementById("list_refs");
 
     function showRef(listRefs, entry) {
-        const color = entry["annahme"] ? "bg-green-400" : "bg-red-400";
+        const color = (entry["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
         addInnerHTML(listRefs, `  <a href="results.html?refId=${entry["id"]}">`);
         addInnerHTML(listRefs, `    <div class="py-2 border border-2 border-black text-center ${color}">`);
         addInnerHTML(listRefs, `      <div class="text-2xl text-black">${entry["titre_court_en"]}</div>`);
