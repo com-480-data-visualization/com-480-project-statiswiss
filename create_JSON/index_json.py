@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 with open("swiss_data_vote_8.csv", "r", encoding="utf-8-sig") as f:
-    df = pd.read_csv(f, index_col='id', dtype={'id': str})
+    df = pd.read_csv(f, delimiter=",", index_col='id', dtype={'id': str})
 df = df.replace(".", float("nan"))
 for col in df.columns:    
     try:
