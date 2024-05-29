@@ -138,7 +138,7 @@
         loadNames("resources/names/communes.csv"),
       ]);
 
-      const color = d3.scaleSequential(d3.extent(Object.values(results).map(v => v.per)), d3.interpolatePurples);
+      const color = (per) => (per < 50) ? d3.scaleSequential([0, 50], d3.interpolateReds)(50 - per) : d3.scaleSequential([50, 100], d3.interpolateGreens)(per);
 
       const path = d3.geoPath().projection(
         d3.geoIdentity()
@@ -157,8 +157,8 @@
           if (!res) return 'red';
           return color(res.per);
         })
-        .attr("stroke", "white")
-        .attr("stroke-width", .5)
+        .attr("stroke", "#989898")
+        .attr("stroke-width", 1)
         .attr("class", () => "canton")
         .on("mouseover", function (_, d) {
           d3.selectAll(".canton")
