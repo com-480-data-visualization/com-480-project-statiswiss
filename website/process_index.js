@@ -42,7 +42,7 @@ function generateBlocYear(votesInfo) {
     function showRef(listRefs, entry) {
         const color = (entry["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
         addInnerHTML(listRefs, `  <a href="results.html?refId=${entry["id"]}">`);
-        addInnerHTML(listRefs, `    <div class="py-2 border border-2 border-black text-center ${color}">`);
+        addInnerHTML(listRefs, `    <div class="py-2 border-2 border-black text-center ${color}">`);
         addInnerHTML(listRefs, `      <div class="text-2xl text-black">${entry["titre_court_en"]}</div>`);
         addInnerHTML(listRefs, `      <p class="text-black text-xs">${themes["en"][entry["d1e1"]]}</p>`);
         addInnerHTML(listRefs, "    </div>");
@@ -51,8 +51,8 @@ function generateBlocYear(votesInfo) {
 
     for (const year of years) {
         addInnerHTML(listRefs, '<div class="flex flex-row border-4 border-black">');
-        addInnerHTML(listRefs, '  <div class="flex-none basis-1/12 place-content-center -rotate-90 py-auto text-center font-bold text-3xl">' + year + '</div>');
-        addInnerHTML(listRefs, `  <div class="flex-initial basis-11/12 grid grid-cols-1 border-l-4 border-black" style="grid-template-rows: repeat(${groupByYear[year].length}, minmax(0, 1fr));">`);
+        addInnerHTML(listRefs, '  <div class="flex-none basis-1/12 py-auto text-center font-bold text-3xl flex items-center justify-center"><span class="-rotate-90">' + year + '</span></div>');
+        addInnerHTML(listRefs, `  <div class="flex-initial basis-11/12 border-l-4 border-black">`);
         for (const i in groupByYear[year]) showRef(listRefs, groupByYear[year][i]);
         addInnerHTML(listRefs, '  </div>');
         addInnerHTML(listRefs, '</div>');
