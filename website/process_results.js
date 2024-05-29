@@ -141,9 +141,9 @@ function writeResultsFederal(voteInfo, lang) {
     
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
-    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["ja-lager"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["volkja-proz"].toFixed(1)}%</div>`);
     addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${voteInfo['ja-lager']}%;"></div></div>`);
-    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${voteInfo["nein-lager"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${(100-voteInfo["volkja-proz"]).toFixed(1)}%</div>`);
     addInnerHTML(globalResult, "</div>");
 
     //cantons
