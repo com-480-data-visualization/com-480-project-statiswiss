@@ -65,9 +65,12 @@ const themeIds = themesOfPage(pageNumberX);
         <div class="flex-1"></div>
 
         <select class="bg-white w-36 border-4 border-black rounded-2xl text-center font-semibold text-xl js-filter-select">
-          <option disabled>Sort by</option>
-          <option value="year">By year</option>
-          <option value="theme" selected>By theme</option>
+          <script>
+            const sortBy = {"en": "Sort by", "fr": "Tri par", "de": "Sortieren nach"}[lang];
+            const byYear = {"en": "By year", "fr": "Par année", "de": "Nach Jahr"}[lang];
+            const byTheme = {"en": "By theme", "fr": "Par thème", "de": "Nach Bereich"}[lang];
+            document.write(`<option disabled>${sortBy}</option><option value="year" selected>${byYear}</option><option value="theme">${byTheme}</option>`);
+          </script>
         </select>
       </div>
 
