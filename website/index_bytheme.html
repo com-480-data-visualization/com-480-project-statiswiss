@@ -28,7 +28,7 @@ const themeIds = themesOfPage(pageNumberX);
           if (vote != null) {
             const id = vote["id"];
             const color = (vote["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
-            const title = vote["titre_court_fr"];
+            const title = vote["titre_court_en"];
             const date = vote["date"];
             document.getElementById("grid-votes").innerHTML += `<a href="results.html?refId=${id}" class="border-2 border-black ${color} text-center p-2"><div class="text-base text-black font-semibold">${title}</div><p class="text-black text-xs">${date}</p>`;
           }

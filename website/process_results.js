@@ -63,9 +63,14 @@ function addInnerHTML(thing, content) {
     cumulativeHTML[thing] += content + "\n";
 }
 
-function generateBlocPartyRecomm(voteInfo) {
+function generateBlocPartyRecomm(voteInfo, lang) {
     //voteInfo must be a dictionary with keys "p-partyAcronym"
     const recom2color = {1: "bg-green-400", 2: "bg-red-400", 4: "bg-white", 5: "bg-slate-300", 8: "bg-red-400", 9: "bg-green-400", 66: "bg-white"};
+    const recom2label = {
+        "en": {1: "Yes", 2: "No", 3: "No recommendation", 4: "None of the above", 5: "'Vote as you wish'", 8: "For the Counterproject", 9: "For the Popular Initiative", 66: "Neutral"},
+        "fr": {1: "Oui", 2: "Non", 3: "Sans recommendation", 4: "Vote blanc", 5: "Liberté de vote", 8: "Recommandation en faveur du contre-projet", 9: "Recommandation en faveur de l'initiative populaire", 66: "Neutralité"},
+        "de": {1: "Ja", 2: "Nein", 3: "Keine Parole", 4: "leer Stimmzettel", 5: "Stimmfrei", 8: "Parole auf Bevorzugung des Gegenentwurfs", 9: "Parole auf Bevorzugung der Volksinitiative", 66: "Neutral"}
+};
     // 1 = oui; 2 = non; 3 = sans recomendation; 4 = vote blanc; 5 = abstention
     // 8 = Recommandation en faveur du contre-projet ; 9 = Recommandation en faveur de l'initiative populaire; 66 = Neutralité : aucune recommandation ou avis, vote blanc ou abstention (utilisé uniquement pour les votes de 1848 à 1969); 999 = le parti n’existait pas à l’époque; . = inconnu
 
@@ -83,7 +88,7 @@ function generateBlocPartyRecomm(voteInfo) {
         if (partyAcronym in extensionFromParty) {
             const partyRecommendation = voteInfo["p-"+partyAcronym];
             if (partyRecommendation in recom2color) {
-                addInnerHTML(partyRecommBloc, `<div class="py-1 border border-2 border-black ${recom2color[partyRecommendation]}" title="${nameFromAcronym[partyAcronym]}">
+                addInnerHTML(partyRecommBloc, `<div class="py-1 border border-2 border-black ${recom2color[partyRecommendation]}" title="${nameFromAcronym[partyAcronym]} (${recom2label[lang][partyRecommendation]})">
 <img src="resources/party_logos/${partyAcronym}.${extensionFromParty[partyAcronym]}" class="m-auto h-12" />
 </div>`);
             }
@@ -114,15 +119,17 @@ function getLongTitle(voteInfo, lang) {
 
 function writeBlurb(voteInfo, lang) {
     const blurbContent = "blurb-content";
+    const theme = {"en": "Theme:", "fr": "Thème :", "de": "Politikbereich:"};
+    const brochure = {"en": "Brochure", "fr": "Brochure", "de": "Broschüre"};
 
     addInnerHTML(blurbContent, `<h2 class="font-semibold">${getLongTitle(voteInfo, lang)}</h2>`);
     addInnerHTML(blurbContent, voteInfo["date"]);
     addInnerHTML(blurbContent, '<br/><br/>');
-    addInnerHTML(blurbContent, '<h3 class="font-semibold">Theme:');
+    addInnerHTML(blurbContent, '<h3 class="font-semibold">' + theme[lang]);
     for (const themeName of getTheme(voteInfo, lang))
         if (themeName) addInnerHTML(blurbContent, `<br/>&gt; ${themeName}`);
     addInnerHTML(blurbContent, "</h3>\n<br/>");
-    addInnerHTML(blurbContent, `<a href="${voteInfo["swissvoteslink"]}/brochure-fr.pdf" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Brochure</div></a>`);
+    addInnerHTML(blurbContent, `<a href="${voteInfo["swissvoteslink"]}/brochure-${(['fr', 'de'].includes(lang)) ? lang : 'fr'}.pdf" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">${brochure[lang]}</div></a>`);
     if (voteInfo["easyvideo_fr"])
         addInnerHTML(blurbContent, `<br/>\n<a href="${voteInfo["easyvideo_fr"]}" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">Explanation video (fr)</div></a>`);
     if (voteInfo["easyvideo_de"])
@@ -133,26 +140,39 @@ function writeBlurb(voteInfo, lang) {
 
 function writeResultsFederal(voteInfo, lang) {
     const globalResult = "global-result";
-    const yes = {"en": "Yes", "fr": "Oui", "de": "Ja"};
-    const no = {"en": "No", "en": "Non", "de": "Nein"};
+    const yes = (voteInfo["forme"] != 5) ? {"en": "Yes", "fr": "Oui", "de": "Ja"} : {"en": "Popular Initiative", "fr": "Initiative populaire", "de": "Volksinitiative"};
+    const no = (voteInfo["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"};
 
     //passed or not
     addInnerHTML(globalResult, `<div class="text-3xl font-bold ${(voteInfo["annahme"] == 1) ? "text-green-400" : "text-red-400"} pr-2">${(voteInfo["annahme"] == 1) ? yes[lang] : no[lang]}</div>`);
     
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
-    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["ja-lager"].toFixed(1)}%</div>`);
-    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${voteInfo['ja-lager']}%;"></div></div>`);
-    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${voteInfo["nein-lager"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["volkja-proz"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-400 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${voteInfo['volkja-proz']}%;"></div></div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${(100-voteInfo["volkja-proz"]).toFixed(1)}%</div>`);
     addInnerHTML(globalResult, "</div>");
 
     //cantons
-    addInnerHTML(globalResult, '<div class="text-2xl font-semibold text-black">Cantons:</div>');
-    addInnerHTML(globalResult, '<div class="flex flex-row">');
-    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["kt-ja"]}</div>`);
-    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid border-4 border-black rounded-full h-10 bg-red-400"><div class="bg-green-400 h-8 rounded-l-full" style="width: ${(100 * voteInfo["kt-ja"]) / 23}%;"></div></div>`);
-    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${voteInfo["kt-nein"]}</div>`);
-    addInnerHTML(globalResult, '</div>');
+    if (voteInfo["forme"] != 5) { // does not apply to tie-breaker questions
+        cantonsHalfYes = cantonsHalfCantons(voteInfo);
+        const cantonsTxt = {"en": "Cantons:", "fr": "Cantons :", "de": "Kantone:"}[lang];
+
+        addInnerHTML(globalResult, `<div class="text-2xl font-semibold text-black">${cantonsTxt}</div>`);
+        addInnerHTML(globalResult, '<div class="flex flex-row">');
+        addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
+        addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-400 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${(100 * voteInfo["kt-ja"]) / 23}%;"></div></div>`);
+        addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${20-cantonsHalfYes[0]} ${6-cantonsHalfYes[1]}/2</div>`);
+        addInnerHTML(globalResult, '</div>');
+    }
 
     document.getElementById(globalResult).innerHTML = cumulativeHTML[globalResult];
+}
+
+function cantonsHalfCantons(voteInfo) {
+    const resJa = [0, 0];
+    for (const cantonCode of cantons) resJa[0] += (voteInfo["forme"] != 5) ? voteInfo[cantonCode+"-annahme"] : (voteInfo[cantonCode+"-annahme"] == 9);
+    for (const cantonCode of halfCantons) resJa[1] += (voteInfo["forme"] != 5) ? voteInfo[cantonCode+"-annahme"] : (voteInfo[cantonCode+"-annahme"] == 9);
+
+    return resJa;
 }

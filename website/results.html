@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,352 +14,34 @@
 const paramsUrl = window.location.search;
 const urlParams = new URLSearchParams(paramsUrl);
 const refId = urlParams.get("refId");
+const validLanguages = ["en", "fr", "de"];
+const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lang") : "en";
 
 if (!refId) {
   const url2 = window.location.href;
   window.location.href = url2.substring(0, url2.lastIndexOf("/")) + "/index.html";
   //redirection if the refId is invalid
 }
-
-const voteInfo = {
-    "id": 305,
-    "date": "05.04.1981",
-    "titre_court_de": "Initiative «für eine neue Ausländerpolitik»",
-    "titre_court_fr": "Initiative «pour une nouvelle politique à l'égard des étrangers»",
-    "titre_court_en": "",
-    "titre_complet_de": "Volksinitiative «Mitenand-Initiative für eine neue Ausländerpolitik»",
-    "titre_complet_fr": "Initiative populaire «être solidaires en faveur d'une nouvelle politique à l'égard des étrangers»",
-    "mot_cle": ".",
-    "swissvoteslink": "https://swissvotes.ch/vote/305.00",
-    "forme": 3,
-    "d1e1": "10",
-    "d1e2": "10.3",
-    "d1e3": "10.31",
-    "d2e1": "4",
-    "d2e2": "4.2",
-    "d2e3": "4.24",
-    "d3e1": ".",
-    "d3e2": ".",
-    "d3e3": ".",
-    "cf-pos": 2,
-    "legislature": 41,
-    "annee_legislatur": "1979-1983",
-    "info_br-de": "",
-    "info_br-fr": "",
-    "info_br-en": "",
-    "info_amt-de": "",
-    "info_amt-fr": "",
-    "info_amt-en": "",
-    "easyvideo_de": ".",
-    "easyvideo_fr": ".",
-    "p-fdp": 2,
-    "p-sps": 1,
-    "p-svp": 2,
-    "p-mitte": 9999,
-    "p-evp": 2,
-    "p-gps": ".",
-    "p-glp": 9999,
-    "p-pda": 1,
-    "p-sd": 2,
-    "p-edu": ".",
-    "p-fps": 9999,
-    "p-lega": 9999,
-    "p-kvp": 9999,
-    "p-mcg": 9999,
-    "p-ucsp": ".",
-    "p-cvp": 2,
-    "p-bdp": 9999,
-    "p-lps": 2,
-    "p-ldu": 1,
-    "p-poch": 1,
-    "p-rep": 2,
-    "p-eco": 2,
-    "p-sgv": 2,
-    "p-sbv": 2,
-    "p-sgb": 5,
-    "p-travs": 1,
-    "p-sav": 2,
-    "p-vsa": 5,
-    "p-vpod": ".",
-    "p-voev": ".",
-    "p-tcs": ".",
-    "p-vcs": ".",
-    "p-acs": ".",
-    "p-sbk": ".",
-    "p-ssv": ".",
-    "p-gem": ".",
-    "p-kdk": ".",
-    "p-kkjpd": ".",
-    "p-gdk": ".",
-    "p-ldk": ".",
-    "p-vdk": ".",
-    "p-sodk": ".",
-    "p-endk": ".",
-    "p-fdk": ".",
-    "p-edk": ".",
-    "p-bpuk": ".",
-    "w-fdp": 24.007237,
-    "w-sps": 24.437714,
-    "w-svp": 11.602974,
-    "w-mitte": ".",
-    "w-evp": 2.222598,
-    "w-gps": 0.63185,
-    "w-glp": ".",
-    "w-csp": ".",
-    "w-pda": 2.083107,
-    "w-sd": 1.323215,
-    "w-edu": 0.252344,
-    "w-fps": ".",
-    "w-lega": ".",
-    "w-kvp": ".",
-    "w-mcg": ".",
-    "w-cvp": 21.289717,
-    "w-bdp": ".",
-    "w-lps": 2.79609,
-    "w-ldu": 4.070659,
-    "w-poch": 1.697997,
-    "w-rep": 0.632088,
-    "w-ubrige": "3,00",
-    "ja-lager": 32.289477,
-    "nein-lager": 63.873919,
-    "keinepar-summe": "0,00",
-    "freigabe-summe": "0,00",
-    "unbekannt-summe": 3.884194,
-    "neutral-summe": ".",
-    "poster_ja_mfg": ".",
-    "poster_nein_mfg": ".",
-    "volk": 0,
-    "stand": 0,
-    "annahme": 0,
-    "berecht": 3947890,
-    "stimmen": 1574500,
-    "bet": 39.882064,
-    "leer": 15524,
-    "volkja": 252531,
-    "volknein": 1304153,
-    "volkja-proz": 16.222368,
-    "kt-ja": 0,
-    "kt-nein": 23,
-    "ktjaproz": "0,00",
-    "zh-berecht": 701539,
-    "zh-stimmen": 300691,
-    "zh-bet": 42.861622803579,
-    "zh-gultig": 297131,
-    "zh-ja": 46445,
-    "zh-nein": 250686,
-    "zh-japroz": 15.631152589262,
-    "zh-annahme": 0,
-    "be-berecht": 609128,
-    "be-stimmen": 201964,
-    "be-bet": 33.1562495895772,
-    "be-gultig": 200333,
-    "be-ja": 27327,
-    "be-nein": 173006,
-    "be-japroz": 13.6407880878338,
-    "be-annahme": 0,
-    "lu-berecht": 185920,
-    "lu-stimmen": 78829,
-    "lu-bet": 42.3994191049914,
-    "lu-gultig": 78238,
-    "lu-ja": 9969,
-    "lu-nein": 68269,
-    "lu-japroz": 12.7418901301158,
-    "lu-annahme": 0,
-    "ur-berecht": 21801,
-    "ur-stimmen": 10348,
-    "ur-bet": 47.4657125819917,
-    "ur-gultig": 10156,
-    "ur-ja": 1029,
-    "ur-nein": 9127,
-    "ur-japroz": 10.1319417093344,
-    "ur-annahme": 0,
-    "sz-berecht": 59882,
-    "sz-stimmen": 22885,
-    "sz-bet": 38.2168264253031,
-    "sz-gultig": 22780,
-    "sz-ja": 2522,
-    "sz-nein": 20258,
-    "sz-japroz": 11.0711150131694,
-    "sz-annahme": 0,
-    "ow-berecht": 16395,
-    "ow-stimmen": 6240,
-    "ow-bet": 38.060384263495,
-    "ow-gultig": 6191,
-    "ow-ja": 535,
-    "ow-nein": 5656,
-    "ow-japroz": 8.64157648198999,
-    "ow-annahme": 0,
-    "nw-berecht": 19103,
-    "nw-stimmen": 8159,
-    "nw-bet": 42.7105690205727,
-    "nw-gultig": 8088,
-    "nw-ja": 794,
-    "nw-nein": 7294,
-    "nw-japroz": 9.81701285855589,
-    "nw-annahme": 0,
-    "gl-berecht": 22741,
-    "gl-stimmen": 9534,
-    "gl-bet": 41.9242777362473,
-    "gl-gultig": 9487,
-    "gl-ja": 672,
-    "gl-nein": 8815,
-    "gl-japroz": 7.08337725308317,
-    "gl-annahme": 0,
-    "zg-berecht": 45252,
-    "zg-stimmen": 22038,
-    "zg-bet": 48.7006099177937,
-    "zg-gultig": 21903,
-    "zg-ja": 2693,
-    "zg-nein": 19210,
-    "zg-japroz": 12.2951193900379,
-    "zg-annahme": 0,
-    "fr-berecht": 117231,
-    "fr-stimmen": 45397,
-    "fr-bet": 38.7243988364852,
-    "fr-gultig": 45026,
-    "fr-ja": 10902,
-    "fr-nein": 34124,
-    "fr-japroz": 24.2126771198863,
-    "fr-annahme": 0,
-    "so-berecht": 139820,
-    "so-stimmen": 52778,
-    "so-bet": 37.7471034186812,
-    "so-gultig": 51765,
-    "so-ja": 6904,
-    "so-nein": 44861,
-    "so-japroz": 13.3371969477446,
-    "so-annahme": 0,
-    "bs-berecht": 139506,
-    "bs-stimmen": 50980,
-    "bs-bet": 36.5432311155076,
-    "bs-gultig": 50653,
-    "bs-ja": 9528,
-    "bs-nein": 41125,
-    "bs-japroz": 18.8103369987957,
-    "bs-annahme": 0,
-    "bl-berecht": 137622,
-    "bl-stimmen": 53420,
-    "bl-bet": 38.8164682972199,
-    "bl-gultig": 52715,
-    "bl-ja": 9481,
-    "bl-nein": 43234,
-    "bl-japroz": 17.9853931518543,
-    "bl-annahme": 0,
-    "sh-berecht": 43399,
-    "sh-stimmen": 30783,
-    "sh-bet": 70.9302057651098,
-    "sh-gultig": 29363,
-    "sh-ja": 4453,
-    "sh-nein": 24910,
-    "sh-japroz": 15.1653441405851,
-    "sh-annahme": 0,
-    "ar-berecht": 30461,
-    "ar-stimmen": 12072,
-    "ar-bet": 39.6310035783461,
-    "ar-gultig": 11972,
-    "ar-ja": 1257,
-    "ar-nein": 10715,
-    "ar-japroz": 10.4994988306047,
-    "ar-annahme": 0,
-    "ai-berecht": 8388,
-    "ai-stimmen": 3479,
-    "ai-bet": 41.4759179780639,
-    "ai-gultig": 3444,
-    "ai-ja": 244,
-    "ai-nein": 3200,
-    "ai-japroz": 7.08478513356562,
-    "ai-annahme": 0,
-    "sg-berecht": 235352,
-    "sg-stimmen": 84217,
-    "sg-bet": 35.7834222781196,
-    "sg-gultig": 83641,
-    "sg-ja": 8426,
-    "sg-nein": 75215,
-    "sg-japroz": 10.0740067670162,
-    "sg-annahme": 0,
-    "gr-berecht": 103690,
-    "gr-stimmen": 41381,
-    "gr-bet": 39.9083807503134,
-    "gr-gultig": 40905,
-    "gr-ja": 3596,
-    "gr-nein": 37309,
-    "gr-japroz": 8.79110133235546,
-    "gr-annahme": 0,
-    "ag-berecht": 274638,
-    "ag-stimmen": 94972,
-    "ag-bet": 34.5807936265193,
-    "ag-gultig": 94166,
-    "ag-ja": 11071,
-    "ag-nein": 83095,
-    "ag-japroz": 11.7568973939639,
-    "ag-annahme": 0,
-    "tg-berecht": 107973,
-    "tg-stimmen": 46618,
-    "tg-bet": 43.1756087169941,
-    "tg-gultig": 46020,
-    "tg-ja": 4803,
-    "tg-nein": 41217,
-    "tg-japroz": 10.4367666232073,
-    "tg-annahme": 0,
-    "ti-berecht": 153235,
-    "ti-stimmen": 73517,
-    "ti-bet": 47.9766371912422,
-    "ti-gultig": 72397,
-    "ti-ja": 13205,
-    "ti-nein": 59192,
-    "ti-japroz": 18.2397060651684,
-    "ti-annahme": 0,
-    "vd-berecht": 313570,
-    "vd-stimmen": 114966,
-    "vd-bet": 36.6635838887649,
-    "vd-gultig": 113991,
-    "vd-ja": 28201,
-    "vd-nein": 85790,
-    "vd-japroz": 24.7396724302796,
-    "vd-annahme": 0,
-    "vs-berecht": 138660,
-    "vs-stimmen": 63857,
-    "vs-bet": 46.052935237271,
-    "vs-gultig": 63239,
-    "vs-ja": 8193,
-    "vs-nein": 55046,
-    "vs-japroz": 12.9556128338525,
-    "vs-annahme": 0,
-    "ne-berecht": 97381,
-    "ne-stimmen": 49045,
-    "ne-bet": 50.3640340518171,
-    "ne-gultig": 47917,
-    "ne-ja": 14635,
-    "ne-nein": 33282,
-    "ne-japroz": 30.5423962268089,
-    "ne-annahme": 0,
-    "ge-berecht": 184011,
-    "ge-stimmen": 82822,
-    "ge-bet": 45.0092657504171,
-    "ge-gultig": 81843,
-    "ge-ja": 19743,
-    "ge-nein": 62100,
-    "ge-japroz": 24.1230160184744,
-    "ge-annahme": 0,
-    "ju-berecht": 41246,
-    "ju-stimmen": 13508,
-    "ju-bet": 32.7498424089609,
-    "ju-gultig": 13320,
-    "ju-ja": 5903,
-    "ju-nein": 7417,
-    "ju-japroz": 44.3168168168168,
-    "ju-annahme": 0,
-    "bkresults-de": "https://www.bk.admin.ch/ch/d/pore/va/19810405/det305.html",
-    "bkresults-fr": "https://www.bk.admin.ch/ch/f/pore/va/19810405/det305.html"
-  };
   </script>
 </head>
 <body class="bg-neutral-50">
   <div class="grid-cols-2 w-5xl p-8 flex flex-row gap-8">
+    <!-- Lang selection -->
+    <nav class="absolute top-0 right-0 px-2">
+      <script>
+        for (const langChoice of validLanguages) {
+          const styleCurrent = (langChoice == lang) ? 'style="background-color: #da291c; color: white;' : "";
+          document.write(`<a class="p-1" ${styleCurrent} href="results.html?refId=${refId}&lang=${langChoice}">${langChoice.toUpperCase()}</a>`);
+        }
+      </script>
+    </nav>
+
     <!-- Left information bar -->
     <div class="block space-y-5 pl-3 flex-none basis-1/4">
       <div class="block mx-auto max-w-64 py-7 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
-        Blurb
+         <script>
+            document.write({"en": "Blurb", "fr": "Présentation", "de": "Klappentext"}[lang]);
+         </script>
       </div>
 
       <div class="block mx-auto border-4 border-black max-w-64 text-justify py-3 px-2" id="blurb-content">
@@ -369,7 +51,9 @@ const voteInfo = {
     <!-- Central block with the map -->
     <div class="flex-initial basis-1/2 space-y-1 h-screen">
       <header class="flex mx-auto items-center text-4xl font-medium gap-4 justify-center text-center">
-        <a href="index.html">
+        <script>
+         document.write(`<a href="index.html?lang=${lang}">`);
+        </script>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
           </svg>
@@ -1008,7 +692,10 @@ class="w-full"
     <!-- Vote recommendations per party -->
     <div class="block space-y-5 flex-none basis-1/4 w-1/5">
       <div class="block mx-auto max-w-64 py-3 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
-        Party recommendations
+        <script>
+         const partyRecommendationsTxt = {"en": "Party recommendations", "fr": "Recommandations de partis", "de": "Parteiparolen"}[lang];
+         document.write(partyRecommendationsTxt);
+        </script>
       </div>
 
       <div class="block border-2 border-black max-w-64 mx-auto w-3/5" id="party-recommendations">
@@ -1026,14 +713,14 @@ class="w-full"
     const voteInfo = votesInfo[refId];
 
     //write title and blurb
-    document.getElementById("title").innerHTML = voteInfo["titre_court_en"];
-    writeBlurb(voteInfo, "en");
+    document.getElementById("title").innerHTML = voteInfo["titre_court_"+lang];
+    writeBlurb(voteInfo, lang);
 
     //party recommendations
-    generateBlocPartyRecomm(voteInfo);
+    generateBlocPartyRecomm(voteInfo, lang);
 
     //results
-    writeResultsFederal(voteInfo, "en");
+    writeResultsFederal(voteInfo, lang);
 })(); 
 </script>
 </html>

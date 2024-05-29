@@ -28,32 +28,45 @@ function addInnerHTML(thing, content) {
     cumulativeHTML[thing] += content + "\n";
 }
 
-function generateBlocYear(votesInfo) {
+function getVotesByIds(votesInfos, ids) {
+    const ret = [];
+    for (const id of ids) {
+        const vote = votesInfos[id];
+        if (vote) ret.push(vote);
+    }
+
+    return ret;
+}
+
+function showVote(voteInfo, lang) {
+    var ret = "";
+
+    const color = (voteInfo["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
+    ret += `  <a href="results.html?refId=${voteInfo["id"]}&lang=${lang}">`;
+    ret += `    <div class="py-2 border-2 border-black text-center ${color}">`;
+    ret += `      <div class="text-2xl text-black">${voteInfo["titre_court_"+lang]}</div>`;
+    ret += `      <p class="text-black text-xs">${themes[lang][voteInfo["d1e1"]]}</p>`;
+    ret += `    </div>`;
+    ret += `  </a>`;
+    
+    return ret;
+}
+
+function generateBlocYear(votesInfo, lang) {
     const groupByYear = groupVotesByYear(votesInfo);
     const years = [];
     for (const year in groupByYear) years.push(year);
     years.sort();
     years.reverse();
-    console.log(years)
-    console.log(groupByYear[2023][0])
 
     const listRefs = document.getElementById("list_refs");
-
-    function showRef(listRefs, entry) {
-        const color = entry["annahme"] ? "bg-green-400" : "bg-red-400";
-        addInnerHTML(listRefs, `  <a href="results.html?refId=${entry["id"]}">`);
-        addInnerHTML(listRefs, `    <div class="py-2 border-2 border-black text-center ${color}">`);
-        addInnerHTML(listRefs, `      <div class="text-2xl text-black">${entry["titre_court_en"]}</div>`);
-        addInnerHTML(listRefs, `      <p class="text-black text-xs">${themes["en"][entry["d1e1"]]}</p>`);
-        addInnerHTML(listRefs, "    </div>");
-        addInnerHTML(listRefs, `  </a>`);
-    }
 
     for (const year of years) {
         addInnerHTML(listRefs, '<div class="flex flex-row border-4 border-black">');
         addInnerHTML(listRefs, '  <div class="flex-none basis-1/12 py-auto text-center font-bold text-3xl flex items-center justify-center"><span class="-rotate-90">' + year + '</span></div>');
         addInnerHTML(listRefs, `  <div class="flex-initial basis-11/12 border-l-4 border-black">`);
-        for (const i in groupByYear[year]) showRef(listRefs, groupByYear[year][i]);
+        for (const i in groupByYear[year])
+            addInnerHTML(listRefs, showVote(groupByYear[year][i], lang));
         addInnerHTML(listRefs, '  </div>');
         addInnerHTML(listRefs, '</div>');
     }
