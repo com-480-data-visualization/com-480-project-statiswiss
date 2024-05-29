@@ -54,6 +54,37 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 
   <script>
+    const cantonAbbrs = [
+      /* 'Zürich', */ 'zh',
+      /* 'Bern / Berne', */ 'be',
+      /* 'Luzern', */ 'lu',
+      /* 'Uri', */ 'ur',
+      /* 'Schwyz', */ 'sz',
+      /* 'Obwalden', */ 'ow',
+      /* 'Nidwalden', */ 'nw',
+      /* 'Glarus', */ 'gl',
+      /* 'Zug', */ 'zg',
+      /* 'Fribourg / Freiburg', */ 'fr',
+      /* 'Solothurn', */ 'so',
+      /* 'Basel-Stadt', */ 'bs',
+      /* 'Basel-Landschaft', */ 'bl',
+      /* 'Schaffhausen', */ 'sh',
+      /* 'Appenzell Ausserrhoden', */ 'ar',
+      /* 'Appenzell Innerrhoden', */ 'ai',
+      /* 'St. Gallen', */ 'sg',
+      /* 'Graubünden / Grigioni / Grischun', */ 'gr',
+      /* 'Aargau', */ 'ag',
+      /* 'Thurgau', */ 'tg',
+      /* 'Ticino', */ 'ti',
+      /* 'Vaud', */ 'vd',
+      /* 'Valais / Wallis', */ 'vs',
+      /* 'Neuchâtel', */ 'ne',
+      /* 'Genève', */ 'ge',
+      /* 'Jura', */ 'ju',
+    ]
+
+    const ID = '647';
+
     const width = 1980;
     const height = 1280;
 
@@ -80,9 +111,30 @@
         .style("top", `${event.sourceEvent.clientY - mapPos.top}px`)
     }
 
+    function loadJson(file) {
+      return fetch(file).then(response => response.json());
+    }
+
+    async function loadNames(file) {
+      const data = await fetch(file).then(response => response.text());
+      return new Map(data.split('\n').slice(1).map(x => {
+        const [id, name] = x.split(',');
+        return [parseInt(id, 10), name];
+      }))
+    }
+
     (async () => {
-      const cantons = await (await fetch("topo/ch-cantons.json")).json();
-      const country = await (await fetch("topo/ch-country.json")).json();
+      const [
+        cantons,
+        country,
+        cantonNames,
+        municipalitiesNames,
+      ] = await Promise.all([
+        loadJson("topo/ch-cantons.json"),
+        loadJson("topo/ch-country.json"),
+        loadNames("resources/names/canton.csv"),
+        loadNames("resources/names/communes.csv"),
+      ]);
 
       const path = d3.geoPath().projection(
         d3.geoIdentity()
@@ -108,9 +160,13 @@
             .duration(150)
             .style("opacity", 1)
           tooltip.transition().duration(200).style('opacity', 1);
-          const {id} = d;
-          console.log(id);
-          tooltip.html(id);
+          const { id } = d;
+
+          const abbr = cantonAbbrs[id - 1];
+
+          tooltip.html(`
+            <h3>${cantonNames.get(id)}</h3>
+          `);
         })
         .on("mouseleave", function () {
           d3.selectAll(".canton")
