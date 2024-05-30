@@ -34,7 +34,7 @@ If you want to run Statiswiss locally, :
 
 ## Previous Milestones:
 Previous Milestones can be found here: 
-[**📄 Previous Readme**](previous_Milestones/previous_milestones_readme.md)
+[**📄 Previous Milesontes**](previous_Milestones/previous_milestones_readme.md)
 
 
 
