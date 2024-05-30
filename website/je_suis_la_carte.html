@@ -91,6 +91,10 @@
       opacity: 1;
       pointer-events: all;
     }
+
+    .tick text {
+      font-size: 250%;
+    }
   </style>
 </head>
 
@@ -110,6 +114,7 @@
   </div>
 
   <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="resources/d3-legend.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 
   <script>
@@ -210,7 +215,26 @@
         loadNames("resources/names/communes.csv"),
       ]);
 
-      const color = (per) => (per < 50) ? d3.scaleSequential([0, 50], d3.interpolateReds)(50 - per) : d3.scaleSequential([50, 100], d3.interpolateGreens)(per);
+      const color = d3.scaleSequential([0, 100], d3.interpolateRgbBasis([
+        "#67000d",
+        "#a50e15",
+        "#cb181d",
+        "#ef3b2c",
+        "#fa6a4a",
+        "#fb9272",
+        "#fcbaa1",
+        "#fee0d2",
+        "#fff5f0",
+        "#f7fcf5",
+        "#e5f4e0",
+        "#c6e9bf",
+        "#a2d99b",
+        "#74c476",
+        "#40ab5d",
+        "#238b44",
+        "#016d2c",
+        "#00441b",
+      ]));
 
       const path = d3.geoPath().projection(
         d3.geoIdentity()
@@ -218,6 +242,17 @@
       );
       
       let shownCanton = null;
+
+      // Legend
+      svg.append("g")
+      .attr("transform", "translate(60,1500)")
+      .append(() => Legend(color, {
+        width: 1000,
+        tickFormat: e => `${e}%`,
+        tickSize: 15,
+        height: 65,
+        ticks: 10,
+      }));
 
       // Cantoms
       g
