@@ -7,7 +7,7 @@
 | Nicolas Ettlin | 312905 |
 
 
-## 🇨🇭Statiswiss🇨🇭
+## [**🇨🇭Statiswiss🇨🇭**](https://com-480-data-visualization.github.io/com-480-project-statiswiss/)
 
 ### 🌟 What is Statiswiss?
 Statiswiss is a website created for the Data Visualization course. Its aim is to provide an interactive website where you can check the results for all the federal votes dating back to 1981. 
