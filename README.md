@@ -31,15 +31,8 @@ blablabla
 -> our structure
 -> clone etc.
 
-
-
-
-
-
-
-## 📔 Previous Milestones:
-Previous Milestones can be found here: 
-[**📄 Previous Milestones**](previous_Milestones/previous_milestones_readme.md)
+## 📔 Where can I find the previous milestones?
+Milestones 1 & 2 can be found here : [**📄 Previous Milestones**](previous_Milestones/previous_milestones_readme.md)
 
 
 
