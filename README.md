@@ -19,10 +19,15 @@ Democracy is at the heart of Swiss culture, and the country especially prides it
 Do you want to know how the Swiss population voted on a particular issue? Do you want to know the recommendations of the major political parties where? Do you want to have a list of all the votes for a given theme? In that case, Statiswiss is perfect for you! 
 If you are not a politics aficionado, don't run away! Take a look at our website, check the notable votes, or maybe search for one that you remember, you may be suprised at the results! Browsing through our website may motivate you to vote next time you receive that famous envelope from the Confederation!
 
+## 📊 Where does the data come from? 
+Our data is taken from [**📕Swissvotes**](https://swissvotes.ch/page/dataset) and [**📗OpenData.swiss**] ([here](https://opendata.swiss/fr/dataset/eidg-wahlen-2023/resource/89ddc561-9544-4021-8b7d-13271c5f939d), [here](https://opendata.swiss/fr/dataset/geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen), and [here](https://opendata.swiss/fr/dataset/volksabstimmungen-ergebnisse-ebene-gemeinde-seit-19607))
+
 ## 😎 Where can I find this amazing website? 
 Lucky for you, Statiswiss is easily accessible by clicking on the following link: [**🇨🇭Statiswiss🇨🇭**](https://com-480-data-visualization.github.io/com-480-project-statiswiss/)
 
-If you want to run Statiswiss locally, :
+## 🚀 What if I want to run it locally? 
+No problem! All you need to do is 
+blablabla
 -> our structure
 -> clone etc.
 
