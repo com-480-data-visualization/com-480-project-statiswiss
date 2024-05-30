@@ -12,8 +12,8 @@
   <script>
 const paramsUrl = window.location.search;
 const urlParams = new URLSearchParams(paramsUrl);
-const pageNumberX = urlParams.get("pageNumberX") || 0;
-const pageNumberY = urlParams.get("pageNumberY") || 0;
+var pageNumberX = urlParams.get("pageNumberX") || 0;
+var pageNumberY = urlParams.get("pageNumberY") || 0;
 const validLanguages = ["en", "fr", "de"];
 const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lang") : "en";
 const themeIds = themesOfPage(pageNumberX);
@@ -74,35 +74,8 @@ const themeIds = themesOfPage(pageNumberX);
         </select>
       </div>
 
-      <div class="flex flex-row">
-        <script>
-          if (pageNumberX > 0) document.write(`<div class="basis-8"><a href="index_bytheme.html?pageNumberX=${(+pageNumberX)-1}&pageNumberY=${pageNumberY}"><p class="text-center w-full bg-green-400 align-middle inline-block">&lt;</p></a></div>`);
-        </script>
-
-        <div class="basis-full">
-          <div class="grid grid-rows-1 grid-cols-3 w-auto h-1/6">
-            <script>
-                for (const themeId of themeIds) {
-                  document.write(`<div class="border-4 border-black rounded-2xl text-2xl text-center font-semibold p-1 place-content-center w-10/12 h-3/12 m-auto">${themes[lang][themeId]}</div>`);
-                }
-            </script>
-          </div>
-
-          <div id="top-arrow">
-          </div>
-
-          <div class="grid grid-rows-4 grid-cols-3 grid-flow-col w-auto border-4 border-black h-8/12" id="grid-votes">
-          </div>
-
-          <div id="bottom-arrow">
-          </div>
-        </div>
-
-        <script>
-          if (themesOfPage((+pageNumberX)+1).length)
-              document.write(`<div class="basis-8"><a href="index_bytheme.html?pageNumberX=${(+pageNumberX)+1}&pageNumberY=${pageNumberY}"><p class="text-center w-full bg-green-400 align-middle inline-block">&gt;</p></a></div>`);
-        </script>
-      </div>
+      <article id="votes-by-theme">
+      </article>
   </div>
 
   <script src="https://d3js.org/d3.v6.min.js"></script>
@@ -116,33 +89,34 @@ const themeIds = themesOfPage(pageNumberX);
 
 (async () => {
     const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
-    const votes2show = getVotesInThemes(votesInfo, themeIds, pageNumberY);
+    //const votes2show = getVotesInThemes(votesInfo, themeIds, pageNumberY);
 
-    for (const theme of votes2show) {
-        console.log(theme.length);
-
-        for (const vote of theme) {
-          if (vote != null) {
-            const id = vote["id"];
-            const color = (vote["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
-            const title = vote["titre_court_en"];
-            const date = vote["date"];
-            document.getElementById("grid-votes").innerHTML += `<a href="results.html?refId=${id}" class="border-2 border-black ${color} text-center p-2"><div class="text-base text-black font-semibold">${title}</div><p class="text-black text-xs">${date}</p>`;
-          }
+    /*for (const theme of votes2show) {
+      for (const vote of theme) {
+        if (vote != null) {
+          const id = vote["id"];
+          const color = (vote["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
+          const title = vote["titre_court_en"];
+          const date = vote["date"];
+          document.getElementById("grid-votes").innerHTML += `<a href="results.html?refId=${id}" class="border-2 border-black ${color} text-center p-2"><div class="text-base text-black font-semibold">${title}</div><p class="text-black text-xs">${date}</p>`;
         }
-    }
+      }
+    }*/
 
-    if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)-1))
+    /*if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)-1))
       document.getElementById("top-arrow").innerHTML = `<a href="index_bytheme.html?pageNumberX=${pageNumberX}&pageNumberY=${(+pageNumberY)-1}"><div class="m-auto bg-green-400 w-full text-center">^</div></a>`;
 
     if (availableVotesOnPage(votesInfo, themeIds, (+pageNumberY)+1))
       document.getElementById("bottom-arrow").innerHTML = `<a href="index_bytheme.html?pageNumberX=${pageNumberX}&pageNumberY=${(+pageNumberY)+1}"><div class="m-auto bg-green-400 w-full text-center">v</div></a>`;
-    
+    */
+
     //show notable votes
     const notableVoteIds = [665, 647, 646, 660, 474, 552.1, 623, 306];
     for (const id of notableVoteIds) {
       document.getElementById("notable-votes").innerHTML += showVote(votesInfo[id], lang);
     }
+
+    showVotesByTheme(votesInfo, lang);
 })(); 
   </script>
 </body>
