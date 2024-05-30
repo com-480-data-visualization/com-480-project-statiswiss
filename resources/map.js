@@ -171,11 +171,11 @@ function createMap(refId, refForm, lang, callBackCanton) {
             const tooltipHtml = `
             <div class="border-2 border-black rounded-2xl p-2">
             <h2 class="text-2xl">${cantonNames.get(id)} (${abbr.toUpperCase()})</h2>
-            ${yes}: ${results[id]["per"].toFixed(2)}%
+            ${yes}: ${results[cantonAbbrs[id-1]]["per"].toFixed(2)}%
             <br/>
-            ${no}: ${(100-results[id]["per"]).toFixed(2)}%
+            ${no}: ${(100-results[cantonAbbrs[id-1]]["per"]).toFixed(2)}%
             <br/>
-            ${turnout}: ${results[id]["par"].toFixed(2)}%
+            ${turnout}: ${results[cantonAbbrs[id-1]]["par"].toFixed(2)}% / ${results[cantonAbbrs[id-1]]["cas"]}
             </div>`;
             tooltip.html(tooltipHtml);
         })
@@ -287,7 +287,7 @@ function createMap(refId, refForm, lang, callBackCanton) {
             <br/>
             ${no}: ${(100-results[id]["per"]).toFixed(2)}%
             <br/>
-            ${turnout}: ${results[id]["par"].toFixed(2)}%
+            ${turnout}: ${results[id]["par"].toFixed(2)}% / ${results[id]["cas"]}
             </div>`;
             tooltip.html(tooltipHtml);
             })

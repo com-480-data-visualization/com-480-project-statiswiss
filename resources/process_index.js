@@ -110,10 +110,11 @@ function availableVotesOnPage(votesInfo, themeIds, pageNumber) {
 }
 
 function showHiddenVotes(hiddenGroup) {
-    const group = document.getElementsById(hiddenGroup);
-    group.classlist.remove("hidden");
+    const group = document.getElementById(hiddenGroup);
+    group.classList.remove("hidden");
 
-    const btn = document.getElementById("btn-"+classHidden);
+    console.log("btn-"+hiddenGroup);
+    const btn = document.getElementById("btn-"+hiddenGroup);
     btn.remove();
 }
 
@@ -123,8 +124,6 @@ function showVotesByTheme(votesInfo, lang) {
 
     for (const themeId in themes[lang]) {
       if (themeId % 1 === 0) { //check that it's a broad theme
-        console.log(themeId);
-
         addInnerHTML(votesByTheme, `<section>`);
         addInnerHTML(votesByTheme, `  <h2 class="font-bold text-2xl">${themes[lang][themeId]}</h2>`);
 
@@ -139,8 +138,8 @@ function showVotesByTheme(votesInfo, lang) {
         
           addInnerHTML(votesByTheme, showVote(vote, lang));
 
-          if ((voteId+1) % votesByGroup == 0) {
-            addInnerHTML(votesByTheme, `  <div class="h-6 cursor-pointer" id="btn-group-${themeId}-${1+groupId}" onclick="showHiddenVotes(group-${themeId}-${1+groupId})">Show more</div>`);
+          if (((+voteId)+1) % votesByGroup == 0) {
+            addInnerHTML(votesByTheme, `  <p class="text-xl text-center m-auto mt-2 p-1 w-32 font-semibold border border-black rounded-full cursor-pointer" id="btn-group-${themeId}-${1+groupId}" onclick="showHiddenVotes('group-${themeId}-${1+groupId}')">${{"en": "Show more", "fr": "Voir plus", "de": "Mehr zeigen"}[lang]}</p>`);
             addInnerHTML(votesByTheme, `  </section>`);
           }
         }
