@@ -12,16 +12,15 @@ for col in df.columns:
         pass
 
 
-with open("data.json", "w", encoding="utf-8-sig") as f:
+with open("data.json", "w", encoding="utf-8") as f:
     df.to_json(f, indent=4, orient='index', force_ascii=False)
 
 
-with open("data.json", 'r', encoding='utf-8-sig') as fileContent:
+with open("data.json", 'r', encoding='utf-8') as fileContent:
     json_object = json.load(fileContent)
 
 for k in json_object:
     json_object[k]["id"] = k
     
-f = open("good_data.json", 'w', encoding='utf-8-sig')
-json.dump(json_object, f, indent=4, ensure_ascii=False)
-f.close()
+with open("good_data.json", 'w', encoding='utf-8') as f:
+    json.dump(json_object, f, indent=4, ensure_ascii=False)

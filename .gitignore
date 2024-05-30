@@ -1,3 +1,6 @@
 .DS_Store
 .venv
 create_JSON/source
+node_modules/
+
+.env.local
