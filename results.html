@@ -54,7 +54,7 @@ if (!refId) {
       </div>
 
       <!-- Federal Election chart -->
-      <div class="border-4 border-black rounded-3xl">
+      <div class="border-4 border-black rounded-3xl" id="column-chart-container">
          <div class="h-96" id="column-chart"></div>
          <span class="text-center" id="election-year"></span>
       </div>
@@ -135,11 +135,11 @@ if (!refId) {
     writeResultsFederal(voteInfo, lang);
 
     //map
-    createMap(refId, voteInfo["forme"], lang, (x => chartFederalElections(infoFederalElection, electionYear, x, lang)));
+    createMap(refId, voteInfo["forme"], lang, (x => (infoFederalElection != null) ? chartFederalElections(infoFederalElection, electionYear, x, lang) : {}));
 
     //chart with federal election results
-    chartFederalElections(infoFederalElection, electionYear, cantonCode, lang);
-
+    if (infoFederalElection) chartFederalElections(infoFederalElection, electionYear, cantonCode, lang);
+    else document.getElementById("column-chart-container").remove();
 })(); 
 </script>
 </html>
