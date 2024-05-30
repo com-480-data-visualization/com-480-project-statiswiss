@@ -22,9 +22,8 @@
       overflow: hidden;
     }
 
-    .map-wrapper svg {
+    .map-wrapper > svg {
       background-color: white;
-      height: 100%;
     }
 
     .tooltip {
@@ -41,11 +40,71 @@
       pointer-events: none;
       opacity: 0;
     }
+
+    .map-title {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background: rgba(255,255,255,.8);
+      text-align: center;
+      font-weight: 500;
+      font-size: 20px;
+      letter-spacing: -.01em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 4px 0;
+
+      opacity: 0;
+      pointer-events: none;
+      transition: .750s ease-in-out opacity;
+    }
+
+    .map-title button {
+      width: 42px;
+      height: 42px;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #666;
+      cursor: pointer;
+      transition: .15s ease-in-out color;
+    }
+
+    .map-title button:hover {
+      color: #333;
+    }
+
+    .map-title button svg {
+      width: 24px;
+      height: 24px;
+      color: currentColor;
+    }
+
+    .map-title.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
   </style>
 </head>
 
 <body>
   <div class="map-wrapper">
+    <div class="map-title">
+      <button title="Close the canton">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+      </button>
+
+      <span></span>
+    </div>
     <svg></svg>
     <div class="tooltip"></div>
   </div>
@@ -83,10 +142,23 @@
       /* 'Jura', */ 'ju',
     ]
 
+    const cantonPromises = new Map();
+    function loadCanton(canton) {
+      if (cantonPromises.has(canton)) return cantonPromises.get(canton);
+      const promise = fetch(`topo/${canton}-municipalities.json`)
+        .then(response => response.json())
+        .catch((err) => {
+          cantonPromises.delete(canton);
+          console.error("Error while loading the canton map", err);
+        });
+      cantonPromises.set(canton, promise);
+      return promise;
+    }
+
     const ID = '665';
 
     const width = 1980;
-    const height = 1280;
+    const height = 1600;
 
     const zoom = d3.zoom()
       .scaleExtent([1, 8])
@@ -144,7 +216,8 @@
         d3.geoIdentity()
           .fitSize([width, height], topojson.feature(country, country.objects.country))
       );
-
+      
+      let shownCanton = null;
 
       // Cantoms
       g
@@ -183,6 +256,8 @@
           const abbr = cantonAbbrs[id - 1];
 
           tooltip.html(`${cantonNames.get(id)}`);
+
+          loadCanton(abbr);
         })
         .on("mouseleave", function () {
           d3.selectAll(".canton")
@@ -203,7 +278,7 @@
             .style("top", `${event.clientY - mapPos.top}px`)
         })
         .style("cursor", "pointer")
-        .on("click", function (e, d) {
+        .on("click", async function (e, d) {
           e.stopPropagation();
           const [[x0, y0], [x1, y1]] = path.bounds(d);
           svg.transition().duration(750).call(
@@ -212,8 +287,18 @@
               .translate(width / 2, height / 2)
               .scale(Math.min(8, 0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height)))
               .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
-            d3.pointer(e, svg.node())
           );
+
+          const {id} = d;
+          const abbr = cantonAbbrs[id - 1];
+
+          const cantonGeometry = await loadCanton(abbr);
+
+          document.querySelector('.map-title span').innerText = cantonNames.get(id);
+          document.querySelector('.map-title').classList.add('visible');
+          shownCanton = abbr;
+
+
         })
 
       // Lakes
@@ -228,7 +313,21 @@
         .attr("d", path)
         .attr("fill", "#8fd7f8")
         .attr("stroke", "#989898")
-        .attr("stroke-width", 1)
+        .attr("stroke-width", 1);
+
+      document.querySelector('.map-title button').addEventListener('click', () => {
+        shownCanton = null;
+        document.querySelector('.map-title').classList.remove('visible');
+
+        const [[x0, y0], [x1, y1]] = path.bounds(topojson.feature(country, country.objects.country));
+        svg.transition().duration(750).call(
+          zoom.transform,
+          d3.zoomIdentity
+            .translate(width / 2, height / 2)
+            .scale(Math.min(8, 1 / Math.max((x1 - x0) / width, (y1 - y0) / height)))
+            .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
+        );
+      });
     })();
   </script>
 </body>
