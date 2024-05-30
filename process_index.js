@@ -87,31 +87,13 @@ function themesOfPage(pageNumber) {
     return ret;
 }
 
-function getVotesInThemes(votesInfo, themeIds, pageNumber) {
-    const votesPerPage = 4;
-
+function getVotesInTheme(votesInfo, themeId) {
     const ret = [];
-    const voteIdTheme = [];
-    for (const themeId of themeIds) {
-        ret.push([]);
-        voteIdTheme.push(0);
-    }
 
     for (const key of Object.keys(votesInfo).reverse()) { //get the votes in the reverse chronological order
         const vote = votesInfo[key];
-        for (const keyTheme in themeIds) {
-            if (vote["d1e1"] == themeIds[keyTheme]) {
-                if (pageNumber*votesPerPage <= voteIdTheme[keyTheme] && voteIdTheme[keyTheme] < ((+pageNumber)+1)*votesPerPage)
-                    ret[keyTheme].push(vote);
-            
-                voteIdTheme[keyTheme]++;
-            }   
-        }
-    }
-
-    for (const retTheme of ret) {
-        for (var i = 0; i < votesPerPage - retTheme.length; ++i)
-            retTheme.push(null);
+        if (vote["d1e1"] == themeId)
+            ret.push(vote);
     }
 
     return ret;
@@ -121,8 +103,50 @@ function availableVotesOnPage(votesInfo, themeIds, pageNumber) {
     const votes = getVotesInThemes(votesInfo, themeIds, pageNumber);
 
     for (const theme of votes) {
-        console.log(theme);
         if (theme[0]) return true;
     }
     return false;
+}
+
+function showHiddenVotes(hiddenGroup) {
+    const group = document.getElementsById(hiddenGroup);
+    group.classlist.remove("hidden");
+
+    const btn = document.getElementById("btn-"+classHidden);
+    btn.remove();
+}
+
+function showVotesByTheme(votesInfo, lang) {
+    const votesByTheme = "votes-by-theme";
+    const votesByGroup = 10;
+
+    for (const themeId in themes[lang]) {
+      if (themeId % 1 === 0) { //check that it's a broad theme
+        console.log(themeId);
+
+        addInnerHTML(votesByTheme, `<section>`);
+        addInnerHTML(votesByTheme, `  <h2 class="font-bold text-2xl">${themes[lang][themeId]}</h2>`);
+
+        const votesTheme = getVotesInTheme(votesInfo, themeId);
+        for (const voteId in votesTheme) {
+          const vote = votesTheme[voteId];
+          const groupId = Math.floor(voteId/10);
+
+          if (voteId % votesByGroup == 0) {
+            addInnerHTML(votesByTheme, `  <section id="group-${themeId}-${groupId}" class="${(voteId < 10) ? '' : 'hidden'}">`);
+          }
+        
+          addInnerHTML(votesByTheme, showVote(vote, lang));
+
+          if ((voteId+1) % votesByGroup == 0) {
+            addInnerHTML(votesByTheme, `  <div class="h-6 cursor-pointer" id="btn-group-${themeId}-${1+groupId}" onclick="showHiddenVotes(group-${themeId}-${1+groupId})">Show more</div>`);
+            addInnerHTML(votesByTheme, `  </section>`);
+          }
+        }
+
+        addInnerHTML(votesByTheme, `</section>`);
+      }
+    }
+
+    document.getElementById(votesByTheme).innerHTML = cumulativeHTML[votesByTheme];
 }
