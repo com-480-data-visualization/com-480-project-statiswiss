@@ -1,29 +1,77 @@
-const extensionFromParty = {"bdp": "gif", "cvp": "svg", "eco": "png", "edu": "svg", "evp": "png", "fdp": "svg", "fps": "png",
+const extensionFromParty = {"bdp": "gif", "cvp": "svg", "eco": "jpg", "edu": "svg", "evp": "png", "fdp": "svg", "fps": "png",
                             "glp": "png", "gps": "png", "kvp": "png", "lega": "gif", "lps": "png", "mcg": "png", "mitte": "png", 
                             "pda": "png", "sd": "png", "sps": "svg", "svp": "svg", "ucsp": "svg", "poch": "jpg"
                            };
 const nameFromAcronym = {
-    "bdp": "Parti bourgeois-démocratique",
-    "cvp": "Parti démocrate-chrétien",
-    "eco": "Les Verts",
-    "edu": "Union Démocratique Fédérale",
-    "evp": "Parti évangélique suisse",
-    "fdp": "Parti Libéral-Radical",
-    "fps": "Parti des automobilistes",
-    "glp": "Verts'libéraux",
-    "gps": "Les Verts",
-    "kvp": "Parti démocrate-chrétien",
-    "lega": "Lega dei Ticinesi",
-    "lps": "Parti libéral suisse",
-    "mcg": "Mouvement Citoyens Genevois",
-    "mitte": "Le Centre",
-    "pda": "Parti suisse du travail",
-    "sd": "Démocrates suisses",
-    "sps": "Parti socialiste suisse",
-    "svp": "Union Démocratique du Centre",
-    "ucsp": "Parti chrétien social",
-    "poch": "Organisations progressistes de Suisse",
-    "übrige": "Autres"
+    "fr": {
+        "bdp": "Parti bourgeois-démocratique",
+        "cvp": "Parti démocrate-chrétien",
+        "eco": "Economiesuisse",
+        "edu": "Union Démocratique Fédérale",
+        "evp": "Parti évangélique suisse",
+        "fdp": "Parti Libéral-Radical",
+        "fps": "Parti des automobilistes",
+        "glp": "Verts'libéraux",
+        "gps": "Les Verts",
+        "kvp": "Parti chrétien-conservateur",
+        "lega": "Lega dei Ticinesi",
+        "lps": "Parti libéral suisse",
+        "mcg": "Mouvement Citoyens Genevois",
+        "mitte": "Le Centre",
+        "pda": "Parti suisse du travail",
+        "sd": "Démocrates suisses",
+        "sps": "Parti socialiste suisse",
+        "svp": "Union Démocratique du Centre",
+        "ucsp": "Parti chrétien social",
+        "poch": "Organisations progressistes de Suisse",
+        "übrige": "Autres"
+    },
+    "de": {
+        "bdp": "Bürgerlich-Demokratische Partei",
+        "cvp": "Christlichdemokratische Volkspartei",
+        "eco": "Economiesuisse",
+        "edu": "Eidgenössisch-Demokratische Union",
+        "evp": "Evangelische Volkspartei",
+        "fdp": "Freisinnig-demokratische Partei",
+        "fps": "Autopartei",
+        "glp": "Grünliberale Partei",
+        "gps": "Grüne Partei der Schweiz",
+        "kvp": "Katholische Volkspartei",
+        "lega": "Lega dei Ticinesi",
+        "lps": "Liberale Partei der Schweiz",
+        "mcg": "Mouvement Citoyens Genevois",
+        "mitte": "Die Mitte",
+        "pda": "Partei der Arbeit",
+        "sd": "Schweizer Demokraten",
+        "sps": "Sozialdemokratische Partei",
+        "svp": "Schweizerische Volkspartei",
+        "ucsp": "Christlichsoziale Partei der Schweiz",
+        "poch": "Progressive Organisationen der Schweiz",
+        "übrige": "Übrige"
+    },
+    "en": {
+        "bdp": "Conservative Democratic Party",
+        "cvp": "Christian Democratic People's Party of Switzerland",
+        "eco": "Economiesuisse",
+        "edu": "Federal Democratic Union",
+        "evp": "Evangelical People's Party of Switzerland",
+        "fdp": "Free Democratic Party",
+        "fps": "Freedom Party",
+        "glp": "Green Liberal Party",
+        "gps": "Green Party",
+        "kvp": "Catholic People's Party of Switzerland",
+        "lega": "Lega dei Ticinesi",
+        "lps": "Liberal Party of Switzerland",
+        "mcg": "Geneva Citizens' Movement",
+        "mitte": "The Centre",
+        "pda": "Swiss Party of Labour",
+        "sd": "Swiss Democrats",
+        "sps": "Social Democratic Party of Switzerland",
+        "svp": "Swiss People's Party",
+        "ucsp": "Christian Social Party of Switzerland",
+        "poch": "Progressive Organizations of Switzerland",
+        "übrige": "Others"
+    },
 };
 const colorFromAcronym = {
     "bdp": "#FEFE00",
@@ -90,7 +138,7 @@ function generateBlocPartyRecomm(voteInfo, lang) {
         if (partyAcronym in extensionFromParty) {
             const partyRecommendation = voteInfo["p-"+partyAcronym];
             if (partyRecommendation in recom2color) {
-                addInnerHTML(partyRecommBloc, `<div class="py-1 border border-2 border-black ${recom2color[partyRecommendation]}" title="${nameFromAcronym[partyAcronym]} (${recom2label[lang][partyRecommendation]})">
+                addInnerHTML(partyRecommBloc, `<div class="py-1 border border-2 border-black ${recom2color[partyRecommendation]}" title="${nameFromAcronym[lang][partyAcronym]} (${recom2label[lang][partyRecommendation]})">
 <img src="resources/party_logos/${partyAcronym}.${extensionFromParty[partyAcronym]}" class="m-auto h-12" />
 </div>`);
             }
@@ -105,7 +153,7 @@ function localResultsCanton(infoFederalElection, cantonCode) {
     for (const partyInfo of infoFederalElection) {
         const partyAcronym = partyInfo["partei_bezeichnung_de"];
         const percentage = partyInfo["partei_staerke"][cantonCode];
-        if (partyAcronym in nameFromAcronym && percentage >= 5) ret.push({x: nameFromAcronym[partyAcronym], y: percentage, fillColor: colorFromAcronym[partyAcronym]});
+        if (partyAcronym in nameFromAcronym[lang] && percentage >= 5) ret.push({x: nameFromAcronym[lang][partyAcronym], y: percentage, fillColor: colorFromAcronym[partyAcronym]});
     }
 
     ret.sort((a, b) => b["y"]-a["y"]);
