@@ -131,7 +131,7 @@
         cantonNames,
         municipalitiesNames,
       ] = await Promise.all([
-        loadJson("topo/ch-cantons.json"),
+        loadJson("topo/ch-cantons-lakes.json"),
         loadJson("topo/ch-country.json"),
         loadJson(`resources/results/${ID}.json`),
         loadNames("resources/names/canton.csv"),
@@ -145,7 +145,11 @@
           .fitSize([width, height], topojson.feature(country, country.objects.country))
       );
 
-      g.selectAll("path")
+
+      // Cantoms
+      g
+        .append("g")
+        .selectAll("path")
         .data(topojson.feature(cantons, cantons.objects.cantons).features)
         .enter()
         .append("path")
@@ -159,12 +163,16 @@
         })
         .attr("stroke", "#989898")
         .attr("stroke-width", 1)
-        .attr("class", () => "canton")
+        .attr("class", "canton")
         .on("mouseover", function (_, d) {
           d3.selectAll(".canton")
             .transition()
             .duration(150)
             .style("opacity", .2)
+          d3.selectAll(".lakes")
+            .transition()
+            .duration(150)
+            .style("opacity", 0)
           d3.select(this)
             .transition()
             .duration(150)
@@ -178,6 +186,10 @@
         })
         .on("mouseleave", function () {
           d3.selectAll(".canton")
+            .transition()
+            .duration(150)
+            .style("opacity", 1)
+          d3.selectAll(".lakes")
             .transition()
             .duration(150)
             .style("opacity", 1)
@@ -203,6 +215,20 @@
             d3.pointer(e, svg.node())
           );
         })
+
+      // Lakes
+      g
+        .append("g")
+        .attr("class", "lakes")
+        .style("pointer-events", "none")
+        .selectAll("path")
+        .data(topojson.feature(cantons, cantons.objects.lakes).features)
+        .enter()
+        .append("path")
+        .attr("d", path)
+        .attr("fill", "#8fd7f8")
+        .attr("stroke", "#989898")
+        .attr("stroke-width", 1)
     })();
   </script>
 </body>
