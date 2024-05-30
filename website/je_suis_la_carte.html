@@ -22,7 +22,7 @@
       overflow: hidden;
     }
 
-    .map-wrapper > svg {
+    .map-wrapper>svg {
       background-color: white;
     }
 
@@ -45,7 +45,7 @@
       position: absolute;
       top: 0;
       width: 100%;
-      background: rgba(255,255,255,.8);
+      background: rgba(255, 255, 255, .8);
       text-align: center;
       font-weight: 500;
       font-size: 20px;
@@ -102,7 +102,8 @@
   <div class="map-wrapper">
     <div class="map-title">
       <button title="Close the canton">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
         </svg>
       </button>
@@ -229,19 +230,19 @@
         d3.geoIdentity()
           .fitSize([width, height], topojson.feature(topo, topo.objects.country))
       );
-        
+
       let shownCanton = null;
 
       // Legend
       svg.append("g")
-      .attr("transform", "translate(60,1500)")
-      .append(() => Legend(color, {
-        width: 1000,
-        tickFormat: e => `${e}%`,
-        tickSize: 15,
-        height: 65,
-        ticks: 10,
-      }));
+        .attr("transform", "translate(60,1500)")
+        .append(() => Legend(color, {
+          width: 1000,
+          tickFormat: e => `${e}%`,
+          tickSize: 15,
+          height: 65,
+          ticks: 10,
+        }));
 
       // Cantons
       g
@@ -251,7 +252,7 @@
         .enter()
         .append("path")
         .attr("d", path)
-        .attr("fill", ({id}) => {
+        .attr("fill", ({ id }) => {
           const abbr = cantonAbbrs[id - 1];
 
           const res = results[abbr];
@@ -278,6 +279,8 @@
             .transition()
             .duration(150)
             .style("opacity", 1)
+            .style("filter", "none")
+            .style("-webkit-filter", "none")
           tooltip.transition().duration(200).style('opacity', 1);
           const { id } = d;
 
@@ -290,6 +293,8 @@
             .transition()
             .duration(150)
             .style("opacity", shownCanton === null ? 1 : 0.2)
+            .style("filter", shownCanton === null ? "none" : "grayscale(1)")
+            .style("-webkit-filter", shownCanton === null ? "none" : "grayscale(1)")
           d3.selectAll(".lakes")
             .transition()
             .duration(150)
@@ -315,9 +320,8 @@
               .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
           );
 
-          const {id} = d;
+          const { id } = d;
           const abbr = cantonAbbrs[id - 1];
-
 
           d3.selectAll(".canton")
             .transition()
@@ -325,6 +329,7 @@
             .style("filter", "grayscale(1)")
             .style("-webkit-filter", "grayscale(1)")
             .style("opacity", 1)
+            .style("pointer-events", 'all')
           d3.selectAll(".canton-" + abbr)
             .transition()
             .duration(150)
@@ -358,12 +363,12 @@
           .selectAll("path")
           .data(topojson.feature(topo, {
             type: "GeometryCollection",
-            geometries: topo.objects.municipalities.geometries.filter(({id}) => municipalitiesSet.has(id)),
+            geometries: topo.objects.municipalities.geometries.filter(({ id }) => municipalitiesNames.has(id) && municipalitiesSet.has(id)),
           }).features)
           .enter()
           .append("path")
           .attr("d", path)
-          .attr("fill", ({id}) => {
+          .attr("fill", ({ id }) => {
             const res = results[id];
             if (!res) return '#e0f2fe';
             return color(res.per);
@@ -371,6 +376,37 @@
           .attr("stroke", "#ababab")
           .attr("stroke-width", 0.5)
           .attr("class", "municipality")
+          .on("mouseover", function (_, d) {
+            d3.select(this)
+              .transition()
+              .duration(150)
+              .style("opacity", 1)
+            tooltip.transition().duration(200).style('opacity', 1);
+            const { id } = d;
+            tooltip.html(`${municipalitiesNames.get(id)}`);
+          })
+          .on("mouseleave", function () {
+            d3.selectAll(".canton")
+              .transition()
+              .duration(150)
+              .style("opacity", shownCanton === null ? 1 : 0.2)
+            d3.selectAll(".lakes")
+              .transition()
+              .duration(150)
+              .style("opacity", 1)
+            d3.selectAll(".municipality")
+              .transition()
+              .duration(150)
+              .style("opacity", 1)
+
+            tooltip.transition().duration(200).style('opacity', 0);
+          })
+          .on("mousemove", (event) => {
+            const mapPos = svg.node().getBoundingClientRect();
+            tooltip
+              .style("left", `${event.clientX - mapPos.left + 15}px`)
+              .style("top", `${event.clientY - mapPos.top}px`)
+          })
       }
 
       // Lakes
@@ -401,7 +437,8 @@
           .duration(150)
           .style("opacity", 1)
           .style("filter", "none")
-          .style("-webkit-filter", "none");
+          .style("-webkit-filter", "none")
+          .style("pointer-events", "all")
 
         const [[x0, y0], [x1, y1]] = path.bounds(topojson.feature(topo, topo.objects.country));
         svg.transition().duration(750).call(
