@@ -37,7 +37,7 @@ blablabla
 
 
 
-## Previous Milestones:
+## 📔 Previous Milestones:
 Previous Milestones can be found here: 
 [**📄 Previous Milestones**](previous_Milestones/previous_milestones_readme.md)
 
