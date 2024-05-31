@@ -13,6 +13,7 @@ export default defineSchema({
     titre_complet_fr: v.string(),
     titre_complet_en: v.string(),
     categories: v.any(),
+    annahme: v.optional(v.any()),
     embedding: v.optional(v.array(v.float64())),
   })
   .index("by_number", ["number"])
@@ -21,4 +22,4 @@ export default defineSchema({
     vectorField: "embedding",
     dimensions: 1536,
   }),
-});
+}, {schemaValidation: true});

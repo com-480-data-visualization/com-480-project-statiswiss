@@ -16,6 +16,7 @@ export const clean = internalMutation({
         titre_complet_de,
         titre_complet_fr,
         titre_complet_en,
+        annahme,
         number,
         forme,
         // @ts-expect-error
@@ -45,6 +46,7 @@ export const clean = internalMutation({
         titre_complet_de,
         titre_complet_fr,
         titre_complet_en,
+        annahme,
         number,
         forme,
         categories: {
