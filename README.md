@@ -37,10 +37,10 @@ No problem! All you need to do is :
 └───website                    Files for website
      ├───data                  Data
      └───ressources            Ressources
-       ├───compsims            Data for theoretical vs real results
-       ├───Names               Partynames
-       ├───party_logos         Party logos
-       └───sims            Data for theoretical results
+     | ├───compsims            Data for theoretical vs real results
+     | ├───Names               Partynames
+     | ├───party_logos         Party logos
+     | └───sims            Data for theoretical results
      └───topo                   Topology of Switzerland
 ```
 
