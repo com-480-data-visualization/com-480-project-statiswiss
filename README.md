@@ -38,10 +38,10 @@ No problem! All you need to do is :
      ├─── data                  Data
      ├─── topo                  Topology of Switzerland
      └─── ressources            Ressources
-       ├─── compsims            Data for theoretical vs real results
-       ├─── Names               Partynames
-       ├─── party_logos         Party logos
-       └─── sims                Data for theoretical results
+            ├─── compsims            Data for theoretical vs real results
+            ├─── Names               Partynames
+            ├─── party_logos         Party logos
+            └─── sims                Data for theoretical results
 ```
 
 
