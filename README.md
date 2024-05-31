@@ -29,19 +29,19 @@ No problem! All you need to do is :
 3. Start a HTTP server
 
 ```
-├─── convex                     Semantic search
-├─── create_JSON                JSON generation
-├─── data-preprocessing         Data preprocessing
-├─── previous_Milestones        Previous Milestones
-├─── sketchbook                 Sketchbook
-└─── website                    Files for website
-     ├─── data                  Data
-     ├─── topo                  Topology of Switzerland
-     └─── ressources            Ressources
-            ├─── compsims            Data for theoretical vs real results
-            ├─── Names               Partynames
-            ├─── party_logos         Party logos
-            └─── sims                Data for theoretical results
+├─── convex                               Semantic search
+├─── create_JSON                          JSON generation
+├─── data-preprocessing                   Data preprocessing
+├─── previous_Milestones                  Previous Milestones
+├─── sketchbook                           Sketchbook
+└─── website                              Files for website
+          ├─── data                       Data
+          ├─── topo                       Topology of Switzerland
+          └─── ressources                 Ressources
+                 ├─── compsims            Data for theoretical vs real results
+                 ├─── Names               Partynames
+                 ├─── party_logos         Party logos
+                 └─── sims                Data for theoretical results
 ```
 
 
