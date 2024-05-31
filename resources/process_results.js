@@ -134,6 +134,22 @@ function generateBlocPartyRecomm(voteInfo, lang) {
     listParties.sort((a, b) => (voteInfo["w-"+a] || 0) - (voteInfo["w-"+b] || 0));
     listParties.reverse();
 
+    //recommendation by the federal council and national council
+    const cfPos = voteInfo["cf-pos"];
+    const cfName = {"en": "Federal Council", "fr": "Conseil fédéral", "de": "Bundesrat"}[lang];
+    const cnName = {"en": "Parliament", "fr": "Parlement", "de": "Bundesversammlung"}[lang];
+
+    const cnPos = 1 + (voteInfo["ja-lager"] < voteInfo["nein-lager"]) + 8 * (voteInfo["forme"] == 5);
+    console.log(cnPos);
+
+    addInnerHTML(partyRecommBloc, `<div class="py-1 border border-2 border-black ${recom2color[cfPos]}" title="${cfName} (${recom2label[lang][cfPos]})">
+<img src="resources/party_logos/federal_council.png" class="m-auto h-12" />
+</div>`);
+    addInnerHTML(partyRecommBloc, `<div class="py-1 border border-2 border-black ${recom2color[cnPos]}" title="${cnName} (${recom2label[lang][cnPos]})">
+<img src="resources/party_logos/swiss_council.svg" class="m-auto h-12" />
+</div>`);
+
+    //party recommendations
     for (const partyAcronym of listParties) {
         if (partyAcronym in extensionFromParty) {
             const partyRecommendation = voteInfo["p-"+partyAcronym];
@@ -276,7 +292,10 @@ function writeResultsCanton(infoVotesCanton, lang) {
 function cantonsHalfCantons(voteInfo) {
     const resJa = [0, 0];
     for (const cantonCode of cantons) resJa[0] += (voteInfo["forme"] != 5) ? voteInfo[cantonCode+"-annahme"] : (voteInfo[cantonCode+"-annahme"] == 9);
-    for (const cantonCode of halfCantons) resJa[1] += (voteInfo["forme"] != 5) ? voteInfo[cantonCode+"-annahme"] : (voteInfo[cantonCode+"-annahme"] == 9);
+    for (const cantonCode of halfCantons) {
+        if (voteInfo[cantonCode+"-annahme"])
+            resJa[1] += ((voteInfo["forme"] != 5) ? voteInfo[cantonCode+"-annahme"] : (voteInfo[cantonCode+"-annahme"] == 9));
+    }
 
     return resJa;
 }
