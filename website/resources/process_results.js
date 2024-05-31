@@ -251,7 +251,7 @@ function writeResultsFederal(voteInfo, lang) {
     //cantons
     if (voteInfo["forme"] != 5) { // does not apply to tie-breaker questions
         cantonsHalfYes = cantonsHalfCantons(voteInfo);
-        const cantonsTxt = { "en": "Cantons:", "fr": "Cantons :", "de": "Kantone:" }[lang];
+        const cantonsTxt = { "en": "Cantons", "fr": "Cantons", "de": "Kantone" }[lang];
 
         addInnerHTML(globalResult, `<div class="text-2xl font-semibold ${((100 * voteInfo["kt-ja"]) / 23 >= 50) ? "text-green-400" : "text-red-500"}">${cantonsTxt}</div>`);
         addInnerHTML(globalResult, '<div class="flex flex-row">');
