@@ -115,7 +115,7 @@ function addInnerHTML(thing, content) {
 
 function generateBlocPartyRecomm(voteInfo, lang) {
     //voteInfo must be a dictionary with keys "p-partyAcronym"
-    const recom2color = {1: "bg-green-500", 2: "bg-red-500", 4: "bg-white", 5: "bg-slate-300", 8: "bg-red-500", 9: "bg-green-500", 66: "bg-white"};
+    const recom2color = {1: "bg-green-400", 2: "bg-red-500", 4: "bg-white", 5: "bg-slate-300", 8: "bg-red-500", 9: "bg-green-400", 66: "bg-white"};
     const recom2label = {
         "en": {1: "Yes", 2: "No", 3: "No recommendation", 4: "None of the above", 5: "'Vote as you wish'", 8: "For the Counterproject", 9: "For the Popular Initiative", 66: "Neutral"},
         "fr": {1: "Oui", 2: "Non", 3: "Sans recommendation", 4: "Vote blanc", 5: "Liberté de vote", 8: "Recommandation en faveur du contre-projet", 9: "Recommandation en faveur de l'initiative populaire", 66: "Neutralité"},
@@ -198,12 +198,12 @@ function writeResultsFederal(voteInfo, lang) {
     const no = ((voteInfo["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
 
     //passed or not
-    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${([1,9].includes(voteInfo["annahme"])) ? "text-green-500" : "text-red-500"} pr-2">${[1, 9].includes(voteInfo["annahme"]) ? yes : no}</div>`);
+    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${([1,9].includes(voteInfo["annahme"])) ? "text-green-400" : "text-red-500"} pr-2">${[1, 9].includes(voteInfo["annahme"]) ? yes : no}</div>`);
     
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
-    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-500 pr-2">${voteInfo["volkja-proz"].toFixed(1)}%</div>`);
-    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-500 h-8" style="width: ${voteInfo['volkja-proz']}%;"></div></div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${voteInfo["volkja-proz"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${voteInfo['volkja-proz']}%;"></div></div>`);
     addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-500 pl-2">${(100-voteInfo["volkja-proz"]).toFixed(1)}%</div>`);
     addInnerHTML(globalResult, "</div>");
 
@@ -214,8 +214,8 @@ function writeResultsFederal(voteInfo, lang) {
 
         addInnerHTML(globalResult, `<div class="text-2xl font-semibold text-black">${cantonsTxt}</div>`);
         addInnerHTML(globalResult, '<div class="flex flex-row">');
-        addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-500 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
-        addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-500 h-8" style="width: ${(100 * voteInfo["kt-ja"]) / 23}%;"></div></div>`);
+        addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
+        addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${(100 * voteInfo["kt-ja"]) / 23}%;"></div></div>`);
         addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-500 pl-2">${20-cantonsHalfYes[0]} ${6-cantonsHalfYes[1]}/2</div>`);
         addInnerHTML(globalResult, '</div>');
     }
@@ -229,12 +229,12 @@ function writeSimulatedResults(simResultedResults, lang) {
     const no = ((simResultedResults["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
 
     //passed or not
-    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${[1, 9].includes(simResultedResults["annahme"]) ? "text-green-500" : "text-red-500"} pr-2">${[1, 9].includes(simResultedResults["annahme"]) ? yes : no}</div>`);
+    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${[1, 9].includes(simResultedResults["annahme"]) ? "text-green-400" : "text-red-500"} pr-2">${[1, 9].includes(simResultedResults["annahme"]) ? yes : no}</div>`);
     
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
-    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-500 pr-2">${simResultedResults["ch"]["per"].toFixed(1)}%</div>`);
-    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-500 h-8" style="width: ${simResultedResults['ch']["per"]}%;"></div></div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${simResultedResults["ch"]["per"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${simResultedResults['ch']["per"]}%;"></div></div>`);
     addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-500 pl-2">${(100-simResultedResults["ch"]["per"]).toFixed(1)}%</div>`);
     addInnerHTML(globalResult, "</div>");
 
@@ -246,8 +246,8 @@ function writeSimulatedResults(simResultedResults, lang) {
 
         addInnerHTML(globalResult, `<div class="text-2xl font-semibold text-black">${cantonsTxt}</div>`);
         addInnerHTML(globalResult, '<div class="flex flex-row">');
-        addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-500 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
-        addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-500 h-8" style="width: ${(100 * votesCantons) / 23}%;"></div></div>`);
+        addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
+        addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${(100 * votesCantons) / 23}%;"></div></div>`);
         addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-500 pl-2">${20-cantonsHalfYes[0]} ${6-cantonsHalfYes[1]}/2</div>`);
         addInnerHTML(globalResult, '</div>');
     }
@@ -261,12 +261,12 @@ function writeResultsCanton(infoVotesCanton, lang) {
     const no = ((voteInfo["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
 
     //passed or not
-    addInnerHTML(cantonResult, `<div class="text-3xl font-bold ${(infoVotesCanton["per"] >= 50) ? "text-green-500" : "text-red-500"} pr-2">${(infoVotesCanton["per"] >= 50) ? yes : no}</div>`);
+    addInnerHTML(cantonResult, `<div class="text-3xl font-bold ${(infoVotesCanton["per"] >= 50) ? "text-green-400" : "text-red-500"} pr-2">${(infoVotesCanton["per"] >= 50) ? yes : no}</div>`);
     
     //popular vote
     addInnerHTML(cantonResult, '<div class="flex flex-row">');
-    addInnerHTML(cantonResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-500 pr-2">${infoVotesCanton["per"].toFixed(1)}%</div>`);
-    addInnerHTML(cantonResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-500 h-8" style="width: ${infoVotesCanton["per"]}%;"></div></div>`);
+    addInnerHTML(cantonResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${infoVotesCanton["per"].toFixed(1)}%</div>`);
+    addInnerHTML(cantonResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${infoVotesCanton["per"]}%;"></div></div>`);
     addInnerHTML(cantonResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-500 pl-2">${(100-infoVotesCanton["per"]).toFixed(1)}%</div>`);
     addInnerHTML(cantonResult, "</div>");
 
