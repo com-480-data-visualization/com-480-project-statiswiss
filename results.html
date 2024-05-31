@@ -106,7 +106,7 @@ if (!refId) {
         <script>
           document.write(`<a href="results.html?refId=${refId}&lang=${lang}&simulated=${(simResult) ? 0 : 1}">`);
           document.write(`<div class="border-4 border-black w-14 h-8 mx-auto relative" title="${{"en": "Theoretical result", "fr": "Résultat simulé", "de": "Theoretisches Ergebnis"}[lang]}">`);
-          document.write(`  <div class="absolute ${(simResult) ? "h-10 w-10" : "h-8 w-8"} rounded-full border-4 border-black bg-slate-300 my-auto cursor-pointer" style="${(simResult) ? "top:-8px; right:-12px;" : "top:-4px;left:-4px;"}"></div>`);
+          document.write(`  <div class="absolute ${(simResult) ? "h-10 w-10" : "h-8 w-8"} rounded-full border-4 border-black bg-slate-300 my-auto cursor-pointer" style="${(simResult) ? "top:-8px; right:-12px;" : "top:-3px;left:-4px;"}"></div>`);
           document.write(`</div></a>`);
         </script>
       </div>
