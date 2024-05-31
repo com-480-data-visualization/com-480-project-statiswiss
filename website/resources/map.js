@@ -67,7 +67,9 @@ async function loadNames(file) {
     }))
 }
 
-function createMap(refId, refForm, simResult = false, lang = "en", callBackCanton = (x => {})) {
+function createMap(refId, refForm, simResult = false, lang = "en", callBackCanton = (x => {}), comparison = false) {
+    if (!simResult) comparison = false;
+
     (async () => {
         const [
         topo,
@@ -77,7 +79,7 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
         municipalitiesNames,
         ] = await Promise.all([
         loadJson("topo/ch.json"),
-        loadJson(`resources/${simResult ? "sims" : "results"}/${refId}.json`),
+        loadJson(`resources/${comparison ? "comp" : ""}${simResult ? "sims" : "results"}/${refId}.json`),
         loadJson("topo/municipalities-by-canton.json"),
         loadNames("resources/names/canton.csv"),
         loadNames("resources/names/communes.csv"),
@@ -135,7 +137,10 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
     
             const res = results[abbr];
             if (!res) return 'red';
-            return color(res.per);
+            if (!comparison)
+                return color(res.per);
+            else
+                return color(Math.abs(res.per));
         })
         .attr("stroke", "#989898")
         .attr("stroke-width", 1)

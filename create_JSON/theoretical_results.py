@@ -43,12 +43,16 @@ for i, (refId, voteInfo) in enumerate(votesInfos.items()):
                         no[cantonCode] += weight
         
         res = {cantonCode: (100*a)/(a+b) for (cantonCode, a), b in zip(yes.items(), no.values()) if a+b != 0}
+        res2 = {cantonCode: {"per":(voteInfo[f"{cantonCode}-japroz"] if cantonCode != "ch" else voteInfo["volkja-proz"])-simRes} for cantonCode, simRes in res.items()}
         for cantonCode, scoreYes in list(res.items()):
             res[f"{cantonCode}-annahme" if cantonCode != "ch" else "annahme"] = int(scoreYes >= 50) + 8*(voteInfo["forme"] == 5)
-            if cantonCode != "ch": res[cantonCode] = {"per": scoreYes}
+            res[cantonCode] = {"per": scoreYes}
 
         res["forme"] = voteInfo["forme"]
 
         with open(os.path.join(os.path.dirname(refsPath), f"sims/{refId}.json"), "w") as f:
             json.dump(res, f)
             print(f"Saved {refId}, {i+1}/{len(votesInfos)}")
+        
+        with open(os.path.join(os.path.dirname(refsPath), f"compsims/{refId}.json"), "w") as f:
+            json.dump(res2, f)
