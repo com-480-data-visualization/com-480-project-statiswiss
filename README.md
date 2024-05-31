@@ -36,12 +36,12 @@ No problem! All you need to do is :
 ├───sketchbook                 Sketchbook
 └───website                    Files for website
      ├───data                  Data
+     ├───topo                  Topology of Switzerland
      └───ressources            Ressources
        ├───compsims            Data for theoretical vs real results
        ├───Names               Partynames
        ├───party_logos         Party logos
-       └───sims            Data for theoretical results
-     └───topo                   Topology of Switzerland
+       └───sims                Data for theoretical results
 ```
 
 
