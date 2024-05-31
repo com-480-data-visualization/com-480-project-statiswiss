@@ -23,10 +23,26 @@ If you are not a politics aficionado, don't run away! Take a look at our website
 Luckily for you, Statiswiss is easily accessible by clicking on the following link: [**🇨🇭Statiswiss🇨🇭**](https://com-480-data-visualization.github.io/com-480-project-statiswiss/)
 
 ## 🚀 What if I want to run it locally? 
-No problem! All you need to do is 
-blablabla
--> our structure
--> clone etc.
+No problem! All you need to do is :
+1. Clone our repository
+2. Go to the website folder
+3. Start a ``HTTP`` server
+
+├───convex                     Semantic search
+├───create_JSON                JSON generation
+├───data-preprocessing         Data preprocessing
+├───previous_Milestones        Previous Milestones
+├───sketchbook                 Sketchbook
+└───website                    Files for website
+     ├───data                  Data
+     └───ressources            Ressources
+       ├───compsims            Data for theoretical vs real results
+       ├───Names               Partynames
+       ├───party_logos         Party logos
+       └───sims            Data for theoretical results
+     └───topo                   Topology of Switzerland
+
+
 
 ## 📊 Where does the data come from? 
 Our data is taken from [**📕Swissvotes**](https://swissvotes.ch/page/dataset) and [**📗OpenData.swiss**](https://opendata.swiss). For the latter, here are the links to the specific datasets: [federal elections](https://opendata.swiss/fr/dataset/eidg-wahlen-2023/resource/89ddc561-9544-4021-8b7d-13271c5f939d), [commune geometry](https://opendata.swiss/fr/dataset/geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen), [commune votes](https://opendata.swiss/fr/dataset/volksabstimmungen-ergebnisse-ebene-gemeinde-seit-19607).
