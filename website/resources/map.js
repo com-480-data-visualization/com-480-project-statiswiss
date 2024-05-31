@@ -85,7 +85,38 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
         loadNames("resources/names/canton.csv"),
         loadNames("resources/names/communes.csv"),
         ]);
-    
+
+        // Remove the 
+        const idsByName = new Map();
+        for (const [id, name] of municipalitiesNames.entries()) {
+            if (!idsByName.has(name)) {
+                idsByName.set(name, []);
+            }
+            idsByName.get(name).push(id);
+        }
+
+        const actualNames = new Map();
+        for (let actualId of Object.keys(results)) {
+            if (isNaN(actualId)) continue;
+            actualId = parseInt(actualId, 10);
+            if (!municipalitiesNames.has(actualId)) {
+                continue;
+            }
+            const communeName = municipalitiesNames.get(actualId);
+            actualNames.set(communeName, actualId);
+        }
+
+        function fixCommuneId(resultsId) {
+            if (!municipalitiesNames.has(resultsId)) {
+                return resultsId;
+            }
+            const name = municipalitiesNames.get(resultsId);
+            if (!actualNames.has(name)) {
+                return resultsId;
+            }
+            return actualNames.get(name);
+        }
+
         const color = d3.scaleSequential([0, 100], d3.interpolateRgbBasis([
         "#67000d",
         "#a50e15",
@@ -166,7 +197,7 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
             .style("filter", "none")
             .style("-webkit-filter", "none")
             tooltip.transition().duration(200).style('opacity', 1);
-            const { id } = d;
+            const id = fixCommuneId(d.id);
     
             const abbr = cantonAbbrs[id - 1];
     
@@ -295,7 +326,7 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
             .append("path")
             .attr("d", path)
             .attr("fill", ({ id }) => {
-            const res = results[id];
+            const res = results[fixCommuneId(id)];
             if (!res) return '#e0f2fe';
             return color(res.per);
             })
@@ -308,7 +339,7 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
                 .duration(150)
                 .style("opacity", 1)
             tooltip.transition().duration(200).style('opacity', 1);
-            const { id } = d;
+            const id = fixCommuneId(d.id);
             
             const yes = ((refForm != 5) ? {"en": "Yes", "fr": "Oui", "de": "Ja"} : {"en": "Popular Initiative", "fr": "Initiative populaire", "de": "Volksinitiative"})[lang];
             const no = ((refForm != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
