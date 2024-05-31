@@ -12,8 +12,15 @@ export const search = internalQuery({
     for (const id of ids) {
       const row = await ctx.db.get(id);
       if (!row) continue;
-      const {date, titre_complet_fr} = row;
-      result.push({date, titre_complet_fr});
+      result.push({
+        ...row,
+        embedding: undefined,
+        _id: undefined,
+        _creationTime: undefined,
+        categories: undefined,
+        id: row.number,
+        ...row.categories,
+      });
     }
     return result;
   },
@@ -27,7 +34,7 @@ export default action({
     const vector = await fetchEmbedding(query);
     const rows = await vectorSearch("votations", "by_embedding", {
       vector,
-      limit: 8,
+      limit: 20,
     });
 
     return await runQuery(internal.search.search, {ids: rows.map(row => row._id)});
