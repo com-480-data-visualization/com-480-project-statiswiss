@@ -44,7 +44,7 @@ function showVote(voteInfo, lang) {
 
     const color = (voteInfo["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
     ret += `  <a href="results.html?refId=${voteInfo["id"]}&lang=${lang}">`;
-    ret += `    <div class="py-2 border-2 border-black text-center ${color}" title="${voteInfo["titre_complet_"+lang]}">`;
+    ret += `    <div class="py-2 border-2 border-black text-center ${color}" title="${voteInfo["titre_complet_"+lang].replace(/"/g, "'")}">`;
     ret += `      <div class="text-2xl text-black">${voteInfo["titre_court_"+lang]}</div>`;
     ret += `      <p class="text-black text-xs">${themes[lang][voteInfo["d1e1"]]}</p>`;
     ret += `    </div>`;
@@ -120,7 +120,7 @@ function showHiddenVotes(hiddenGroup) {
 
 function showVotesByTheme(votesInfo, lang) {
     const votesByTheme = "votes-by-theme";
-    const votesByGroup = 10;
+    const votesByGroup = 5;
 
     for (const themeId in themes[lang]) {
       if (themeId % 1 === 0) { //check that it's a broad theme
@@ -133,7 +133,7 @@ function showVotesByTheme(votesInfo, lang) {
           const groupId = Math.floor(voteId/10);
 
           if (voteId % votesByGroup == 0) {
-            addInnerHTML(votesByTheme, `  <section id="group-${themeId}-${groupId}" class="${(voteId < 10) ? '' : 'hidden'}">`);
+            addInnerHTML(votesByTheme, `  <section id="group-${themeId}-${groupId}" class="${(voteId < votesByGroup) ? '' : 'hidden'}">`);
           }
         
           addInnerHTML(votesByTheme, showVote(vote, lang));
