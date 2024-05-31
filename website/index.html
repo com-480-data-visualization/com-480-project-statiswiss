@@ -107,7 +107,7 @@ const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lan
     generateBlocYear(votesInfo, lang);
     
     //show notable votes
-    const notableVoteIds = [665, 647, 646, 660, 474, 552.1, 623, 306];
+    const notableVoteIds = [647, 474, 552.1, 623, 306];
     for (const id of notableVoteIds) {
       document.getElementById("notable-votes").innerHTML += showVote(votesInfo[id], lang);
     }
