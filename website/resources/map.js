@@ -143,7 +143,7 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
             else
                 return color(Math.abs(res.per));
         })
-        .attr("stroke", "#989898")
+        .attr("stroke", "#ffffff")
         .attr("stroke-width", 1)
         .attr("class", (d) => {
             const { id } = d;
@@ -299,7 +299,7 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
             if (!res) return '#e0f2fe';
             return color(res.per);
             })
-            .attr("stroke", "#ababab")
+            .attr("stroke", "#ffffff")
             .attr("stroke-width", 0.5)
             .attr("class", "municipality")
             .on("mouseover", function (_, d) {
@@ -362,7 +362,7 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
         .append("path")
         .attr("d", path)
         .attr("fill", "#8fd7f8")
-        .attr("stroke", "#989898")
+        .attr("stroke", "#ffffff")
         .attr("stroke-width", 1);
     
         document.querySelector('.map-title button').addEventListener('click', () => {
