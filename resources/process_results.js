@@ -162,7 +162,6 @@ function generateBlocPartyRecomm(voteInfo, lang) {
     const cnName = { "en": "Parliament", "fr": "Parlement", "de": "Bundesversammlung" }[lang];
 
     const cnPos = 1 + (voteInfo["ja-lager"] < voteInfo["nein-lager"]) + 8 * (voteInfo["forme"] == 5);
-    console.log(cnPos);
 
     addInnerHTML(partyRecommBloc, `<div class="border-black flex py-4 items-center gap-6" title="${cfName}">
 <img src="resources/party_logos/federal_council.png" class="m-auto w-20 h-10 object-contain" />
@@ -240,6 +239,7 @@ function writeResultsFederal(voteInfo, lang) {
 
     //passed or not
     addInnerHTML(globalResult, `<div class="text-3xl font-bold ${([1, 9].includes(voteInfo["annahme"])) ? "text-green-400" : "text-red-500"} pr-2">${[1, 9].includes(voteInfo["annahme"]) ? yes : no}</div>`);
+    addInnerHTML(globalResult, `<div class="text-2xl pt-2 font-bold ${(voteInfo["volkja-proz"] >= 50) ? "text-green-400" : "text-red-500"} pr-2">${{"en": "Popular vote", "fr": "Peuple", "de": "Volk"}[lang]}</div>`);
 
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
@@ -286,7 +286,7 @@ function writeSimulatedResults(simResultedResults, lang) {
         const cantonsTxt = {"en": "Cantons", "fr": "Cantons", "de": "Kantone"}[lang];
         const votesCantons = (cantonsHalfYes[0]+cantonsHalfYes[1]/2);
 
-        addInnerHTML(globalResult, `<div class="text-2xl font-semibold ${((100 * voteInfo["kt-ja"]) / 23 >= 50) ? "text-green-400" : "text-red-500"}">${cantonsTxt}</div>`);
+        addInnerHTML(globalResult, `<div class="text-2xl font-semibold ${((100 * votesCantons) / 23 >= 50) ? "text-green-400" : "text-red-500"}">${cantonsTxt}</div>`);
         addInnerHTML(globalResult, '<div class="flex flex-row">');
         addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
         addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${(100 * votesCantons) / 23}%;"></div></div>`);

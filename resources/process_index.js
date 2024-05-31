@@ -9,7 +9,6 @@ function groupVotesByYear(votesInfo) {
     for (const voteKey in votesInfo) {
         const vote = votesInfo[voteKey];
         const date = vote["date"];
-        if (!(date)) console.log(voteKey);
         const year = date.substring(date.length-4);
 
         if (!(year in ret))
@@ -113,7 +112,6 @@ function showHiddenVotes(hiddenGroup) {
     const group = document.getElementById(hiddenGroup);
     group.classList.remove("hidden");
 
-    console.log("btn-"+hiddenGroup);
     const btn = document.getElementById("btn-"+hiddenGroup);
     btn.remove();
 }

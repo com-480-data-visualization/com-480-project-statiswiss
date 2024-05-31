@@ -21,11 +21,9 @@
   const loader = document.querySelector('.js-search-loader');
 
   const doQuery = debounce(async (query) => {
-    console.log('searching', query)
     const results = await client.action(api.search.default, { query });
 
     if (query !== search.value.trim()) return;
-    console.log(results)
 
     let html = '';
     for (const row of results) {
