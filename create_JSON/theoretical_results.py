@@ -45,6 +45,7 @@ for i, (refId, voteInfo) in enumerate(votesInfos.items()):
         res = {cantonCode: (100*a)/(a+b) for (cantonCode, a), b in zip(yes.items(), no.values()) if a+b != 0}
         for cantonCode, scoreYes in list(res.items()):
             res[f"{cantonCode}-annahme" if cantonCode != "ch" else "annahme"] = int(scoreYes >= 50) + 8*(voteInfo["forme"] == 5)
+            if cantonCode != "ch": res[cantonCode] = {"per": scoreYes}
 
         res["forme"] = voteInfo["forme"]
 
