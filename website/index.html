@@ -31,13 +31,13 @@ const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lan
 
     <!-- Left navigation bar with important referenda -->
     <nav class="block mx-auto space-y-5 pl-3 flex-none basis-1/4 h-full">
-      <div class="mx-auto w-72 text-2xl font-semibold text-black text-center tracking-tight leading-tight">
+      <div class="mx-auto w-full text-2xl font-semibold text-black text-center tracking-tight leading-tight">
         <script>
           document.write({"en": "Notable votes", "fr": "Votations notables", "de": "Bemerkenswerte Abstimmungen"}[lang]);
         </script>
       </div>
 
-      <div class="block border-2 border-black w-72" id="notable-votes">
+      <div class="block border-2 border-black w-full" id="notable-votes">
       </div>
     </nav>
 
