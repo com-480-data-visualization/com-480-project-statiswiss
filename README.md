@@ -26,8 +26,9 @@ Luckily for you, Statiswiss is easily accessible by clicking on the following li
 No problem! All you need to do is :
 1. Clone our repository
 2. Go to the website folder
-3. Start a ``HTTP`` server
+3. Start a HTTP server
 
+```
 ├───convex                     Semantic search
 ├───create_JSON                JSON generation
 ├───data-preprocessing         Data preprocessing
@@ -41,7 +42,7 @@ No problem! All you need to do is :
        ├───party_logos         Party logos
        └───sims            Data for theoretical results
      └───topo                   Topology of Switzerland
-
+```
 
 
 ## 📊 Where does the data come from? 
