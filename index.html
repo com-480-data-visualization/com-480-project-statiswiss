@@ -99,7 +99,7 @@ const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lan
   <script>
     (async () => {
     const paramsUrl = window.location.search;
-    const votesInfo = await (await fetch("./resources/votesInfovotesInfo.json")).json();
+    const votesInfo = await (await fetch("./resources/votesInfo.json")).json();
 
     generateBlocYear(votesInfo, lang);
     
