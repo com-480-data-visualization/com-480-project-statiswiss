@@ -128,7 +128,7 @@ if (!refId) {
 </body>
 <script>
   (async () => {
-    const votesInfo = await (await fetch("./resources/json_swiss_data_2.json")).json();
+    const votesInfo = await (await fetch("./resources/votesInfo.json")).json();
     const voteInfo = votesInfo[refId];
     const electionYear = voteInfo["annee_legislatur"].substring(0, 4);
     const infoFederalElection = (await (await fetch(`./resources/results/federal_elections.json`)).json())[electionYear];
