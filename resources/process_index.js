@@ -42,7 +42,7 @@ function getVotesByIds(votesInfos, ids) {
 function showVote(voteInfo, lang) {
     var ret = "";
 
-    const color = (voteInfo["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
+    const color = (voteInfo["annahme"] == 1) ? "bg-green-400" : "bg-red-500";
     ret += `  <a href="results.html?refId=${voteInfo["id"]}&lang=${lang}">`;
     ret += `    <div class="py-2 border-2 border-black text-center ${color}" title="${voteInfo["titre_complet_"+lang].replace(/"/g, "'")}">`;
     ret += `      <div class="text-2xl text-black">${voteInfo["titre_court_"+lang]}</div>`;
