@@ -186,7 +186,17 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
             .duration(150)
             .style("opacity", shownCanton === null ? 1 : 0.2)
             .style("filter", shownCanton === null ? "none" : "grayscale(1)")
-            .style("-webkit-filter", shownCanton === null ? "none" : "grayscale(1)")
+            .style("-webkit-filter", shownCanton === null ? "none" : "grayscale(1)");
+
+            if (simResult && shownCanton) {
+                d3.selectAll(".canton-" + shownCanton)
+                .transition()
+                .duration(150)
+                .style("opacity", 1)
+                .style("filter", "none")
+                .style("-webkit-filter", "none");
+            }
+
             d3.selectAll(".lakes")
             .transition()
             .duration(150)
@@ -203,20 +213,20 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
         .style("cursor", "pointer")
         .on("click", async function (e, d) {
             const { id } = d;
-            
-            if (!simResult) {
-                e.stopPropagation();
-                const [[x0, y0], [x1, y1]] = path.bounds(d);
-                svg.transition().duration(750).call(
-                zoom.transform,
-                d3.zoomIdentity
-                    .translate(width / 2, height / 2)
-                    .scale(Math.min(8, 0.8 / Math.max((x1 - x0) / width, (y1 - y0) / height)))
-                    .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
-                );
-        
-                const abbr = cantonAbbrs[id - 1];
-        
+
+            e.stopPropagation();
+            const [[x0, y0], [x1, y1]] = path.bounds(d);
+            svg.transition().duration(750).call(
+            zoom.transform,
+            d3.zoomIdentity
+                .translate(width / 2, height / 2)
+                .scale(Math.min(8, 0.8 / Math.max((x1 - x0) / width, (y1 - y0) / height)))
+                .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
+            );
+    
+            const abbr = cantonAbbrs[id - 1];
+    
+            if (!simResult) { //real results, we have data from municipalities
                 d3.selectAll(".canton")
                 .transition()
                 .duration(150)
@@ -229,7 +239,7 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
                 .duration(150)
                 .style("opacity", 0)
                 .style("pointer-events", 'none');
-        
+
                 d3.selectAll(".municipalities")
                 .transition()
                 .duration(150)
@@ -240,11 +250,25 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
                 .duration(150)
                 .style("opacity", 1)
                 .style("pointer-events", 'all');
-        
-                document.querySelector('.map-title span').innerText = cantonNames.get(id);
-                document.querySelector('.map-title').classList.add('visible');
-                shownCanton = abbr;
+            } else {
+                d3.selectAll(".canton")
+                .transition()
+                .duration(150)
+                .style("filter", "grayscale(1)")
+                .style("-webkit-filter", "grayscale(1)")
+                .style("opacity", 1)
+                .style("pointer-events", 'all')
+                d3.selectAll(".canton-" + abbr)
+                .transition()
+                .duration(150)
+                .style("filter", "none")
+                .style("-webkit-filter", "none");
             }
+    
+            document.querySelector('.map-title span').innerText = cantonNames.get(id);
+            document.querySelector('.map-title').classList.add('visible');
+            shownCanton = abbr;
+
             callBackCanton(cantonAbbrs[id-1]);
         })
     
