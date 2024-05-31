@@ -177,8 +177,8 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
             const turnoutAffi = (!simResult) ? `<br/>${turnout}: ${results[cantonAbbrs[id-1]]["par"].toFixed(2)}% / ${results[cantonAbbrs[id-1]]["cas"]}` : "";
 
             const tooltipHtml = `
-            <div class="border-2 border-black rounded-2xl p-2">
-            <h2 class="text-2xl">${cantonNames.get(id)} (${abbr.toUpperCase()})</h2>
+            <div class="">
+            <h2 class="font-semibold text-lg">${cantonNames.get(id)} (${abbr.toUpperCase()})</h2>
             ${yes}: ${results[cantonAbbrs[id-1]]["per"].toFixed(2)}%
             <br/>
             ${no}: ${(100-results[cantonAbbrs[id-1]]["per"]).toFixed(2)}%
@@ -318,11 +318,11 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
             <br/>
             ${no}: ${(100-results[id]["per"]).toFixed(2)}%
             <br/>
-            ${turnout}: ${results[id]["par"].toFixed(2)}% / ${results[id]["cas"]}` : '<em>No data</em>';
+            ${turnout}: ${results[id]["par"].toFixed(2)}% / ${results[id]["cas"]}` : {"en": "No data", "fr": "Pas de données", "de": "Keine Daten"}[lang];
 
             const tooltipHtml = `
-            <div class="border-2 border-black rounded-2xl p-2">
-            <h2 class="text-2xl">${municipalitiesNames.get(id)}</h2>
+            <div class="">
+            <h2 class="font-semibold text-lg">${municipalitiesNames.get(id)}</h2>
             ${voteInfo}
             </div>`;
             tooltip.html(tooltipHtml);
