@@ -91,7 +91,6 @@ const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lan
     (() => {
   const selector = document.querySelector('.js-filter-select');
   selector.addEventListener('change', () => {
-    //console.log(`index_bytheme.html?lang=${lang}`);
     document.location = selector.value === 'year' ? `index.html?lang=${lang}` : `index_bytheme.html?lang=${lang}`;
   });
 })();

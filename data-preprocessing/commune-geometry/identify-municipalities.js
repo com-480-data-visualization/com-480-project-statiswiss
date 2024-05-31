@@ -42,5 +42,3 @@ for (const cantonAbbr of cantonAbbrs) {
     byCanton[cantonAbbr].push(municipality.id);
   }
 }
-
-console.log(JSON.stringify(byCanton));

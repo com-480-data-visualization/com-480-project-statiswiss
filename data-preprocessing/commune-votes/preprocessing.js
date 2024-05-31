@@ -151,11 +151,6 @@ function votationToNumber(votationName) {
   });
   namesWithLevenstein.sort((a, b) => b[1] - a[1]);
 
-  // if (date === '2000-09-24') {
-  // if (date === '2013-03-03') {
-  //   console.log(date, nameJson, '→', namesWithLevenstein[0][0], namesWithLevenstein);
-  // }
-
   return dateMap.get(namesWithLevenstein[0][0]);
 }
 
@@ -163,7 +158,6 @@ let i = 0;
 const result = new Map(); // votation => place => dataType => value
 
 fs.createReadStream('votes_fr.csv')
-// fs.createReadStream('votes_simplified.csv')
   .pipe(csv())
   .on('data', function (row) {
     if (i % 1000 === 0) {
