@@ -44,7 +44,7 @@ function showVote(voteInfo, lang) {
 
     const color = (voteInfo["annahme"] == 1) ? "bg-green-400" : "bg-red-400";
     ret += `  <a href="results.html?refId=${voteInfo["id"]}&lang=${lang}">`;
-    ret += `    <div class="py-2 border-2 border-black text-center ${color}">`;
+    ret += `    <div class="py-2 border-2 border-black text-center ${color}" title="${voteInfo["titre_complet_"+lang]}">`;
     ret += `      <div class="text-2xl text-black">${voteInfo["titre_court_"+lang]}</div>`;
     ret += `      <p class="text-black text-xs">${themes[lang][voteInfo["d1e1"]]}</p>`;
     ret += `    </div>`;
@@ -66,7 +66,7 @@ function generateBlocYear(votesInfo, lang) {
         addInnerHTML(listRefs, '<div class="flex flex-row border-4 border-black">');
         addInnerHTML(listRefs, '  <div class="flex-none basis-1/12 py-auto text-center font-bold text-3xl flex items-center justify-center"><span class="-rotate-90">' + year + '</span></div>');
         addInnerHTML(listRefs, `  <div class="flex-initial basis-11/12 border-l-4 border-black">`);
-        for (const i in groupByYear[year])
+        for (const i in groupByYear[year].reverse())
             addInnerHTML(listRefs, showVote(groupByYear[year][i], lang));
         addInnerHTML(listRefs, '  </div>');
         addInnerHTML(listRefs, '</div>');

@@ -150,10 +150,14 @@ function generateBlocPartyRecomm(voteInfo, lang) {
 
 function localResultsCanton(infoFederalElection, cantonCode) {
     const ret = [];
+    const relevanceThreshold = 4;
+
     for (const partyInfo of infoFederalElection) {
         const partyAcronym = partyInfo["partei_bezeichnung_de"];
         const percentage = partyInfo["partei_staerke"][cantonCode];
-        if (partyAcronym in nameFromAcronym[lang] && percentage >= 4) ret.push({x: nameFromAcronym[lang][partyAcronym], y: percentage, fillColor: colorFromAcronym[partyAcronym]});
+
+        if (partyAcronym in nameFromAcronym[lang] && percentage >= relevanceThreshold)
+            ret.push({x: partyAcronym, y: percentage, fillColor: colorFromAcronym[partyAcronym]});
     }
 
     ret.sort((a, b) => b["y"]-a["y"]);
@@ -165,21 +169,18 @@ function getTheme(voteInfo, lang) {
     return [themes[lang][voteInfo["d1e1"]], themes[lang][voteInfo["d1e2"]], themes[lang][voteInfo["d1e3"]]];
 }
 
-function getLongTitle(voteInfo, lang) {
-    return (voteInfo["titre_complet_"+lang] || voteInfo["titre_complet_fr"]);
-}
-
 function writeBlurb(voteInfo, lang) {
     const blurbContent = "blurb-content";
     const theme = {"en": "Theme:", "fr": "Thème :", "de": "Politikbereich:"};
     const brochure = {"en": "Brochure", "fr": "Brochure", "de": "Broschüre"};
 
-    addInnerHTML(blurbContent, `<h2 class="font-semibold hyphens-auto" lang="${lang}">${getLongTitle(voteInfo, lang)}</h2>`);
+    addInnerHTML(blurbContent, `<h2 class="font-semibold hyphens-auto" lang="${lang}">${voteInfo["titre_complet_"+lang]}</h2>`);
     addInnerHTML(blurbContent, voteInfo["date"]);
     addInnerHTML(blurbContent, '<br/><br/>');
     addInnerHTML(blurbContent, `<h3 class="font-semibold hyphens-auto" lang="${lang}">${theme[lang]}`);
     for (const themeName of getTheme(voteInfo, lang))
         if (themeName) addInnerHTML(blurbContent, `<br/>&gt; ${themeName}`);
+
     addInnerHTML(blurbContent, "</h3>\n<br/>");
     addInnerHTML(blurbContent, `<a href="${voteInfo["swissvoteslink"]}/brochure-${(['fr', 'de'].includes(lang)) ? lang : 'fr'}.pdf" target="_blank"><div class="w-10/12 rounded-full text-center py-2 mx-auto text-white" style="background: #da291c;">${brochure[lang]}</div></a>`);
     if (voteInfo["easyvideo_fr"])
@@ -290,8 +291,12 @@ chart: {
     height: "100%"
 },
 title: {
-    text: {"en": "Results for the previous federal election", "fr": "Résultats de la précédente élection fédérale", "de": "Ergebnisse der letzten Bundestagswahl"}[lang] + ` (${cantonCode.toUpperCase()})`,
+    text: {"en": electionYear+" Federal Election", "fr": `Élection fédérale ${electionYear}`, "de": `Bundestagswahl ${electionYear}`}[lang] + ` (${cantonCode.toUpperCase()})`,
+    floating: 0,
     align: "center",
+    style: {
+        color: "#444"
+    }
 },
 plotOptions: {
     bar: {
@@ -303,33 +308,54 @@ plotOptions: {
     },
 },
 tooltip: {
+    x: {
+        formatter: function(val) {
+            return nameFromAcronym[lang][val];
+        }
+    },
+    y: {
+        formatter: function(val) {
+            return val.toFixed(1) + "%";
+        }
+    },
     shared: true,
+    fillSeriesColor: false,
     intersect: false,
+    marker: false,
     style: {
     fontFamily: "Helvetica, Arial, sans-serif",
     },
 },
-states: {
-    hover: {
-    filter: {
-        type: "darken",
-        value: 1,
-    },
-    },
-},
 grid: {
-    show: false,
+    show: true,
     strokeDashArray: 4,
 },
 dataLabels: {
     enabled: true,
-    textAnchor: "middle",
-    formatter: function (val, opts) {
-    return val.toFixed(1) + "%";
+    formatter: function(val) {
+        return val.toFixed(1) + "%";
     },
+    background: {
+        enabled: true,
+        foreColor: '#fff',
+        padding: 4,
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#fff',
+        opacity: 0.9,
+        dropShadow: {
+          enabled: false,
+          top: 1,
+          left: 1,
+          blur: 1,
+          color: '#000',
+          opacity: 0.45
+        }
+    },
+    textAnchor:"middle",
     style: {
-    fontFamily: 'Helvetica, Aria, sans-serif',
-    cssClass: "text-xl font-bold"
+        fontSize: "13px",
+        colors: ["#304758"]
     }
 },
 legend: {
@@ -339,12 +365,15 @@ xaxis: {
     type: "category",
     floating: false,
     labels: {
-    show: false,
-    style: {
-        fontFamily: "Inter, sans-serif",
-        fontWeight: "bold",
-        cssClass: 'text-xs font-bold fill-gray-500 dark:fill-gray-400'
-    }
+        show: true,
+        style: {
+            fontFamily: "Inter, sans-serif",
+            fontWeight: "bold",
+            cssClass: 'text-xs font-bold text-gray-700 dark:text-gray-400'
+        },
+        formatter: function(val){
+            return val.toUpperCase();
+        }
     },
     axisBorder: {
     show: false,
@@ -360,7 +389,7 @@ fill: {
     opacity: 1,
 },
 series: [{
-    name: {"en": "Results for the previous federal election", "fr": "Résultats de la précédente élection fédérale", "de": "Ergebnisse der letzten Bundestagswahl"}[lang] + ` (${cantonCode.toUpperCase()})`,
+    name: electionYear,
     data: localResultsCanton(infoFederalElection, cantonCode)
 }],
 };
