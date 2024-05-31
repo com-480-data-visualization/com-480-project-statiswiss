@@ -2,7 +2,7 @@ import json
 import pandas as pd
 import numpy as np
 
-#change 666-666 as necessary
+#change 662-666 as necessary
 with open("666.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 

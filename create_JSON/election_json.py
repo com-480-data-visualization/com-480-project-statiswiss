@@ -69,7 +69,7 @@ for key, val in data.items():
         if jahr not in new_dict:
             new_dict[jahr] = []
         canton = replacements.get(canton, canton)
-        
+
         p = next((item for item in new_dict[jahr] if item["partei_bezeichnung_de"] == pb), None)
         if not p:
             p = {
