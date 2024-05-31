@@ -17,6 +17,7 @@ recommsNo = {2, 8}
 
 for i, (refId, voteInfo) in enumerate(votesInfos.items()):
     #extract party recommendations
+    print(refId)
     partiesRecomms = {fieldName[len("p-"):]: int(voteInfo[fieldName]) for fieldName in filter(lambda fieldName: fieldName.startswith("p-") and voteInfo[fieldName] is not None, voteInfo.keys())}
 
     electionYear = voteInfo["annee_legislatur"].split("-")[0]
@@ -42,6 +43,11 @@ for i, (refId, voteInfo) in enumerate(votesInfos.items()):
                         no[cantonCode] += weight
         
         res = {cantonCode: (100*a)/(a+b) for (cantonCode, a), b in zip(yes.items(), no.values()) if a+b != 0}
+        for cantonCode, scoreYes in list(res.items()):
+            res[f"{cantonCode}-annahme" if cantonCode != "ch" else "annahme"] = int(scoreYes >= 50) + 8*(voteInfo["forme"] == 5)
+
+        res["forme"] = voteInfo["forme"]
+
         with open(os.path.join(os.path.dirname(refsPath), f"sims/{refId}.json"), "w") as f:
             json.dump(res, f)
             print(f"Saved {refId}, {i+1}/{len(votesInfos)}")
