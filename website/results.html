@@ -38,7 +38,7 @@ if (!refId) {
       <script>
         for (const langChoice of validLanguages) {
           const styleCurrent = (langChoice == lang) ? 'style="background-color: #da291c; color: white;' : "";
-          document.write(`<a class="p-1" ${styleCurrent} href="results.html?refId=${refId}&lang=${langChoice}">${langChoice.toUpperCase()}</a>`);
+          document.write(`<a class="p-1" ${styleCurrent} href="results.html?refId=${refId}&lang=${langChoice}&simulated=${simResult ? 1 : 0}">${langChoice.toUpperCase()}</a>`);
         }
       </script>
     </nav>

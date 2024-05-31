@@ -398,6 +398,4 @@ series: [{
     document.getElementById("column-chart").innerHTML = "";
     const chart = new ApexCharts(document.getElementById("column-chart"), options);
     chart.render();
-
-    document.getElementById("election-year").innerHTML = {"en": electionYear+" Election", "fr": "Élection "+electionYear, "de": electionYear+" Wahl"}[lang];
 }
