@@ -125,7 +125,7 @@ function showVotesByTheme(votesInfo, lang) {
     for (const themeId in themes[lang]) {
       if (themeId % 1 === 0) { //check that it's a broad theme
         addInnerHTML(votesByTheme, `<section>`);
-        addInnerHTML(votesByTheme, `  <h2 class="font-bold text-2xl">${themes[lang][themeId]}</h2>`);
+        addInnerHTML(votesByTheme, `  <h2 class="font-bold text-2xl mb-4 mt-8 tracking-tight">${themes[lang][themeId]}</h2>`);
 
         const votesTheme = getVotesInTheme(votesInfo, themeId);
         for (const voteId in votesTheme) {
@@ -139,7 +139,7 @@ function showVotesByTheme(votesInfo, lang) {
           addInnerHTML(votesByTheme, showVote(vote, lang));
 
           if (((+voteId)+1) % votesByGroup == 0) {
-            addInnerHTML(votesByTheme, `  <p class="text-xl text-center m-auto mt-2 p-1 w-32 font-semibold border border-black rounded-full cursor-pointer" id="btn-group-${themeId}-${1+groupId}" onclick="showHiddenVotes('group-${themeId}-${1+groupId}')">${{"en": "Show more", "fr": "Voir plus", "de": "Mehr zeigen"}[lang]}</p>`);
+            addInnerHTML(votesByTheme, `  <p class="text-xl text-center m-auto mt-2 mb-8 py-2 px-4 w-48 font-semibold border border-black rounded-full cursor-pointer" id="btn-group-${themeId}-${1+groupId}" onclick="showHiddenVotes('group-${themeId}-${1+groupId}')">${{"en": "Show more", "fr": "Voir plus", "de": "Mehr zeigen"}[lang]}</p>`);
             addInnerHTML(votesByTheme, `  </section>`);
           }
         }

@@ -45,17 +45,17 @@ if (!refId) {
 
     <!-- Left information bar -->
     <div class="block space-y-5 pl-3 flex-none basis-1/4">
-      <div class="block mx-auto w-64 py-7 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
+      <div class="block mx-auto w-64 text-2xl font-semibold text-black rounded-3xl text-center tracking-tight leading-tight">
          <script>
             document.write({"en": "Blurb", "fr": "Présentation", "de": "Klappentext"}[lang]);
          </script>
       </div>
 
-      <div class="block mx-auto border-4 border-black w-72 text-justify py-3 px-2" id="blurb-content">
+      <div class="block mx-auto w-72 text-justify py-3 px-2" id="blurb-content">
       </div>
 
       <!-- Federal Election chart -->
-      <div class="border-4 border-black rounded-3xl" id="column-chart-container">
+      <div class="pt-8" id="column-chart-container">
          <div class="h-80" id="column-chart"></div>
       </div>
     </div>
@@ -114,14 +114,14 @@ if (!refId) {
 
     <!-- Vote recommendations per party -->
     <div class="block space-y-5 flex-none basis-1/4 w-1/5">
-      <div class="block mx-auto w-64 py-3 text-2xl font-semibold text-black border border-4 border-black rounded-3xl text-center">
+      <div class="mx-auto w-64 text-2xl font-semibold text-black text-center tracking-tight leading-tight">
         <script>
-         const partyRecommendationsTxt = {"en": "Vote recommendations", "fr": "Recommandations de votes", "de": "Wahlempfehlungen"}[lang];
+         const partyRecommendationsTxt = {"en": "Vote recommendations", "fr": "Recommandations de vote", "de": "Wahlempfehlungen"}[lang];
          document.write(partyRecommendationsTxt);
         </script>
       </div>
 
-      <div class="block border-2 border-black w-72 mx-auto" id="party-recommendations">
+      <div class="block w-72 mx-auto" id="party-recommendations">
       </div>
     </div>
    </div>
