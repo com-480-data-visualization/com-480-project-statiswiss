@@ -20,7 +20,7 @@ Do you want to know how the Swiss population voted on a particular issue? Do you
 If you are not a politics aficionado, don't run away! Take a look at our website, check the notable votes, or maybe search for one that you remember, you may be suprised at the results! Browsing through our website may motivate you to vote next time you receive that famous envelope from the Confederation!
 
 ## 😎 Where can I find this amazing website? 
-Lucky for you, Statiswiss is easily accessible by clicking on the following link: [**🇨🇭Statiswiss🇨🇭**](https://com-480-data-visualization.github.io/com-480-project-statiswiss/)
+Luckily for you, Statiswiss is easily accessible by clicking on the following link: [**🇨🇭Statiswiss🇨🇭**](https://com-480-data-visualization.github.io/com-480-project-statiswiss/)
 
 ## 🚀 What if I want to run it locally? 
 No problem! All you need to do is 
