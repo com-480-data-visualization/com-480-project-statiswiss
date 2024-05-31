@@ -56,8 +56,7 @@ if (!refId) {
 
       <!-- Federal Election chart -->
       <div class="border-4 border-black rounded-3xl" id="column-chart-container">
-         <div class="h-96" id="column-chart"></div>
-         <span class="text-center" id="election-year"></span>
+         <div class="h-80" id="column-chart"></div>
       </div>
     </div>
 
@@ -74,7 +73,7 @@ if (!refId) {
         <span id="title"></span>
       </header>
 
-      <!-- Je suis la carte -->
+      <!-- Map -->
       <div class="map-wrapper">
          <div class="map-title">
            <button title="Close the canton">
@@ -112,7 +111,7 @@ if (!refId) {
       <div class="block border-2 border-black w-72 mx-auto" id="party-recommendations">
       </div>
 
-      <div class="border-4 border-black w-14 h-8 mx-auto relative" id="toggle-sim">
+      <div class="border-4 border-black w-14 h-8 mx-auto relative" id="toggle-sim" title="Résultat simulé">
         <script>
           document.write(`<a href="results.html?refId=${refId}&lang=${lang}&simulated=${(simResult) ? 0 : 1}">`);
           document.write(`  <div class="absolute ${(simResult) ? "h-10 w-10" : "h-8 w-8"} rounded-full border-4 border-black bg-slate-300 my-auto cursor-pointer" style="${(simResult) ? "top:-8px; right:-12px;" : "top:-4px;left:-4px;"}"></div>`);
