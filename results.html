@@ -73,6 +73,9 @@ if (!refId) {
         <span id="title"></span>
       </header>
 
+      <div class="block mx-auto text-center" id="global-result"> <!-- Global result -->
+      </div>
+
       <!-- Map -->
       <div class="map-wrapper">
          <div class="map-title">
@@ -92,9 +95,20 @@ if (!refId) {
        <script src="resources/d3-legend.js"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
        <script src="resources/map.js"></script>
-      <!-- Fin carte -->
 
-      <div class="block mx-auto text-center" id="global-result"> <!-- Global result -->
+       <!-- Toggle -->
+      <div id="toggle-sim">      
+        <p class="text-center leading-tight pt-4">
+          <script>
+            document.write({"en": "Simulate results based on party recommendations", "fr": "Résultat simulé basé sur les recommandations de partis", "de": "Simulierte Ergebnis basierend auf den Empfehlungen der Partei"}[lang]);
+          </script>
+        </p>
+        <script>
+          document.write(`<a href="results.html?refId=${refId}&lang=${lang}&simulated=${(simResult) ? 0 : 1}">`);
+          document.write(`<div class="border-4 border-black w-14 h-8 mx-auto relative" title="${{"en": "Theoretical result", "fr": "Résultat simulé", "de": "Theoretisches Ergebnis"}[lang]}">`);
+          document.write(`  <div class="absolute ${(simResult) ? "h-10 w-10" : "h-8 w-8"} rounded-full border-4 border-black bg-slate-300 my-auto cursor-pointer" style="${(simResult) ? "top:-8px; right:-12px;" : "top:-4px;left:-4px;"}"></div>`);
+          document.write(`</div></a>`);
+        </script>
       </div>
     </div>
 
@@ -109,19 +123,6 @@ if (!refId) {
 
       <div class="block border-2 border-black w-72 mx-auto" id="party-recommendations">
       </div>
-
-      <p class="text-center leading-tight pt-4">
-        <script>
-          document.write({"en": "Simulate results based on party recommendations", "fr": "Résultat simulé basé sur les recommandations de partis", "de": "Simulierte Ergebnis basierend auf den Empfehlungen der Partei"}[lang]);
-        </script>
-      </p>
-      <div class="border-4 border-black w-14 h-8 mx-auto relative" id="toggle-sim" title="Résultat simulé">
-        <script>
-          document.write(`<a href="results.html?refId=${refId}&lang=${lang}&simulated=${(simResult) ? 0 : 1}">`);
-          document.write(`  <div class="absolute ${(simResult) ? "h-10 w-10" : "h-8 w-8"} rounded-full border-4 border-black bg-slate-300 my-auto cursor-pointer" style="${(simResult) ? "top:-8px; right:-12px;" : "top:-4px;left:-4px;"}"></div>`);
-          document.write(`</a>`);
-        </script>
-      </div>
     </div>
    </div>
 </body>
@@ -132,7 +133,10 @@ if (!refId) {
     const electionYear = voteInfo["annee_legislatur"].substring(0, 4);
     const infoFederalElection = (await (await fetch(`./resources/results/federal_elections.json`)).json())[electionYear];
     const simulatedResultFile = await fetch("./resources/sims/"+refId+".json");
-    if (simResult) simResult = simulatedResultFile.status != 404;
+    if (simResult) {
+      simResult = simulatedResultFile.status != 404;
+      if (!simResult) window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf("/")) + `/results.html?refId=${refId}&lang=${lang}`;
+    }
 
     //write title and blurb
     document.getElementById("title").innerHTML = voteInfo["titre_court_"+lang];

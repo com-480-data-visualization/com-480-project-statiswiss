@@ -215,6 +215,7 @@ function writeResultsFederal(voteInfo, lang) {
 
     //passed or not
     addInnerHTML(globalResult, `<div class="text-3xl font-bold ${([1,9].includes(voteInfo["annahme"])) ? "text-green-400" : "text-red-500"} pr-2">${[1, 9].includes(voteInfo["annahme"]) ? yes : no}</div>`);
+    addInnerHTML(globalResult, `<div class="text-2xl pt-2 font-bold ${(voteInfo["volkja-proz"] >= 50) ? "text-green-400" : "text-red-500"} pr-2">${{"en": "Popular vote", "fr": "Peuple", "de": "Volk"}[lang]}</div>`);
     
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
@@ -226,9 +227,9 @@ function writeResultsFederal(voteInfo, lang) {
     //cantons
     if (voteInfo["forme"] != 5) { // does not apply to tie-breaker questions
         cantonsHalfYes = cantonsHalfCantons(voteInfo);
-        const cantonsTxt = {"en": "Cantons:", "fr": "Cantons :", "de": "Kantone:"}[lang];
+        const cantonsTxt = {"en": "Cantons", "fr": "Cantons", "de": "Kantone"}[lang];
 
-        addInnerHTML(globalResult, `<div class="text-2xl font-semibold text-black">${cantonsTxt}</div>`);
+        addInnerHTML(globalResult, `<div class="text-2xl font-semibold ${((100 * voteInfo["kt-ja"]) / 23 >= 50) ? "text-green-400" : "text-red-500"}">${cantonsTxt}</div>`);
         addInnerHTML(globalResult, '<div class="flex flex-row">');
         addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
         addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-500 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${(100 * voteInfo["kt-ja"]) / 23}%;"></div></div>`);
