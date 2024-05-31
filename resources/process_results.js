@@ -196,7 +196,7 @@ function writeResultsFederal(voteInfo, lang) {
     const no = ((voteInfo["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
 
     //passed or not
-    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${(voteInfo["annahme"] == 1) ? "text-green-400" : "text-red-400"} pr-2">${(voteInfo["annahme"] == 1) ? yes : no}</div>`);
+    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${([1,9].includes(voteInfo["annahme"])) ? "text-green-400" : "text-red-400"} pr-2">${[1, 9].includes(voteInfo["annahme"]) ? yes : no}</div>`);
     
     //popular vote
     addInnerHTML(globalResult, '<div class="flex flex-row">');
@@ -221,7 +221,39 @@ function writeResultsFederal(voteInfo, lang) {
     document.getElementById(globalResult).innerHTML = cumulativeHTML[globalResult];
 }
 
-function writeResultsCanton(voteInfo, infoVotesCanton, lang) {
+function writeSimulatedResults(simResultedResults, lang) {
+    const globalResult = "global-result";
+    const yes = ((simResultedResults["forme"] != 5) ? {"en": "Yes", "fr": "Oui", "de": "Ja"} : {"en": "Popular Initiative", "fr": "Initiative populaire", "de": "Volksinitiative"})[lang];
+    const no = ((simResultedResults["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
+
+    //passed or not
+    addInnerHTML(globalResult, `<div class="text-3xl font-bold ${[1, 9].includes(simResultedResults["annahme"]) ? "text-green-400" : "text-red-400"} pr-2">${[1, 9].includes(simResultedResults["annahme"]) ? yes : no}</div>`);
+    
+    //popular vote
+    addInnerHTML(globalResult, '<div class="flex flex-row">');
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${simResultedResults["ch"]["per"].toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-400 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${simResultedResults['ch']["per"]}%;"></div></div>`);
+    addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${(100-simResultedResults["ch"]["per"]).toFixed(1)}%</div>`);
+    addInnerHTML(globalResult, "</div>");
+
+    //cantons
+    if (simResultedResults["forme"] != 5) { // does not apply to tie-breaker questions
+        cantonsHalfYes = cantonsHalfCantons(simResultedResults);
+        const cantonsTxt = {"en": "Cantons:", "fr": "Cantons :", "de": "Kantone:"}[lang];
+        const votesCantons = (cantonsHalfYes[0]+cantonsHalfYes[1]/2);
+
+        addInnerHTML(globalResult, `<div class="text-2xl font-semibold text-black">${cantonsTxt}</div>`);
+        addInnerHTML(globalResult, '<div class="flex flex-row">');
+        addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-green-400 pr-2">${cantonsHalfYes[0]} ${cantonsHalfYes[1]}/2</div>`);
+        addInnerHTML(globalResult, `  <div class="flex-initial basis-8/12 border-solid h-10 bg-red-400 rounded-full overflow-hidden border-4 border-black"><div class="bg-green-400 h-8" style="width: ${(100 * votesCantons) / 23}%;"></div></div>`);
+        addInnerHTML(globalResult, `  <div class="flex-none basis-2/12 text-4xl font-bold text-red-400 pl-2">${20-cantonsHalfYes[0]} ${6-cantonsHalfYes[1]}/2</div>`);
+        addInnerHTML(globalResult, '</div>');
+    }
+
+    document.getElementById(globalResult).innerHTML = cumulativeHTML[globalResult];
+}
+
+function writeResultsCanton(infoVotesCanton, lang) {
     const cantonResult = "canton-result";
     const yes = ((voteInfo["forme"] != 5) ? {"en": "Yes", "fr": "Oui", "de": "Ja"} : {"en": "Popular Initiative", "fr": "Initiative populaire", "de": "Volksinitiative"})[lang];
     const no = ((voteInfo["forme"] != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];

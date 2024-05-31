@@ -19,6 +19,7 @@ const paramsUrl = window.location.search;
 const urlParams = new URLSearchParams(paramsUrl);
 const refId = urlParams.get("refId");
 const cantonCode = urlParams.get("canton") || "ch";
+var simResult = urlParams.get("simulated") == 1;
 
 const validLanguages = ["en", "fr", "de"];
 const lang = validLanguages.includes(urlParams.get("lang")) ? urlParams.get("lang") : "en";
@@ -111,8 +112,12 @@ if (!refId) {
       <div class="block border-2 border-black w-72 mx-auto" id="party-recommendations">
       </div>
 
-      <div class="border-4 border-black w-14 h-8 mx-auto relative">
-        <div class="absolute h-8 w-8 rounded-full border-4 border-black bg-slate-300 my-auto" style="top:-4px; right:-4px;"></div>
+      <div class="border-4 border-black w-14 h-8 mx-auto relative" id="toggle-sim">
+        <script>
+          document.write(`<a href="results.html?refId=${refId}&lang=${lang}&simulated=${(simResult) ? 0 : 1}">`);
+          document.write(`  <div class="absolute ${(simResult) ? "h-10 w-10" : "h-8 w-8"} rounded-full border-4 border-black bg-slate-300 my-auto cursor-pointer" style="${(simResult) ? "top:-8px; right:-12px;" : "top:-4px;left:-4px;"}"></div>`);
+          document.write(`</a>`);
+        </script>
       </div>
     </div>
    </div>
@@ -123,6 +128,8 @@ if (!refId) {
     const voteInfo = votesInfo[refId];
     const electionYear = voteInfo["annee_legislatur"].substring(0, 4);
     const infoFederalElection = (await (await fetch(`./resources/results/federal_elections.json`)).json())[electionYear];
+    const simulatedResultFile = await fetch("./resources/sims/"+refId+".json");
+    if (simResult) simResult = simulatedResultFile.status != 404;
 
     //write title and blurb
     document.getElementById("title").innerHTML = voteInfo["titre_court_"+lang];
@@ -132,11 +139,19 @@ if (!refId) {
     generateBlocPartyRecomm(voteInfo, lang);
 
     //results
-    writeResultsFederal(voteInfo, lang);
+    if (!simResult) {
+      writeResultsFederal(voteInfo, lang);
+      if (simulatedResultFile.status == 404)
+        document.getElementById("toggle-sim").remove(); //can't suggest a simulated result for this one
+    }
+    else {
+      const simResultedResults = await simulatedResultFile.json();
+      writeSimulatedResults(simResultedResults, lang);
+    }
 
     //map
-    createMap(refId, voteInfo["forme"], lang, (x => (infoFederalElection != null) ? chartFederalElections(infoFederalElection, electionYear, x, lang) : {}));
-
+    createMap(refId, voteInfo["forme"], simResult, lang, (x => (infoFederalElection != null) ? chartFederalElections(infoFederalElection, electionYear, x, lang) : {}));
+    
     //chart with federal election results
     if (infoFederalElection) chartFederalElections(infoFederalElection, electionYear, cantonCode, lang);
     else document.getElementById("column-chart-container").remove();

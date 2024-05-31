@@ -67,7 +67,7 @@ async function loadNames(file) {
     }))
 }
 
-function createMap(refId, refForm, lang, callBackCanton) {
+function createMap(refId, refForm, simResult = false, lang = "en", callBackCanton = (x => {})) {
     (async () => {
         const [
         topo,
@@ -77,7 +77,7 @@ function createMap(refId, refForm, lang, callBackCanton) {
         municipalitiesNames,
         ] = await Promise.all([
         loadJson("topo/ch.json"),
-        loadJson(`resources/results/${refId}.json`),
+        loadJson(`resources/${simResult ? "sims" : "results"}/${refId}.json`),
         loadJson("topo/municipalities-by-canton.json"),
         loadNames("resources/names/canton.csv"),
         loadNames("resources/names/communes.csv"),
@@ -168,14 +168,15 @@ function createMap(refId, refForm, lang, callBackCanton) {
             const no = ((refForm != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
             const turnout = {"en": "Turnout", "fr": "Participation", "de": "Stimmbeteiligung"}[lang];
 
+            const turnoutAffi = (!simResult) ? `<br/>${turnout}: ${results[cantonAbbrs[id-1]]["par"].toFixed(2)}% / ${results[cantonAbbrs[id-1]]["cas"]}` : "";
+
             const tooltipHtml = `
             <div class="border-2 border-black rounded-2xl p-2">
             <h2 class="text-2xl">${cantonNames.get(id)} (${abbr.toUpperCase()})</h2>
             ${yes}: ${results[cantonAbbrs[id-1]]["per"].toFixed(2)}%
             <br/>
             ${no}: ${(100-results[cantonAbbrs[id-1]]["per"]).toFixed(2)}%
-            <br/>
-            ${turnout}: ${results[cantonAbbrs[id-1]]["par"].toFixed(2)}% / ${results[cantonAbbrs[id-1]]["cas"]}
+            ${turnoutAffi}
             </div>`;
             tooltip.html(tooltipHtml);
         })
@@ -201,46 +202,49 @@ function createMap(refId, refForm, lang, callBackCanton) {
         })
         .style("cursor", "pointer")
         .on("click", async function (e, d) {
-            e.stopPropagation();
-            const [[x0, y0], [x1, y1]] = path.bounds(d);
-            svg.transition().duration(750).call(
-            zoom.transform,
-            d3.zoomIdentity
-                .translate(width / 2, height / 2)
-                .scale(Math.min(8, 0.8 / Math.max((x1 - x0) / width, (y1 - y0) / height)))
-                .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
-            );
-    
             const { id } = d;
-            const abbr = cantonAbbrs[id - 1];
-    
-            d3.selectAll(".canton")
-            .transition()
-            .duration(150)
-            .style("filter", "grayscale(1)")
-            .style("-webkit-filter", "grayscale(1)")
-            .style("opacity", 1)
-            .style("pointer-events", 'all')
-            d3.selectAll(".canton-" + abbr)
-            .transition()
-            .duration(150)
-            .style("opacity", 0)
-            .style("pointer-events", 'none');
-    
-            d3.selectAll(".municipalities")
-            .transition()
-            .duration(150)
-            .style("opacity", 0)
-            .style("pointer-events", 'none');
-            d3.select(`.municipalities-${abbr}`)
-            .transition()
-            .duration(150)
-            .style("opacity", 1)
-            .style("pointer-events", 'all');
-    
-            document.querySelector('.map-title span').innerText = cantonNames.get(id);
-            document.querySelector('.map-title').classList.add('visible');
-            shownCanton = abbr;
+            
+            if (!simResult) {
+                e.stopPropagation();
+                const [[x0, y0], [x1, y1]] = path.bounds(d);
+                svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity
+                    .translate(width / 2, height / 2)
+                    .scale(Math.min(8, 0.8 / Math.max((x1 - x0) / width, (y1 - y0) / height)))
+                    .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
+                );
+        
+                const abbr = cantonAbbrs[id - 1];
+        
+                d3.selectAll(".canton")
+                .transition()
+                .duration(150)
+                .style("filter", "grayscale(1)")
+                .style("-webkit-filter", "grayscale(1)")
+                .style("opacity", 1)
+                .style("pointer-events", 'all')
+                d3.selectAll(".canton-" + abbr)
+                .transition()
+                .duration(150)
+                .style("opacity", 0)
+                .style("pointer-events", 'none');
+        
+                d3.selectAll(".municipalities")
+                .transition()
+                .duration(150)
+                .style("opacity", 0)
+                .style("pointer-events", 'none');
+                d3.select(`.municipalities-${abbr}`)
+                .transition()
+                .duration(150)
+                .style("opacity", 1)
+                .style("pointer-events", 'all');
+        
+                document.querySelector('.map-title span').innerText = cantonNames.get(id);
+                document.querySelector('.map-title').classList.add('visible');
+                shownCanton = abbr;
+            }
             callBackCanton(cantonAbbrs[id-1]);
         })
     
