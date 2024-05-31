@@ -39,7 +39,8 @@ const zoom = d3.zoom()
 const svg = d3.select(".map-wrapper > svg");
 svg.attr('viewBox', `0 0 ${width} ${height}`)
 const g = svg.append("g");
-svg.call(zoom);
+svg.call(zoom)
+    .on("wheel", event => event.preventDefault());
 
 const tooltip = d3.select(".tooltip");
 
@@ -313,14 +314,16 @@ function createMap(refId, refForm, simResult = false, lang = "en", callBackCanto
             const no = ((refForm != 5) ? {"en": "No", "fr": "Non", "de": "Nein"} : {"en": "Counterproject", "fr": "Contre-projet", "de": "Gegenentwurf"})[lang];
             const turnout = {"en": "Turnout", "fr": "Participation", "de": "Stimmbeteiligung"}[lang];
 
-            const tooltipHtml = `
-            <div class="border-2 border-black rounded-2xl p-2">
-            <h2 class="text-2xl">${municipalitiesNames.get(id)}</h2>
-            ${yes}: ${results[id]["per"].toFixed(2)}%
+            const voteInfo = results[id] ? `${yes}: ${results[id]["per"].toFixed(2)}%
             <br/>
             ${no}: ${(100-results[id]["per"]).toFixed(2)}%
             <br/>
-            ${turnout}: ${results[id]["par"].toFixed(2)}% / ${results[id]["cas"]}
+            ${turnout}: ${results[id]["par"].toFixed(2)}% / ${results[id]["cas"]}` : '<em>No data</em>';
+
+            const tooltipHtml = `
+            <div class="border-2 border-black rounded-2xl p-2">
+            <h2 class="text-2xl">${municipalitiesNames.get(id)}</h2>
+            ${voteInfo}
             </div>`;
             tooltip.html(tooltipHtml);
             })
